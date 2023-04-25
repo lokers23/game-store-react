@@ -3,20 +3,28 @@ import '../../styles/Navigation.css';
 
 function Navigation() {
   return (
-    <div className="Navigation">
+    <div className='Navigation'>
       <nav className='nav-items'>
         <ul className='items'>
           <li className='item'>
-            <Link to="/">Главная</Link></li>
+            <Link to='/'>Главная</Link>
+          </li>
 
           <li className='item'>
-            <Link to="/profile">Личный кабинет</Link></li>
+            <Link to='/admin'>Админка</Link>
+          </li>
 
           <li className='item'>
-            <Link to="/login">Войти</Link></li>
-            
+            <Link to='/profile'>Личный кабинет</Link>
+          </li>
+
           <li className='item'>
-            <Link to="/cart">Корзина</Link></li>     
+            <Link to='/login'>Войти</Link>
+          </li>
+
+          <li className='item'>
+            <Link to='/cart'>Корзина</Link>
+          </li>
         </ul>
       </nav>
     </div>

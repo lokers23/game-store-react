@@ -1,50 +1,63 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import tokenService  from '../../services/TokenService'
+import tokenService from '../../services/TokenService';
+import InlineError from '../InlineError';
 
 function Login() {
-    const keyLocalStorage = "game-store";
-    const [login, setLogin] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
-    const user = 
-    {
-        login: "", 
-        password: ""
-    }
+  const keyLocalStorage = 'game-store';
+  const user = { login: '', password: '' };
 
-    const onChangeHandler = (setFunction, event) => {
-        setFunction(event.target.value);
-    }
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-    const onSubmitHandler = (event) => {
-        event.preventDefault();
-        user.login = login;
-        user.password = password;
+  const onChangeHandler = (setFunction, event) => {
+    setFunction(event.target.value);
+  };
 
-        const url = "https://localhost:7125/api/user/login";
-        axios.post(url, user)
-        .then((response) => tokenService.setToken(keyLocalStorage, response.data)).then(() => navigate("/"))
-        .catch((error) => console.log(error.message));
-    }
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
 
-    return (  
+    user.login = login;
+    user.password = password;
+
+    console.log(`login:${login}  ---  password:${password}`);
+    const url = 'https://localhost:7125/api/account/login';
+
+    axios
+      .post(url, user)
+      .then((response) => tokenService.setToken(keyLocalStorage, response.data))
+      .then(() => navigate('/'))
+      .catch((error) => error.message);
+  };
+
+  return (
+    <div>
+      <h1>Вход в аккаунт</h1>
+      <form onSubmit={onSubmitHandler}>
         <div>
-            <h1>Вход в аккаунт</h1>
-            <form onSubmit={ onSubmitHandler }>
-                <div>
-                    <label>Login</label>
-                    <input placeholder="Login..." name="login" onChange={(e) => onChangeHandler(setLogin, e)}/>
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input placeholder="Password..." onChange={(e) => onChangeHandler(setPassword, e)}/>
-                </div>
-                <input type="submit"/>
-            </form>
-        </div> 
-    );
+          <label>Login</label>
+          <input
+            placeholder='Login...'
+            name='login'
+            onChange={(e) => onChangeHandler(setLogin, e)}
+          />
+          <InlineError field='login' />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            placeholder='Password...'
+            name='password'
+            onChange={(e) => onChangeHandler(setPassword, e)}
+          />
+          <InlineError field='password' />
+        </div>
+        <input type='submit' />
+      </form>
+    </div>
+  );
 }
 
 export default Login;

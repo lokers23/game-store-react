@@ -1,11 +1,11 @@
 import * as React from 'react'
 
 export const InlineError = ({ field, errors }) => {
-  if(!errors) {
+  if (!errors) {
     return null
   }
 
-  if(!errors[field]) {
+  if (!errors[field]) {
     return null
   }
 
