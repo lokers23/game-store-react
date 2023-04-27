@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { genreService } from '../../../services/GenreService';
+import { developerService } from '../../../services/DeveloperService';
 
-export default function EditGenre() {
+export default function EditDeveloper() {
   const { id } = useParams();
-  const [genreName, setGenreName] = useState('');
+  const [developerName, setDeveloperName] = useState('');
   const navigate = useNavigate();
 
   const fetchData = () => {
-    genreService
-      .getGenreById(id)
-      .then((response) => setGenreName(response.data.data.name))
+    developerService
+      .getDeveloperById(id)
+      .then((response) => setDeveloperName(response.data.data.name))
       .catch((error) => console.log(error));
   };
 
@@ -20,10 +20,10 @@ export default function EditGenre() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    genreService
-      .saveGenre(id, {
+    developerService
+      .saveDeveloper(id, {
         id: 0,
-        name: genreName
+        name: developerName
       })
       .then((response) => {
         navigate('..');
@@ -33,17 +33,17 @@ export default function EditGenre() {
 
   return (
     <div>
-      <h1>Редактирование жанра</h1>
+      <h1>Редактирование разработчика</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Название:
           <input
             type='text'
-            value={genreName}
-            onChange={(event) => setGenreName(event.target.value)}
+            value={developerName}
+            onChange={(event) => setDeveloperName(event.target.value)}
           />
         </label>
-        <button type='submit'>Submit</button>
+        <button type='submit'>Отправить</button>
       </form>
 
       <Link to='..'>Назад</Link>

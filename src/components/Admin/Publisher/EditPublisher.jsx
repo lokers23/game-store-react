@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { genreService } from '../../../services/GenreService';
+import { publisherService } from '../../../services/PublisherService';
 
-export default function EditGenre() {
+export default function EditPublisher() {
   const { id } = useParams();
-  const [genreName, setGenreName] = useState('');
+  const [publisherName, setPublisherName] = useState('');
   const navigate = useNavigate();
 
   const fetchData = () => {
-    genreService
-      .getGenreById(id)
-      .then((response) => setGenreName(response.data.data.name))
+    publisherService
+      .getPublisherById(id)
+      .then((response) => setPublisherName(response.data.data.name))
       .catch((error) => console.log(error));
   };
 
@@ -20,10 +20,10 @@ export default function EditGenre() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    genreService
-      .saveGenre(id, {
+    publisherService
+      .savePublisher(id, {
         id: 0,
-        name: genreName
+        name: publisherName
       })
       .then((response) => {
         navigate('..');
@@ -33,17 +33,17 @@ export default function EditGenre() {
 
   return (
     <div>
-      <h1>Редактирование жанра</h1>
+      <h1>Редактирование издателя</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Название:
           <input
             type='text'
-            value={genreName}
-            onChange={(event) => setGenreName(event.target.value)}
+            value={publisherName}
+            onChange={(event) => setPublisherName(event.target.value)}
           />
         </label>
-        <button type='submit'>Submit</button>
+        <button type='submit'>Отправить</button>
       </form>
 
       <Link to='..'>Назад</Link>

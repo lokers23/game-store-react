@@ -1,8 +1,9 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { developerService } from '../../../services/DeveloperService';
 import { Link } from 'react-router-dom';
+import '../../../styles/Crud.css';
 
 export default function TableDeveloper() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export default function TableDeveloper() {
 
   const fetchData = () => {
     developerService
-      .setDevelopers()
+      .getDevelopers()
       .then((response) => setDevelopers(response.data.data))
       .catch((error) => console.log(error));
   };
@@ -19,30 +20,43 @@ export default function TableDeveloper() {
     fetchData();
   }, [navigate]);
 
+  function deleteDeveloper(id) {
+    if (window.confirm('Вы точно хотите удалить эту запись?')) {
+      developerService
+        .deleteDeveloper(id)
+        .then((response) =>
+          setDevelopers(developers.filter((developer) => developer.id !== id))
+        )
+        .catch((error) => console.log(error.data.message));
+    }
+  }
+
   return (
     <div>
       <h1>Разработчики</h1>
-      <Link to='/'>Добавить новую запись</Link>
+      <Link to='create'>Добавить новую запись</Link>
       <table>
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Название</th>
-            <th></th>
-            <th></th>
+            <th scope='col'>Id</th>
+            <th scope='col'>Название</th>
+            <th scope='col'></th>
+            <th scope='col'></th>
           </tr>
         </thead>
         <tbody>
           {developers.length > 0 &&
             developers.map((developer) => (
-              <tr>
+              <tr key={developer.id}>
                 <td>{developer.id}</td>
                 <td>{developer.name}</td>
                 <td>
-                  <button>Удалить</button>
+                  <button onClick={() => deleteDeveloper(developer.id)}>
+                    Удалить
+                  </button>
                 </td>
                 <td>
-                  <button>Редактировать</button>
+                  <Link to={`edit/${developer.id}`}> Редактировать</Link>
                 </td>
               </tr>
             ))}

@@ -2,17 +2,18 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { genreService } from '../../../services/GenreService';
+import { publisherService } from '../../../services/PublisherService';
 
-export default function CreateGenre() {
-  const [genreName, setGenreName] = useState('');
+export default function CreatePublisher() {
+  const [publisherName, setPublisherName] = useState('');
   const navigate = useNavigate();
+
   function handleSubmit(event) {
     event.preventDefault();
-    genreService
-      .saveGenre(0, {
+    publisherService
+      .savePublisher(0, {
         id: 0,
-        name: genreName
+        name: publisherName
       })
       .then((response) => {
         navigate('..');
@@ -22,14 +23,14 @@ export default function CreateGenre() {
 
   return (
     <div>
-      <h1>Добавить новый жанр</h1>
+      <h1>Добавить нового издателя</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Название:
           <input
             type='text'
-            value={genreName}
-            onChange={(event) => setGenreName(event.target.value)}
+            value={publisherName}
+            onChange={(event) => setPublisherName(event.target.value)}
           />
         </label>
         <button type='submit'>Отправить</button>

@@ -1,10 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { genreService } from '../../../services/GenreService';
 import { Link } from 'react-router-dom';
+import '../../../styles/Crud.css';
 
-export default function TableGenge() {
+export default function TableGenre() {
   const navigate = useNavigate();
   const [genres, setGenres] = useState([]);
 
@@ -37,10 +38,10 @@ export default function TableGenge() {
       <table>
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Название</th>
-            <th></th>
-            <th></th>
+            <th scope='col'>Id</th>
+            <th scope='col'>Название</th>
+            <th scope='col'></th>
+            <th scope='col'></th>
           </tr>
         </thead>
         <tbody>

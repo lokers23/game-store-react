@@ -2,17 +2,18 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { genreService } from '../../../services/GenreService';
+import { developerService } from '../../../services/DeveloperService';
 
-export default function CreateGenre() {
-  const [genreName, setGenreName] = useState('');
+export default function CreateDeveloper() {
+  const [developerName, setDeveloperName] = useState('');
   const navigate = useNavigate();
+
   function handleSubmit(event) {
     event.preventDefault();
-    genreService
-      .saveGenre(0, {
+    developerService
+      .saveDeveloper(0, {
         id: 0,
-        name: genreName
+        name: developerName
       })
       .then((response) => {
         navigate('..');
@@ -22,14 +23,14 @@ export default function CreateGenre() {
 
   return (
     <div>
-      <h1>Добавить новый жанр</h1>
+      <h1>Добавить нового разработчика</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Название:
           <input
             type='text'
-            value={genreName}
-            onChange={(event) => setGenreName(event.target.value)}
+            value={developerName}
+            onChange={(event) => setDeveloperName(event.target.value)}
           />
         </label>
         <button type='submit'>Отправить</button>

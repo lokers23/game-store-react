@@ -10,10 +10,21 @@ export default function TablePublisher() {
 
   const fetchData = () => {
     publisherService
-      .setPublishers()
+      .getPublishers()
       .then((response) => setPublishers(response.data.data))
       .catch((error) => console.log(error));
   };
+
+  function deletePublisher(id) {
+    if (window.confirm('Вы точно хотите удалить эту запись?')) {
+      publisherService
+        .deletePublisher(id)
+        .then((response) =>
+          setPublishers(publishers.filter((publisher) => publisher.id !== id))
+        )
+        .catch((error) => console.log(error.data.message));
+    }
+  }
 
   useEffect(() => {
     fetchData();
@@ -22,7 +33,7 @@ export default function TablePublisher() {
   return (
     <div>
       <h1>Издатели</h1>
-      <Link to='/'>Добавить новую запись</Link>
+      <Link to='create'>Добавить новую запись</Link>
       <table>
         <thead>
           <tr>
@@ -34,15 +45,17 @@ export default function TablePublisher() {
         </thead>
         <tbody>
           {publishers.length > 0 &&
-            publishers.map((publishers) => (
-              <tr>
-                <td>{publishers.id}</td>
-                <td>{publishers.name}</td>
+            publishers.map((publisher) => (
+              <tr key={publisher.id}>
+                <td>{publisher.id}</td>
+                <td>{publisher.name}</td>
                 <td>
-                  <button>Удалить</button>
+                  <button onClick={() => deletePublisher(publisher.id)}>
+                    Удалить
+                  </button>
                 </td>
                 <td>
-                  <button>Редактировать</button>
+                  <Link to={`edit/${publisher.id}`}> Редактировать</Link>
                 </td>
               </tr>
             ))}

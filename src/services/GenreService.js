@@ -23,9 +23,9 @@ export class genreService {
     return axios.delete(URL.GENRE + `/${id}`);
   }
 
-  static saveGenre(genre) {
-    if (genre.id !== 0) {
-      return axios.put(URL.GENRE, genre);
+  static saveGenre(id, genre) {
+    if (id > 0) {
+      return axios.put(URL.GENRE + `/${id}`, genre);
     }
 
     return axios.post(URL.GENRE, genre);
