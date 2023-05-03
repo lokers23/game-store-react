@@ -1,5 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
-import TableGame from './components/Admin/Game/TableGame';
+import { Route } from 'react-router-dom';
+import { TableGame, CreateGame, EditGame } from './components/Admin/Game/Game';
 
 import {
   TableGenre,
@@ -30,12 +30,19 @@ import {
   CreatePlatform,
   EditPlatform
 } from './components/Admin/Platform/Platform';
+import {
+  TableMinSpecification,
+  CreateMinSpecification,
+  EditMinSpecification
+} from './components/Admin/MinSpecification/MinSpecification';
 
 export default function AdminRoutes() {
   return (
     <>
       <Route path='games'>
         <Route path='' element={<TableGame />} />
+        <Route path='create' element={<CreateGame />} />
+        {/* <Route path='edit/:id' element={<EditGame />} /> */}
       </Route>
       <Route path='genres'>
         <Route path='' element={<TableGenre />} />
@@ -62,10 +69,10 @@ export default function AdminRoutes() {
         <Route path='create' element={<CreatePlatform />} />
         <Route path='edit/:id' element={<EditPlatform />} />
       </Route>
-      <Route path='keys'>
-        {/* <Route path='' element={<TablePublisher />} />
-          <Route path='create' element={<CreatePublisher />} />
-          <Route path='edit/:id' element={<EditPublisher />} /> */}
+      <Route path='minSpecifications'>
+        <Route path='' element={<TableMinSpecification />} />
+        <Route path='create' element={<CreateMinSpecification />} />
+        <Route path='edit/:id' element={<EditMinSpecification />} />
       </Route>
     </>
   );

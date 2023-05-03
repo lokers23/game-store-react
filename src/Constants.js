@@ -7,7 +7,7 @@ const API = {
   DEVELOPER: '/api/developers',
   PUBLISHER: '/api/publishers',
   KEY: '/api/keys',
-  MINSPEC: '/api/activations',
+  MINSPEC: '/api/minspecs',
   ACTIVATION: '/api/activations',
   ORDER: '/api/orders',
   PLATFORM: '/api/platforms',

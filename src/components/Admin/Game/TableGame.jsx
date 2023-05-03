@@ -34,7 +34,7 @@ export default function TableGame() {
 
   return (
     <div>
-      <h1>Жанры</h1>
+      <h1>Игры</h1>
       <Link to='create'>Добавить новую запись</Link>
       <table>
         <thead>
@@ -61,13 +61,21 @@ export default function TableGame() {
                 <td>{game.id}</td>
                 <td>{game.name}</td>
                 <td>{'developer' in game && game.developer.name}</td>
-                <td>Издатель</td>
+                <td>{game.publisher.name}</td>
                 <td>{game.description}</td>
                 <td>{game.releaseOn}</td>
-                <td>{game.price}</td>
-                <td>видео</td>
-                <td>аватар</td>
-                <td>жанры</td>
+                <td>{game.price}$</td>
+                <td>
+                  <a href={game.videoUrl}>{game.videoUrl}</a>
+                </td>
+                <td>
+                  <img
+                    className='avatar'
+                    src={gameService.getAvatarUrl(game.avatarName)}
+                    alt={game.avatarName}
+                  ></img>
+                </td>
+                <td>{game.genres.map((genre) => genre.name + '\n')}</td>
                 <td>мин спецификация</td>
                 <td>
                   <button onClick={() => deleteGame(game.id)}>Удалить</button>

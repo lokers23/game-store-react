@@ -1,11 +1,17 @@
-table {
-  border: solid 1px black;
-}
-
-table th,
+table,
+th,
 td {
   border: solid 1px black;
-  padding: 10px 10px 10px 10px;
+  border-collapse: collapse;
+  padding: 15px;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: left;
 }
 
 .create {
@@ -15,4 +21,23 @@ td {
 }
 
 .delete {
+}
+
+.avatar {
+  width: 200px;
+  height: 100px;
+}
+
+tr:nth-child(even) {
+  background-color: #f3f3f3;
+}
+
+.minSpecs {
+  display: flex;
+}
+
+.minSpec {
+  border: solid 1px black;
+  margin: 5px;
+  padding: 5px;
 }

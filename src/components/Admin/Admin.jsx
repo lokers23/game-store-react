@@ -27,6 +27,9 @@ export default function Admin() {
           <Link className='link' to='platforms'>
             Платформы
           </Link>
+          <Link className='link' to='minSpecifications'>
+            Минимальная спецификация
+          </Link>
           <Link className='link' to='/'>
             Ключи
           </Link>

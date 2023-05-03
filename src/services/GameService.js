@@ -22,9 +22,9 @@ export class gameService {
     return axios.get(URL.GAME + `/${id}`);
   }
 
-  static saveGame(game) {
-    if (game.id !== 0) {
-      return axios.put(URL.GAME, game);
+  static saveGame(id, game) {
+    if (id > 0) {
+      return axios.put(URL.GAME + `/${id}`, game);
     }
 
     return axios.post(URL.GAME, game);
@@ -32,5 +32,17 @@ export class gameService {
 
   static getAvatarUrl(avatarName) {
     return URL.AVATAR + `/${avatarName}`;
+  }
+
+  static saveFormGame(id, formGame) {
+    if (id > 0) {
+      return axios.put(URL.GAME + `/${id}`, formGame, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+    }
+
+    return axios.post(URL.GAME, formGame, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
   }
 }
