@@ -69,9 +69,10 @@ export default function CreateGame() {
   }, [navigate]);
 
   const handleImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setAvatar(URL.createObjectURL(event.target.files[0]));
-    }
+    // if (event.target.files && event.target.files[0]) {
+    //   setAvatar(URL.createObjectURL(event.target.files[0]));
+    // }
+    setAvatar(event.target.files[0]);
   };
 
   const handleMinSpecIds = (platformName, selectedMinSpec) => {
@@ -89,10 +90,17 @@ export default function CreateGame() {
     });
   };
 
+  const handleGenreIdsChange = (event) => {
+    if (event.target.checked) {
+      setGenreIds([...genreIds, event.target.value]);
+    } else {
+      setGenreIds(genreIds.filter((value) => value !== event.target.value));
+    }
+  };
+
   function handleSubmit(event) {
     event.preventDefault();
 
-    //formData.append('id',);
     formData.append('name', name);
     formData.append('developerId', developerId);
     formData.append('publisherId', publisherId);
@@ -100,11 +108,25 @@ export default function CreateGame() {
     formData.append('description', description);
     formData.append('price', price);
     formData.append('videoUrl', videoUrl);
-    formData.append('genreIds', genreIds);
-    formData.append('MinimumSpecificationIds', minimumSpecificationIds);
+
+    for (var i = 0; i < genreIds.length; i++) {
+      formData.append('genreIds[]', genreIds[i]);
+    }
+
+    const arrayMinSpecIds = Object.values(minimumSpecificationIds);
+    for (var j = 0; j < arrayMinSpecIds.length; j++) {
+      formData.append('minimumSpecificationIds[]', arrayMinSpecIds[j]);
+    }
+
     formData.append('avatar', avatar);
 
-    console.log(minimumSpecificationIds);
+    console.log(Object.values(minimumSpecificationIds));
+    gameService
+      .saveFormGame(0, formData)
+      .then((response) => {
+        navigate('..');
+      })
+      .catch((error) => console.log(error.response.data.errors));
     // gameService
     //   .saveFormGame(0, formData)
     //   // .saveGame(0, {
@@ -230,9 +252,9 @@ export default function CreateGame() {
           Изображение аватара
           <input
             type='file'
-            name='avatar'
+            //name='avatar'
             onChange={handleImageChange}
-            accept='image/jpeg'
+            //accept='image/jpeg'
             required
           />
         </label>
@@ -243,7 +265,12 @@ export default function CreateGame() {
             genres.map((genre) => (
               <label htmlFor='genreIds' key={genre.id}>
                 {genre.name}
-                <input type='checkbox' name='genreIds' value={genre.id} />
+                <input
+                  type='checkbox'
+                  name='genreIds'
+                  value={genre.id}
+                  onChange={handleGenreIdsChange}
+                />
               </label>
             ))}
         </fieldset>
