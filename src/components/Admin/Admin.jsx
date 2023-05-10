@@ -30,7 +30,7 @@ export default function Admin() {
           <Link className='link' to='minSpecifications'>
             Минимальная спецификация
           </Link>
-          <Link className='link' to='/'>
+          <Link className='link' to='keys'>
             Ключи
           </Link>
           <Link className='link' to='/'>

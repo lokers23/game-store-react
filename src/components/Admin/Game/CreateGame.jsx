@@ -106,7 +106,8 @@ export default function CreateGame() {
     formData.append('publisherId', publisherId);
     formData.append('releaseOn', releaseOn);
     formData.append('description', description);
-    formData.append('price', price);
+    const formatPrice = price.toString().replace('.', ',');
+    formData.append('price', formatPrice);
     formData.append('videoUrl', videoUrl);
 
     for (var i = 0; i < genreIds.length; i++) {
@@ -313,7 +314,7 @@ export default function CreateGame() {
                               }
                             />
                             <p>ОС: {minSpecFiltred.operatingSystem}</p>
-                            <p>Процессор:{minSpecFiltred.processor}</p>
+                            <p>Процессор: {minSpecFiltred.processor}</p>
                             <p>Память: {minSpecFiltred.memory}</p>
                             <p>Свободное место: {minSpecFiltred.storage}</p>
                             <p>Видеокарта: {minSpecFiltred.graphics}</p>

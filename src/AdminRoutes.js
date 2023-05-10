@@ -36,13 +36,15 @@ import {
   EditMinSpecification
 } from './components/Admin/MinSpecification/MinSpecification';
 
+import { TableKey, CreateKey, EditKey } from './components/Admin/Key/Key';
+
 export default function AdminRoutes() {
   return (
     <>
       <Route path='games'>
         <Route path='' element={<TableGame />} />
         <Route path='create' element={<CreateGame />} />
-        {/* <Route path='edit/:id' element={<EditGame />} /> */}
+        <Route path='edit/:id' element={<EditGame />} />
       </Route>
       <Route path='genres'>
         <Route path='' element={<TableGenre />} />
@@ -73,6 +75,12 @@ export default function AdminRoutes() {
         <Route path='' element={<TableMinSpecification />} />
         <Route path='create' element={<CreateMinSpecification />} />
         <Route path='edit/:id' element={<EditMinSpecification />} />
+      </Route>
+
+      <Route path='keys'>
+        <Route path='' element={<TableKey />} />
+        <Route path='create' element={<CreateKey />} />
+        <Route path='edit/:id' element={<EditKey />} />
       </Route>
     </>
   );
