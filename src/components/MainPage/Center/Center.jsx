@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import '../../../styles/Center.css';
 import { json, useNavigate } from 'react-router-dom';
 import { gameService } from '../../../services/GameService';
+import { Card, CardImg, Col, Container, Row, Button } from 'react-bootstrap';
 
 function Center() {
   const navigate = useNavigate();
@@ -45,42 +46,73 @@ function Center() {
   }, [navigate]);
 
   return (
-    <div className='center'>
-      <div className='container'>
-        {games.length > 0 &&
-          games.map((game) => (
-            <div key={game.id} className='card'>
-              <img
-                src={gameService.getAvatarUrl(game.avatarName)}
-                alt={game.avatarName}
-              ></img>
-              <div className='body-content'>
-                <div>
-                  <h4>{game.name}</h4>
-                </div>
-
-                <div>
-                  <ul>
-                    {game.genres.length > 0 &&
-                      game.genres
-                        .slice(0, 2)
-                        .map((genre) => <li key={genre.id}>{genre.name}</li>)}
-                  </ul>
-                </div>
-                <div>
-                  <p className='price'>Цена: {game.price}$</p>
+    <div>
+      {games.length > 0 &&
+        games.map((game) => (
+          <div className='card mb-3' key={game.id}>
+            <div className='row no-gutters'>
+              <div className='col-3'>
+                <img
+                  className='card-img'
+                  src={gameService.getAvatarUrl(game.avatarName)}
+                  alt={game.avatarName}
+                ></img>
+              </div>
+              <div className='col-6'>
+                <div className='card-body'>
+                  <h5 className='card-title'>{game.name}</h5>
+                  <p className='card-text'>{game.description}</p>
+                  <button
+                    className='btn btn-success'
+                    onClick={(event) => addToCart(event, game)}
+                  >
+                    В корзину
+                  </button>
                 </div>
               </div>
-
-              {/* <p>
-                <button onClick={(event) => addToCart(event, game)}>
-                  Добавить в корзину
-                </button>
-              </p> */}
             </div>
-          ))}
-      </div>
+          </div>
+        ))}
     </div>
+    // <div className='center'>
+    //   <div className='container'>
+    //     {games.length > 0 &&
+    //       games.map((game) => (
+    //         <div key={game.id} className='card'>
+    //           <img
+    //             src={gameService.getAvatarUrl(game.avatarName)}
+    //             alt={game.avatarName}
+    //           ></img>
+    //           <div className='body-content'>
+    //             <div>
+    //               <h4>{game.name}</h4>
+    //             </div>
+
+    //             <div>
+    //               <ul>
+    //                 {game.genres.length > 0 &&
+    //                   game.genres
+    //                     .slice(0, 2)
+    //                     .map((genre) => <li key={genre.id}>{genre.name}</li>)}
+    //               </ul>
+    //             </div>
+    //             <div>
+    //               <p className='price'>Цена: {game.price}$</p>
+    //             </div>
+    //           </div>
+
+    //           <p>
+    //             <button
+    //               className='btn btn-success'
+    //               onClick={(event) => addToCart(event, game)}
+    //             >
+    //               Добавить в корзину
+    //             </button>
+    //           </p>
+    //         </div>
+    //       ))}
+    //   </div>
+    // </div>
   );
 }
 

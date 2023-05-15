@@ -1,6 +1,6 @@
 import Center from './Center/Center';
 import LeftMenu from './Left/LeftMenu';
-import '../../styles/MainPage.css';
+//import '../../styles/MainPage.css';
 
 function MainPage() {
   return (
