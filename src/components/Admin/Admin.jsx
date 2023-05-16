@@ -4,42 +4,65 @@ import '../../styles/Admin.css';
 
 export default function Admin() {
   return (
-    <div>
-      <div className='main'>
-        <h1 className='title'>Админка</h1>
-        <div className='links'>
-          <Link className='link' to='games'>
-            Игры
-          </Link>
-          <Link className='link' to='genres'>
-            Жанры
-          </Link>
+    <div className=''>
+      <div className='d-flex justify-content-center mb-3'>
+        <ul className='list-group list-group-horizontal'>
+          <li className='list-group-item'>
+            <Link to='games' className='text-dark text-decoration-none'>
+              Игры
+            </Link>
+          </li>
+          <li className='list-group-item'>
+            <Link to='genres' className='text-dark text-decoration-none'>
+              Жанры
+            </Link>
+          </li>
+          <li className='list-group-item'>
+            <Link to='developers' className='text-dark text-decoration-none'>
+              Разработчики
+            </Link>
+          </li>
 
-          <Link className='link' to='developers'>
-            Разработчики
-          </Link>
-          <Link className='link' to='publishers'>
-            Издатели
-          </Link>
-          <Link className='link' to='activations'>
-            Активации
-          </Link>
-          <Link className='link' to='platforms'>
-            Платформы
-          </Link>
-          <Link className='link' to='minSpecifications'>
-            Минимальная спецификация
-          </Link>
-          <Link className='link' to='keys'>
-            Ключи
-          </Link>
-          <Link className='link' to='/'>
-            Заказы
-          </Link>
-          <Link className='link' to='/'>
-            Пользователи
-          </Link>
-        </div>
+          <li className='list-group-item'>
+            <Link to='publishers' className='text-dark text-decoration-none'>
+              Издатели
+            </Link>
+          </li>
+
+          <li className='list-group-item'>
+            <Link to='activations' className='text-dark text-decoration-none'>
+              Активации
+            </Link>
+          </li>
+          <li className='list-group-item'>
+            <Link to='platforms' className='text-dark text-decoration-none'>
+              Платформы
+            </Link>
+          </li>
+          <li className='list-group-item'>
+            <Link
+              to='minSpecifications'
+              className='text-dark text-decoration-none'
+            >
+              Минимальная спецификация
+            </Link>
+          </li>
+          <li className='list-group-item'>
+            <Link to='keys' className='text-dark text-decoration-none'>
+              Ключи
+            </Link>
+          </li>
+          <li className='list-group-item'>
+            <Link to='/' className='text-dark text-decoration-none'>
+              Заказы
+            </Link>
+          </li>
+          <li className='list-group-item'>
+            <Link to='/' className='text-dark text-decoration-none'>
+              Пользователи
+            </Link>
+          </li>
+        </ul>
       </div>
       <div className='outlet'>
         <Outlet />

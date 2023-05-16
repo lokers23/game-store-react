@@ -32,15 +32,16 @@ export default function TableGenre() {
   }
 
   return (
-    <div>
-      <h1>Жанры</h1>
-      <Link to='create'>Добавить новую запись</Link>
-      <table>
+    <div className=''>
+      <h1 className='mb-5 '>Жанры</h1>
+      <Link to='create' className='btn btn-primary'>
+        Добавить новую запись
+      </Link>
+      <table className='table'>
         <thead>
           <tr>
             <th scope='col'>Id</th>
             <th scope='col'>Название</th>
-            <th scope='col'></th>
             <th scope='col'></th>
           </tr>
         </thead>
@@ -51,10 +52,16 @@ export default function TableGenre() {
                 <td>{genre.id}</td>
                 <td>{genre.name}</td>
                 <td>
-                  <button onClick={() => deleteGenre(genre.id)}>Удалить</button>
-                </td>
-                <td>
-                  <Link to={`edit/${genre.id}`}> Редактировать</Link>
+                  <button
+                    className='btn btn-danger'
+                    onClick={() => deleteGenre(genre.id)}
+                  >
+                    Удалить
+                  </button>
+                  <Link className='btn btn-warning' to={`edit/${genre.id}`}>
+                    {' '}
+                    Редактировать
+                  </Link>
                 </td>
               </tr>
             ))}

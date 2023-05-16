@@ -35,8 +35,10 @@ export default function TableGame() {
   return (
     <div>
       <h1>Игры</h1>
-      <Link to='create'>Добавить новую запись</Link>
-      <table>
+      <Link className='btn btn-primary mb-2' to='create'>
+        Добавить новую запись
+      </Link>
+      <table className='table table-bordered'>
         <thead>
           <tr>
             <th scope='col'>Id</th>
@@ -50,7 +52,6 @@ export default function TableGame() {
             <th scope='col'>Аватар</th>
             <th scope='col'>Жанры</th>
             <th scope='col'>Минимальная спецификация</th>
-            <th scope='col'></th>
             <th scope='col'></th>
           </tr>
         </thead>
@@ -70,18 +71,23 @@ export default function TableGame() {
                 </td>
                 <td>
                   <img
-                    className='avatar'
+                    className='img-thumbnail'
                     src={gameService.getAvatarUrl(game.avatarName)}
                     alt={game.avatarName}
                   ></img>
                 </td>
                 <td>{game.genres.map((genre) => genre.name + '\n')}</td>
                 <td>мин спецификация</td>
-                <td>
-                  <button onClick={() => deleteGame(game.id)}>Удалить</button>
-                </td>
-                <td>
-                  <Link to={`edit/${game.id}`}> Редактировать</Link>
+                <td className='d-flex'>
+                  <button
+                    className='btn btn-danger'
+                    onClick={() => deleteGame(game.id)}
+                  >
+                    <i class='bi-trash-fill' />
+                  </button>
+                  <Link className='btn btn-warning' to={`edit/${game.id}`}>
+                    <i class='bi-pencil-square' />
+                  </Link>
                 </td>
               </tr>
             ))}
