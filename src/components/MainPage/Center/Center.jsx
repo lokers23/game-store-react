@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../../../styles/Center.css';
-import { json, useNavigate } from 'react-router-dom';
+import { Link, json, useNavigate } from 'react-router-dom';
 import { gameService } from '../../../services/GameService';
 import { Card, CardImg, Col, Container, Row, Button } from 'react-bootstrap';
 
@@ -46,73 +46,78 @@ function Center() {
   }, [navigate]);
 
   return (
-    <div>
+    <div className=' mx-auto' style={{ maxWidth: '800px' }}>
       {games.length > 0 &&
         games.map((game) => (
-          <div className='card mb-3' key={game.id}>
+          <div
+            className='card border border-2 mb-3 p-1 shadow bg-white rounded'
+            key={game.id}
+          >
             <div className='row no-gutters'>
-              <div className='col-3'>
+              <div className='col-5  my-auto'>
                 <img
                   className='card-img'
                   src={gameService.getAvatarUrl(game.avatarName)}
                   alt={game.avatarName}
                 ></img>
               </div>
-              <div className='col-6'>
+              <div className='col-7'>
                 <div className='card-body'>
-                  <h5 className='card-title'>{game.name}</h5>
-                  <p className='card-text'>{game.description}</p>
-                  <button
-                    className='btn btn-success'
-                    onClick={(event) => addToCart(event, game)}
+                  <Link
+                    to={`edit/${game.id}`}
+                    className=''
+                    style={{
+                      textDecoration: 'none',
+                      color: 'black'
+                    }}
                   >
-                    В корзину
-                  </button>
+                    <h5 className='card-title'>{game.name}</h5>
+                  </Link>
+
+                  <div className='d-flex mb-2'>
+                    {game.genres.length > 0 &&
+                      game.genres.map((genre) => (
+                        <div className='border border-2 border-light me-2 shadow-sm bg-white rounded'>
+                          <p
+                            className='my-auto fw-normal'
+                            style={{ fontSize: '13px', padding: '3px' }}
+                          >
+                            {genre.name}
+                          </p>
+                        </div>
+                      ))}
+                  </div>
+                  <div className='d-flex justify-content-between'>
+                    <div className='d-flex'>
+                      <p className='border border-2 border-light me-2 shadow-sm bg-white rounded'>
+                        {new Date(game.releaseOn).getFullYear()}
+                      </p>
+                      {game.minimumSpecifications.length > 0 &&
+                        game.minimumSpecifications.map((minSpec) => (
+                          <p className='border border-2 border-light me-2 shadow-sm bg-white rounded'>
+                            {minSpec.platform.name}
+                          </p>
+                        ))}
+                    </div>
+                    <p className='p-1 fw-bold border-bottom border-1 border-dark'>
+                      Цена: ${game.price}
+                    </p>
+                  </div>
+                  <div>
+                    <button
+                      className='btn btn-sm'
+                      onClick={(event) => addToCart(event, game)}
+                      style={{ backgroundColor: '#0081B4', color: 'white' }}
+                    >
+                      В корзину
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         ))}
     </div>
-    // <div className='center'>
-    //   <div className='container'>
-    //     {games.length > 0 &&
-    //       games.map((game) => (
-    //         <div key={game.id} className='card'>
-    //           <img
-    //             src={gameService.getAvatarUrl(game.avatarName)}
-    //             alt={game.avatarName}
-    //           ></img>
-    //           <div className='body-content'>
-    //             <div>
-    //               <h4>{game.name}</h4>
-    //             </div>
-
-    //             <div>
-    //               <ul>
-    //                 {game.genres.length > 0 &&
-    //                   game.genres
-    //                     .slice(0, 2)
-    //                     .map((genre) => <li key={genre.id}>{genre.name}</li>)}
-    //               </ul>
-    //             </div>
-    //             <div>
-    //               <p className='price'>Цена: {game.price}$</p>
-    //             </div>
-    //           </div>
-
-    //           <p>
-    //             <button
-    //               className='btn btn-success'
-    //               onClick={(event) => addToCart(event, game)}
-    //             >
-    //               Добавить в корзину
-    //             </button>
-    //           </p>
-    //         </div>
-    //       ))}
-    //   </div>
-    // </div>
   );
 }
 

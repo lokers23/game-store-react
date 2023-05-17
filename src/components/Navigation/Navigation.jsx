@@ -37,7 +37,7 @@ function Navigation() {
 
             <li className='nav-item'>
               <Link to='/profile' className='nav-link'>
-                Личный кабинет
+                Мои покупки
               </Link>
             </li>
 

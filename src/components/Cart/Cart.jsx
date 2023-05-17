@@ -39,7 +39,7 @@ function Cart() {
     });
 
     setGames(newGames);
-    localStorage.setItem('cartGames', JSON.stringify(games));
+    //localStorage.setItem('cartGames', JSON.stringify(games));
   }
 
   function decreaseCount(e, id, count) {
@@ -52,7 +52,13 @@ function Cart() {
       }
     });
 
-    localStorage.setItem('cartGames', JSON.stringify(newGames));
+    //localStorage.setItem('cartGames', JSON.stringify(newGames));
+    setGames(newGames);
+  }
+
+  function removeItem(e, id) {
+    e.preventDefault();
+    const newGames = games.filter((game) => game.id !== id);
     setGames(newGames);
   }
 
@@ -60,12 +66,17 @@ function Cart() {
     <div className='container'>
       {games !== null && games.length > 0 ? (
         <div className='w-75 mx-auto'>
-          <h1>Оформление заказа</h1>
+          <div className='mb-3'>
+            <p className='h2'>Оформление заказа</p>
+          </div>
           <div>
             <form onSubmit={handleSubmit}>
               <InlineError field='Game' errors={errors} />
               {games.map((game) => (
-                <div className='card mb-3' key={game.id}>
+                <div
+                  className='card mb-4 p-1 shadow bg-white rounded'
+                  key={game.id}
+                >
                   <div className='row g-0'>
                     <div className='col-md-4'>
                       <img
@@ -112,7 +123,10 @@ function Cart() {
                             {game.price}$
                           </span>
 
-                          <button className='btn p-0 ms-5 btn-default '>
+                          <button
+                            onClick={(e) => removeItem(e, game.id)}
+                            className='btn p-0 ms-5 btn-default '
+                          >
                             <i className='bi bi-x fs-4 text-danger'></i>
                           </button>
                         </div>
