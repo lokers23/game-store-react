@@ -1,8 +1,16 @@
-import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import '../../styles/Admin.css';
 
 export default function Admin() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('token-game-store');
+    if (!loggedIn) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   return (
     <div className=''>
       <div className='d-flex justify-content-center mb-3'>
