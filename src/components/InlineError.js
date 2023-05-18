@@ -10,7 +10,7 @@ export const InlineError = ({ field, errors }) => {
   }
 
   return (
-    <div className='alert alert-danger fade show' role='alert'>
+    <div className='p-0 alert alert-danger fade show' role='alert'>
       <ul className='list-group list-group-flush'>
         {errors[field].map((error, index) => (
           <li

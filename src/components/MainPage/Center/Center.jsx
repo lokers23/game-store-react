@@ -64,7 +64,7 @@ function Center() {
               <div className='col-7'>
                 <div className='card-body'>
                   <Link
-                    to={`edit/${game.id}`}
+                    to={`game/${game.id}`}
                     className=''
                     style={{
                       textDecoration: 'none',

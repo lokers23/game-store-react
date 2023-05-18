@@ -1,0 +1,13 @@
+.carousel-game {
+  padding: 0;
+}
+
+.carousel-game .carousel-item {
+  display: flex;
+  max-height: 500px;
+  max-width: auto;
+}
+
+.carousel-game .carousel-item img {
+  object-fit: cover;
+}
