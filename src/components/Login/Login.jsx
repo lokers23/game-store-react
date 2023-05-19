@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import tokenService from '../../services/TokenService';
 import InlineError from '../InlineError';
 import '../../styles/login.css';
+import { useLogin } from '../../contexts/LoginContext';
 
 function Login() {
+  const { handleLogin } = useLogin();
   const user = { login: '', password: '' };
 
   const [login, setLogin] = useState('');
@@ -31,6 +33,7 @@ function Login() {
       .then((response) =>
         tokenService.setToken('token-game-store', response.data)
       )
+      .then(() => handleLogin())
       .then(() => navigate('/'))
       .catch((error) => setErrrors(error.response.data.errors));
   };

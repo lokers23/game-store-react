@@ -22,9 +22,10 @@ function Cart() {
       id: game.id,
       count: game.count
     }));
+
     orderService
       .saveOrder(0, { gameCounts: gameCounts })
-      .then(() => console.log('успешно'))
+      .then(() => localStorage.removeItem('cartGames'))
       .catch((error) => setErrors(error.response.data.errors));
   }
 
@@ -39,7 +40,6 @@ function Cart() {
     });
 
     setGames(newGames);
-    //localStorage.setItem('cartGames', JSON.stringify(games));
   }
 
   function decreaseCount(e, id, count) {
@@ -52,7 +52,6 @@ function Cart() {
       }
     });
 
-    //localStorage.setItem('cartGames', JSON.stringify(newGames));
     setGames(newGames);
   }
 

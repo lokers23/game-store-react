@@ -10,6 +10,7 @@ import { minSpecificationService } from '../../../services/MinSpecificationServi
 import { platformService } from '../../../services/PlatformService';
 import { activationService } from '../../../services/ActivationService';
 import '../../../styles/Crud.css';
+import '../../../styles/min-spec.css';
 
 export default function CreateGame() {
   const formData = new FormData();
@@ -69,9 +70,6 @@ export default function CreateGame() {
   }, [navigate]);
 
   const handleImageChange = (event) => {
-    // if (event.target.files && event.target.files[0]) {
-    //   setAvatar(URL.createObjectURL(event.target.files[0]));
-    // }
     setAvatar(event.target.files[0]);
   };
 
@@ -128,35 +126,20 @@ export default function CreateGame() {
         navigate('..');
       })
       .catch((error) => console.log(error.response.data.errors));
-    // gameService
-    //   .saveFormGame(0, formData)
-    //   // .saveGame(0, {
-    //   //   id: 0,
-    //   //   name: '',
-    //   //   developerId: 0,
-    //   //   publisherId: 0,
-    //   //   releaseOn: Date,
-    //   //   description: '',
-    //   //   price: 1,
-    //   //   videoUrl: '',
-    //   //   genreIds: [],
-    //   //   MinimumSpecificationIds: []
-    //   // })
-
-    //   .then((response) => {
-    //     navigate('..');
-    //   })
-
-    //   .catch((error) => console.log(error));
   }
 
   return (
-    <div>
-      <h1>Добавить новую игру</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor='name'>
+    <div className='container-fluid'>
+      <form
+        onSubmit={handleSubmit}
+        className='row g-3 mx-auto'
+        style={{ maxWidth: '1280px' }}
+      >
+        <h1>Добавить новую игру</h1>
+        <label htmlFor='name' className='form-label col-md-4'>
           Название
           <input
+            className='form-control'
             type='text'
             name='name'
             value={name}
@@ -165,9 +148,10 @@ export default function CreateGame() {
           />
         </label>
 
-        <label htmlFor='developerId'>
+        <label htmlFor='developerId' className='form-label col-md-4'>
           Разработчик
           <select
+            className='form-select'
             size='1'
             name='developerId'
             onChange={(event) => setDeveloperId(Number(event.target.value))}
@@ -188,9 +172,10 @@ export default function CreateGame() {
           </select>
         </label>
 
-        <label htmlFor='publisherId'>
+        <label htmlFor='publisherId' className='form-label col-md-4'>
           Издатель
           <select
+            className='form-select'
             size='1'
             name='publisherId'
             onChange={(event) => setPublisherId(Number(event.target.value))}
@@ -206,9 +191,10 @@ export default function CreateGame() {
           </select>
         </label>
 
-        <label htmlFor='description '>
+        <label htmlFor='description ' className='form-label'>
           Описание
           <textarea
+            className='form-control'
             name='description'
             value={description}
             onChange={(event) => setDescription(event.target.value)}
@@ -216,9 +202,10 @@ export default function CreateGame() {
           />
         </label>
 
-        <label htmlFor='releaseOn '>
+        <label htmlFor='releaseOn ' className='form-label col-md-4'>
           Дата выпуска
           <input
+            className='form-control'
             type='date'
             name='releaseOn'
             onChange={(event) => setReleaseOn(event.target.value)}
@@ -226,9 +213,10 @@ export default function CreateGame() {
           />
         </label>
 
-        <label htmlFor='price'>
+        <label htmlFor='price' className='form-label col-md-4'>
           Цена
           <input
+            className='form-control'
             type='number'
             step='0.01'
             value={price}
@@ -238,9 +226,10 @@ export default function CreateGame() {
           />
         </label>
 
-        <label htmlFor='videoUrl '>
+        <label htmlFor='videoUrl ' className='form-label col-md-4'>
           Видео
           <input
+            className='form-control'
             type='url'
             name='videoUrl'
             value={videoUrl}
@@ -249,36 +238,45 @@ export default function CreateGame() {
           />
         </label>
 
-        <label htmlFor='avatar'>
+        <label htmlFor='avatar' className='form-label'>
           Изображение аватара
           <input
+            className='form-control'
             type='file'
-            //name='avatar'
             onChange={handleImageChange}
-            //accept='image/jpeg'
             required
           />
         </label>
 
-        <fieldset>
-          <legend>Жанры</legend>
-          {genres.length > 0 &&
-            genres.map((genre) => (
-              <label htmlFor='genreIds' key={genre.id}>
-                {genre.name}
-                <input
-                  type='checkbox'
-                  name='genreIds'
-                  value={genre.id}
-                  onChange={handleGenreIdsChange}
-                />
-              </label>
-            ))}
+        <fieldset className='border rounded mb-2 p-2'>
+          <legend className='fw-bold'>Жанры</legend>
+          <div className='d-flex'>
+            {genres.length > 0 &&
+              genres.map((genre) => (
+                <div class='form-check me-4'>
+                  <label
+                    htmlFor='genreIds'
+                    className='form-check-label'
+                    key={genre.id}
+                  />
+                  {genre.name}
+                  <input
+                    className='form-check-input'
+                    type='checkbox'
+                    name='genreIds'
+                    value={genre.id}
+                    onChange={handleGenreIdsChange}
+                  />
+                </div>
+              ))}
+          </div>
         </fieldset>
 
-        <div>
+        <div className='border mb-2 rounded'>
           <fieldset>
-            <legend> Мин спецификация</legend>
+            <legend className='fw-bold p-2 border-bottom '>
+              Мин спецификация
+            </legend>
 
             {platforms.length > 0 &&
               platforms.map((platform) => {
@@ -286,40 +284,64 @@ export default function CreateGame() {
                   (minSpec) => minSpec.platform.name === platform.name
                 );
                 return (
-                  <fieldset key={platform.id}>
-                    <legend>{platform.name}</legend>
-                    <div className='minSpecs'>
-                      <div className='minSpec' key={0}>
-                        <input
-                          type='radio'
-                          value={0}
-                          name={platform.name}
-                          onChange={() => handleMinSpecIds(platform.name)}
-                          defaultChecked
-                        />
-                        <p>Нет</p>
+                  <fieldset key={platform.id} className='p-2 mb-1'>
+                    <legend className=' fw-bold'>{platform.name}</legend>
+                    <div className='minSpecs shadow-sm border-bottom '>
+                      <div className='p-2'>
+                        <div className='minSpec form-check ' key={0}>
+                          <input
+                            className='form-check-input'
+                            type='radio'
+                            value={0}
+                            name={platform.name}
+                            onChange={() => handleMinSpecIds(platform.name)}
+                            defaultChecked
+                          />
+                          <p className='fw-bold'>Нет</p>
+                        </div>
                       </div>
-                      {minSpecsFiltred.length > 0 &&
-                        minSpecsFiltred.map((minSpecFiltred) => (
-                          <div className='minSpec' key={minSpecFiltred.id}>
-                            <input
-                              type='radio'
-                              value={minSpecFiltred.id}
-                              name={platform.name}
-                              onChange={() =>
-                                handleMinSpecIds(
-                                  platform.name,
-                                  minSpecFiltred.id
-                                )
-                              }
-                            />
-                            <p>ОС: {minSpecFiltred.operatingSystem}</p>
-                            <p>Процессор: {minSpecFiltred.processor}</p>
-                            <p>Память: {minSpecFiltred.memory}</p>
-                            <p>Свободное место: {minSpecFiltred.storage}</p>
-                            <p>Видеокарта: {minSpecFiltred.graphics}</p>
-                          </div>
-                        ))}
+
+                      <div className='d-flex p-2'>
+                        {minSpecsFiltred.length > 0 &&
+                          minSpecsFiltred.map((minSpecFiltred) => (
+                            <div
+                              className='d-flex pe-3 minSpec form-check border shadow-sm rounded me-2 bg-min-spec border-min-spec'
+                              key={minSpecFiltred.id}
+                            >
+                              <input
+                                className='form-check-input'
+                                type='radio'
+                                value={minSpecFiltred.id}
+                                name={platform.name}
+                                onChange={() =>
+                                  handleMinSpecIds(
+                                    platform.name,
+                                    minSpecFiltred.id
+                                  )
+                                }
+                              />
+
+                              <div className='ms-1'>
+                                <p>
+                                  <b>ОС:</b> {minSpecFiltred.operatingSystem}
+                                </p>
+                                <p>
+                                  <b>Процессор:</b> {minSpecFiltred.processor}
+                                </p>
+                                <p>
+                                  <b>Память:</b> {minSpecFiltred.memory}
+                                </p>
+                                <p>
+                                  <b>Свободное место:</b>{' '}
+                                  {minSpecFiltred.storage}
+                                </p>
+                                <p>
+                                  <b>Видеокарта:</b> {minSpecFiltred.graphics}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                      </div>
                     </div>
                   </fieldset>
                 );
@@ -327,7 +349,9 @@ export default function CreateGame() {
           </fieldset>
         </div>
 
-        <button type='submit'>Отправить</button>
+        <button type='submit' className='btn btn-primary'>
+          Отправить
+        </button>
       </form>
       <Link to='..'>Назад</Link>
     </div>

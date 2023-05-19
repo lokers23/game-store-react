@@ -20,6 +20,7 @@ import MainPage from './components/MainPage/MainPage';
 import Profile from './components/Profile/Profile';
 import GamePage from './components/Admin/Game/GamePage';
 import axios from 'axios';
+import { LoginProvider, useLogin } from './contexts/LoginContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -34,22 +35,24 @@ axios.interceptors.response.use(
 );
 
 root.render(
-  <Router>
-    <Navigation />
-    <Routes>
-      <Route path='/' element={<MainPage />} />
-      <Route path='/game/:id' element={<GamePage />} />
-      <Route path='/login' element={<Login />} />
-      <Route>
-        <Route path='/admin' element={<Admin />}>
-          {AdminRoutes()}
+  <LoginProvider>
+    <Router>
+      <Navigation />
+      <Routes>
+        <Route path='/' element={<MainPage />} />
+        <Route path='/game/:id' element={<GamePage />} />
+        <Route path='/login' element={<Login />} />
+        <Route>
+          <Route path='/admin' element={<Admin />}>
+            {AdminRoutes()}
+          </Route>
         </Route>
-      </Route>
 
-      <Route path='/profile' element={<Profile />} />
-      <Route path='/cart' element={<Cart />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/cart' element={<Cart />} />
 
-      <Route path='*' />
-    </Routes>
-  </Router>
+        <Route path='*' />
+      </Routes>
+    </Router>
+  </LoginProvider>
 );

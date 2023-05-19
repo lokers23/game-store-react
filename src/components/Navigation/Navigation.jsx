@@ -1,8 +1,18 @@
 import { Link, NavLink } from 'react-router-dom';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { useLogin } from '../../contexts/LoginContext';
 //import '../../styles/Navigation.css';
 
 function Navigation() {
+  const { isLogin, role } = useLogin();
+  const { isLoading } = useLogin();
+  const { handleLogout } = useLogin();
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <nav className='navbar navbar-expand-lg navbar-light bg-light mb-3 shadow-sm'>
       <div className='container-fluid'>
@@ -29,23 +39,38 @@ function Navigation() {
                 Каталог
               </Link>
             </li>
-            <li className='nav-item'>
-              <Link to='/admin' className='nav-link'>
-                Админка
-              </Link>
-            </li>
+            {role === 'User' && (
+              <li className='nav-item'>
+                <Link to='/admin' className='nav-link'>
+                  Панель администратора
+                </Link>
+              </li>
+            )}
 
-            <li className='nav-item'>
-              <Link to='/profile' className='nav-link'>
-                Мои покупки
-              </Link>
-            </li>
-
-            <li className='nav-item'>
-              <Link to='/login' className='nav-link'>
-                Войти
-              </Link>
-            </li>
+            {!isLogin ? (
+              <li className='nav-item'>
+                <Link to='/login' className='nav-link'>
+                  Войти
+                </Link>
+              </li>
+            ) : (
+              <>
+                <li className='nav-item'>
+                  <Link to='/profile' className='nav-link'>
+                    Мои покупки
+                  </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link
+                    to='/login'
+                    className='nav-link'
+                    onClick={() => handleLogout()}
+                  >
+                    Выйти
+                  </Link>
+                </li>
+              </>
+            )}
 
             <li className='nav-item'>
               <Link to='/cart' className='nav-link'>

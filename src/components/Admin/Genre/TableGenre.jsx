@@ -32,12 +32,15 @@ export default function TableGenre() {
   }
 
   return (
-    <div className=''>
-      <h1 className='mb-5 '>Жанры</h1>
-      <Link to='create' className='btn btn-primary'>
+    <div
+      className='container-fluid '
+      //style={{ maxWidth: '1000px' }}
+    >
+      <h1 className='mb-2'>Жанры</h1>
+      <Link to='create' className='btn btn-primary btn-sm mb-2'>
         Добавить новую запись
       </Link>
-      <table className='table'>
+      <table className='table table-bordered table-responsive'>
         <thead>
           <tr>
             <th scope='col'>Id</th>
@@ -53,14 +56,16 @@ export default function TableGenre() {
                 <td>{genre.name}</td>
                 <td>
                   <button
-                    className='btn btn-danger'
+                    className='btn btn-danger btn-sm me-2'
                     onClick={() => deleteGenre(genre.id)}
                   >
-                    Удалить
+                    <i class='bi-trash-fill' />
                   </button>
-                  <Link className='btn btn-warning' to={`edit/${genre.id}`}>
-                    {' '}
-                    Редактировать
+                  <Link
+                    className='btn btn-warning btn-sm'
+                    to={`edit/${genre.id}`}
+                  >
+                    <i class='bi-pencil-square' />
                   </Link>
                 </td>
               </tr>

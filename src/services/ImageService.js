@@ -16,6 +16,14 @@ export class imageService {
   }
 
   static getImage(gameId, nameImage) {
-    return axios.get(URL.IMAGE + `/${gameId}/${nameImage}`);
+    return URL.IMAGE + `/${gameId}/${nameImage}`;
+  }
+
+  static createImage(gameId, image) {
+    return axios.post(URL.IMAGE + `/${gameId}/`, image);
+  }
+
+  static deleteImage(id) {
+    return axios.delete(URL.IMAGE + `/${id}/`);
   }
 }

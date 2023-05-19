@@ -31,6 +31,10 @@ export class gameService {
   }
 
   static getAvatarUrl(avatarName) {
+    if (!avatarName) {
+      return '';
+    }
+
     return URL.AVATAR + `/${avatarName}`;
   }
 

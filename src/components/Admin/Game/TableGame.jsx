@@ -33,7 +33,7 @@ export default function TableGame() {
   }
 
   return (
-    <div>
+    <div className='container-fluid'>
       <h1>Игры</h1>
       <Link className='btn btn-primary mb-2' to='create'>
         Добавить новую запись
