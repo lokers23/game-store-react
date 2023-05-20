@@ -32,10 +32,12 @@ export default function TableMinSpecification() {
   }
 
   return (
-    <div>
-      <h1>Минимальная спецификация</h1>
-      <Link to='create'>Добавить новую запись</Link>
-      <table>
+    <div className='container-fluid'>
+      <h1 className='mb-2'>Минимальная спецификация</h1>
+      <Link className='btn btn-primary btn-sm mb-2' to='create'>
+        Добавить новую запись
+      </Link>
+      <table className='table table-bordered'>
         <thead>
           <tr>
             <th scope='col'>Id</th>
@@ -45,7 +47,6 @@ export default function TableMinSpecification() {
             <th scope='col'>Видеокарта</th>
             <th scope='col'>Свободное место</th>
             <th scope='col'>Платформа</th>
-            <th scope='col'></th>
             <th scope='col'></th>
           </tr>
         </thead>
@@ -60,13 +61,16 @@ export default function TableMinSpecification() {
                 <td>{minSpec.graphics}</td>
                 <td>{minSpec.storage}</td>
                 <td>{minSpec.platform.name}</td>
-                <td>
-                  <button onClick={() => deleteMinSpecification(minSpec.id)}>
-                    Удалить
+                <td className='d-flex justify-content-center'>
+                  <button
+                    className='btn btn-danger me-1'
+                    onClick={() => deleteMinSpecification(minSpec.id)}
+                  >
+                    <i class='bi-trash-fill' />
                   </button>
-                </td>
-                <td>
-                  <Link to={`edit/${minSpec.id}`}> Редактировать</Link>
+                  <Link className='btn btn-warning' to={`edit/${minSpec.id}`}>
+                    <i class='bi-pencil-square' />
+                  </Link>
                 </td>
               </tr>
             ))}

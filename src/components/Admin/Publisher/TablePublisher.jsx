@@ -31,15 +31,16 @@ export default function TablePublisher() {
   }, [navigate]);
 
   return (
-    <div>
-      <h1>Издатели</h1>
-      <Link to='create'>Добавить новую запись</Link>
-      <table>
+    <div className='container-fluid'>
+      <h1 className='mb-2'>Издатели</h1>
+      <Link className='btn btn-primary btn-sm mb-2' to='create'>
+        Добавить новую запись
+      </Link>
+      <table className='table table-bordered'>
         <thead>
           <tr>
             <th>Id</th>
             <th>Название</th>
-            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -50,12 +51,15 @@ export default function TablePublisher() {
                 <td>{publisher.id}</td>
                 <td>{publisher.name}</td>
                 <td>
-                  <button onClick={() => deletePublisher(publisher.id)}>
-                    Удалить
+                  <button
+                    className='btn btn-danger me-1'
+                    onClick={() => deletePublisher(publisher.id)}
+                  >
+                    <i class='bi-trash-fill' />
                   </button>
-                </td>
-                <td>
-                  <Link to={`edit/${publisher.id}`}> Редактировать</Link>
+                  <Link className='btn btn-warning' to={`edit/${publisher.id}`}>
+                    <i class='bi-pencil-square' />
+                  </Link>
                 </td>
               </tr>
             ))}

@@ -8,9 +8,9 @@ export default function Admin() {
   const { role } = useLogin();
 
   useEffect(() => {
-    if (role !== 'User') {
-      navigate('/');
-    }
+    // if (role !== 'User') {
+    //   navigate('/');
+    // }
   }, []);
 
   return (

@@ -51,7 +51,7 @@ export default function TableGame() {
             <th scope='col'>Видео</th>
             <th scope='col'>Аватар</th>
             <th scope='col'>Жанры</th>
-            <th scope='col'>Минимальная спецификация</th>
+            <th scope='col'>Площадка активации</th>
             <th scope='col'></th>
           </tr>
         </thead>
@@ -61,7 +61,7 @@ export default function TableGame() {
               <tr key={game.id}>
                 <td>{game.id}</td>
                 <td>{game.name}</td>
-                <td>{'developer' in game && game.developer.name}</td>
+                <td>{game.developer && game.developer.name}</td>
                 <td>{game.publisher.name}</td>
                 <td>{game.description}</td>
                 <td>{game.releaseOn}</td>
@@ -77,10 +77,10 @@ export default function TableGame() {
                   ></img>
                 </td>
                 <td>{game.genres.map((genre) => genre.name + '\n')}</td>
-                <td>мин спецификация</td>
-                <td className='d-flex'>
+                <td>{game.activation.name}</td>
+                <td>
                   <button
-                    className='btn btn-danger'
+                    className='btn btn-danger me-1'
                     onClick={() => deleteGame(game.id)}
                   >
                     <i class='bi-trash-fill' />

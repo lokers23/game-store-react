@@ -25,6 +25,7 @@ export default function CreateGame() {
   const [name, setName] = useState('');
   const [developerId, setDeveloperId] = useState(0);
   const [publisherId, setPublisherId] = useState(0);
+  const [activationId, setActivationId] = useState(0);
   const [description, setDescription] = useState('');
   const [releaseOn, setReleaseOn] = useState(Date);
   const [price, setPrice] = useState('');
@@ -102,6 +103,7 @@ export default function CreateGame() {
     formData.append('name', name);
     formData.append('developerId', developerId);
     formData.append('publisherId', publisherId);
+    formData.append('activationd', activationId);
     formData.append('releaseOn', releaseOn);
     formData.append('description', description);
     const formatPrice = price.toString().replace('.', ',');
@@ -191,7 +193,7 @@ export default function CreateGame() {
           </select>
         </label>
 
-        <label htmlFor='description ' className='form-label'>
+        <label htmlFor='description ' className='form-label col-md-6'>
           Описание
           <textarea
             className='form-control'
@@ -200,6 +202,29 @@ export default function CreateGame() {
             onChange={(event) => setDescription(event.target.value)}
             required
           />
+        </label>
+
+        <label className='form-label col-md-6'>
+          Активация:
+          <select
+            className='form-select'
+            size='1'
+            onChange={(event) => setActivationId(Number(event.target.value))}
+          >
+            {!activationId && (
+              <option value=''>Выберите площадку для активации</option>
+            )}
+            {activations.length > 0 &&
+              activations.map((activation) => (
+                <option
+                  key={activation.id}
+                  value={activation.id}
+                  datatype='number'
+                >
+                  {activation.name}
+                </option>
+              ))}
+          </select>
         </label>
 
         <label htmlFor='releaseOn ' className='form-label col-md-4'>

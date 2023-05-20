@@ -77,7 +77,10 @@ function Center() {
                   <div className='d-flex mb-2'>
                     {game.genres.length > 0 &&
                       game.genres.map((genre) => (
-                        <div className='border border-2 border-light me-2 shadow-sm bg-white rounded'>
+                        <div
+                          key={genre.id}
+                          className='border border-2 border-light me-2 shadow-sm bg-white rounded'
+                        >
                           <p
                             className='my-auto fw-normal'
                             style={{ fontSize: '13px', padding: '3px' }}
@@ -94,7 +97,10 @@ function Center() {
                       </p>
                       {game.minimumSpecifications.length > 0 &&
                         game.minimumSpecifications.map((minSpec) => (
-                          <p className='border border-2 border-light me-2 shadow-sm bg-white rounded'>
+                          <p
+                            key={minSpec.id}
+                            className='border border-2 border-light me-2 shadow-sm bg-white rounded'
+                          >
                             {minSpec.platform.name}
                           </p>
                         ))}

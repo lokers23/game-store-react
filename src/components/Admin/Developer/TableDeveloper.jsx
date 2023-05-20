@@ -32,15 +32,16 @@ export default function TableDeveloper() {
   }
 
   return (
-    <div>
-      <h1>Разработчики</h1>
-      <Link to='create'>Добавить новую запись</Link>
-      <table>
+    <div className='container-fluid'>
+      <h1 className='mb-2'>Разработчики</h1>
+      <Link className='btn btn-primary btn-sm mb-2' to='create'>
+        Добавить новую запись
+      </Link>
+      <table className='table table-bordered'>
         <thead>
           <tr>
             <th scope='col'>Id</th>
             <th scope='col'>Название</th>
-            <th scope='col'></th>
             <th scope='col'></th>
           </tr>
         </thead>
@@ -51,12 +52,16 @@ export default function TableDeveloper() {
                 <td>{developer.id}</td>
                 <td>{developer.name}</td>
                 <td>
-                  <button onClick={() => deleteDeveloper(developer.id)}>
-                    Удалить
+                  <button
+                    className='btn btn-danger me-1'
+                    onClick={() => deleteDeveloper(developer.id)}
+                  >
+                    <i class='bi-trash-fill' />
                   </button>
-                </td>
-                <td>
-                  <Link to={`edit/${developer.id}`}> Редактировать</Link>
+                  <Link className='btn btn-warning' to={`edit/${developer.id}`}>
+                    {' '}
+                    <i class='bi-pencil-square' />
+                  </Link>
                 </td>
               </tr>
             ))}

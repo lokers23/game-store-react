@@ -55,6 +55,7 @@ function SideBody({ game }) {
         </p>
         <p>
           <b>Активация: </b>
+          {game.activation && game.activation.name}
         </p>
         <p className=''>
           <b>Жанр: </b>

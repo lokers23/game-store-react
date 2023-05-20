@@ -78,28 +78,6 @@ export default function CreateKey() {
         </label>
 
         <label>
-          Активация:
-          <select
-            size='1'
-            onChange={(event) => setActivationId(Number(event.target.value))}
-          >
-            {!activationId && (
-              <option value=''>Выберите площадку для активации</option>
-            )}
-            {activations.length > 0 &&
-              activations.map((activation) => (
-                <option
-                  key={activation.id}
-                  value={activation.id}
-                  datatype='number'
-                >
-                  {activation.name}
-                </option>
-              ))}
-          </select>
-        </label>
-
-        <label>
           Использованный?:
           <input
             type='checkbox'

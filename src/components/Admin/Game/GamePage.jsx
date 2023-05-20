@@ -28,7 +28,10 @@ function GamePage() {
 
   return (
     <div className='d-flex'>
-      <div className=' mx-auto' style={{ maxWidth: '1200px' }}>
+      <div
+        className=' mx-auto'
+        style={{ maxWidth: '1200px', minWidth: '1200px' }}
+      >
         <div className=''>
           <h1 className=' bg-white '>{game.name}</h1>
         </div>

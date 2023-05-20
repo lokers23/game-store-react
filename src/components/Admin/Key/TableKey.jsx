@@ -30,18 +30,18 @@ export default function TableKey() {
   }
 
   return (
-    <div>
-      <h1>Ключи</h1>
-      <Link to='create'>Добавить новую запись</Link>
-      <table>
+    <div className='container-fluid'>
+      <h1 className='mb-2'>Ключи</h1>
+      <Link className='btn btn-primary btn-sm mb-2' to='create'>
+        Добавить новую запись
+      </Link>
+      <table className='table table-bordered'>
         <thead>
           <tr>
             <th scope='col'>Id</th>
             <th scope='col'>Игра</th>
             <th scope='col'>Значение</th>
-            <th scope='col'>Площадка для активации</th>
             <th scope='col'>Использованный</th>
-            <th scope='col'></th>
             <th scope='col'></th>
           </tr>
         </thead>
@@ -52,14 +52,17 @@ export default function TableKey() {
                 <td>{key.id}</td>
                 {key.game ? <td>{key.game.name}</td> : <td></td>}
                 <td>{key.value}</td>
-                <td>{key.activation.name}</td>
                 <td>{key.isUsed ? 'Использован' : 'Не использован'}</td>
-
                 <td>
-                  <button onClick={() => deleteKey(key.id)}>Удалить</button>
-                </td>
-                <td>
-                  <Link to={`edit/${key.id}`}> Редактировать</Link>
+                  <button
+                    className='btn btn-danger me-1'
+                    onClick={() => deleteKey(key.id)}
+                  >
+                    <i class='bi-trash-fill' />
+                  </button>
+                  <Link className='btn btn-warning' to={`edit/${key.id}`}>
+                    <i class='bi-pencil-square' />
+                  </Link>
                 </td>
               </tr>
             ))}

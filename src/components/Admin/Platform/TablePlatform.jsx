@@ -32,15 +32,16 @@ export default function TablePlatform() {
   }
 
   return (
-    <div>
-      <h1>Платформа ОС</h1>
-      <Link to='create'>Добавить новую запись</Link>
-      <table>
+    <div className='container-fluid'>
+      <h2 className='mb-2'>Платформа ОС</h2>
+      <Link className='btn btn-primary btn-sm mb-2' to='create'>
+        Добавить новую запись
+      </Link>
+      <table className='table table-bordered'>
         <thead>
           <tr>
             <th scope='col'>Id</th>
             <th scope='col'>Название</th>
-            <th scope='col'></th>
             <th scope='col'></th>
           </tr>
         </thead>
@@ -51,12 +52,15 @@ export default function TablePlatform() {
                 <td>{platform.id}</td>
                 <td>{platform.name}</td>
                 <td>
-                  <button onClick={() => deletePlatform(platform.id)}>
-                    Удалить
+                  <button
+                    className='btn btn-danger me-1'
+                    onClick={() => deletePlatform(platform.id)}
+                  >
+                    <i class='bi-trash-fill' />
                   </button>
-                </td>
-                <td>
-                  <Link to={`edit/${platform.id}`}> Редактировать</Link>
+                  <Link className='btn btn-warning' to={`edit/${platform.id}`}>
+                    <i class='bi-pencil-square' />
+                  </Link>
                 </td>
               </tr>
             ))}
