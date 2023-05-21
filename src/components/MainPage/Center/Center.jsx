@@ -46,70 +46,74 @@ function Center() {
   }, [navigate]);
 
   return (
-    <div className=' mx-auto' style={{ maxWidth: '800px' }}>
+    <div className='p-2 fs-6' style={{ maxWidth: '720px' }}>
+      {/* <div className='d-flex flex-row justify-content-between align-items-center mb-3'>
+        <div className='shadow border rounded p-2 px-5'>Каталог</div>
+        <div className='shadow border rounded p-2 px-5'>Новые</div>
+        <div className='shadow border rounded p-2 px-5'>Популярные</div>
+        <div className='shadow border rounded p-2 px-5'>Ожидаемые</div>
+      </div> */}
       {games.length > 0 &&
         games.map((game) => (
-          <div
-            className='card border border-2 mb-3 p-1 shadow bg-white rounded'
-            key={game.id}
+          <Link
+            to={`game/${game.id}`}
+            className=''
+            style={{
+              textDecoration: 'none',
+              color: 'black'
+            }}
           >
-            <div className='row no-gutters'>
-              <div className='col-5  my-auto'>
-                <img
-                  className='card-img'
-                  src={gameService.getAvatarUrl(game.avatarName)}
-                  alt={game.avatarName}
-                ></img>
-              </div>
-              <div className='col-7'>
-                <div className='card-body'>
-                  <Link
-                    to={`game/${game.id}`}
-                    className=''
-                    style={{
-                      textDecoration: 'none',
-                      color: 'black'
-                    }}
-                  >
+            <div className='card mb-3 shadow bg-white rounded-2' key={game.id}>
+              <div className='row g-0'>
+                <div
+                  className='col-lg-5 my-auto'
+                  style={{
+                    objectFit: 'cover'
+                  }}
+                >
+                  <img
+                    className='img-fluid'
+                    src={gameService.getAvatarUrl(game.avatarName)}
+                    style={{ minWidth: '292px' }}
+                    alt={game.avatarName}
+                  ></img>
+                </div>
+                <div className='col-lg-7'>
+                  <div className='card-body'>
                     <h5 className='card-title'>{game.name}</h5>
-                  </Link>
 
-                  <div className='d-flex mb-2'>
-                    {game.genres.length > 0 &&
-                      game.genres.map((genre) => (
-                        <div
-                          key={genre.id}
-                          className='border border-2 border-light me-2 shadow-sm bg-white rounded'
-                        >
-                          <p
-                            className='my-auto fw-normal'
-                            style={{ fontSize: '13px', padding: '3px' }}
+                    <div className='mb-2'>
+                      {game.genres.length > 0 &&
+                        game.genres.map((genre) => (
+                          <span
+                            key={genre.id}
+                            className='badge bg-dark me-2 p-2'
                           >
                             {genre.name}
-                          </p>
-                        </div>
-                      ))}
-                  </div>
-                  <div className='d-flex justify-content-between'>
-                    <div className='d-flex'>
-                      <p className='border border-2 border-light me-2 shadow-sm bg-white rounded'>
-                        {new Date(game.releaseOn).getFullYear()}
-                      </p>
-                      {game.minimumSpecifications.length > 0 &&
-                        game.minimumSpecifications.map((minSpec) => (
-                          <p
-                            key={minSpec.id}
-                            className='border border-2 border-light me-2 shadow-sm bg-white rounded'
-                          >
-                            {minSpec.platform.name}
-                          </p>
+                          </span>
                         ))}
                     </div>
-                    <p className='p-1 fw-bold border-bottom border-1 border-dark'>
+                    <div className='d-flex justify-content-between'>
+                      <div className='d-flex'>
+                        <span className='badge bg-secondary me-2 p-2'>
+                          {new Date(game.releaseOn).getFullYear()}
+                        </span>
+                        {game.minimumSpecifications.length > 0 &&
+                          game.minimumSpecifications.map((minSpec) => (
+                            <span
+                              key={minSpec.id}
+                              className='badge bg-secondary me-2 p-2'
+                              style={{ fontSize: '13px', padding: '3px' }}
+                            >
+                              {minSpec.platform.name}
+                            </span>
+                          ))}
+                      </div>
+                    </div>
+                    <span className='fw-bold border-1 border-dark d-flex justify-content-end'>
                       Цена: ${game.price}
-                    </p>
-                  </div>
-                  <div>
+                    </span>
+                    {/* <div>
                     <button
                       className='btn btn-sm'
                       onClick={(event) => addToCart(event, game)}
@@ -117,11 +121,12 @@ function Center() {
                     >
                       В корзину
                     </button>
+                  </div> */}
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
     </div>
   );

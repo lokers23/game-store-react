@@ -1,7 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { gameService } from '../../../services/GameService';
 
 function SideBody({ game }) {
   const [textAlert, setTextAlert] = useState('');
+  const [countKeys, setCountKeys] = useState(0);
+
+  useEffect(() => {
+    gameService
+      .getNumberOfKeys(game.id)
+      .then((response) => {
+        if (response.data) {
+          setCountKeys(response.data.data);
+        } else {
+          setCountKeys(0);
+        }
+      })
+      .catch();
+  }, [game]);
+
   function addToCart(event, game) {
     event.preventDefault();
     var newGame = {
@@ -29,6 +45,7 @@ function SideBody({ game }) {
     localStorage.setItem('cartGames', JSON.stringify(storedGames));
     setTextAlert(`${game.name} добавлен в корзину!`);
   }
+
   return (
     <div className='d-flex flex-column' style={{ minWidth: '350px' }}>
       <div className='d-flex fw-bold fs-3 mb-3 p-3 shadow rounded border justify-content-between'>
@@ -80,8 +97,17 @@ function SideBody({ game }) {
           <b>Дата выхода: </b>
           {game.releaseOn}
         </p>
-        <p>
-          <b>Наличие: много</b>
+        <p className=''>
+          <b>Наличие: </b>
+          {countKeys === 0 && (
+            <span className='text-danger fw-bold'> нет в наличии</span>
+          )}
+          {countKeys > 0 && countKeys <= 30 && (
+            <span className='text-warning fw-bold'>мало</span>
+          )}
+          {countKeys > 30 && (
+            <span className='text-success fw-bold'>много</span>
+          )}
         </p>
       </div>
     </div>

@@ -1,5 +1,10 @@
 const BASE_URL = 'https://localhost:7125';
 
+const LOCAL_STORAGE = {
+  TOKEN_STORAGE: 'token-game-store',
+  CART_GAME: 'cartGames'
+};
+
 const API = {
   USER: '/api/users',
   GAME: '/api/games',
@@ -12,8 +17,8 @@ const API = {
   ORDER: '/api/orders',
   PLATFORM: '/api/platforms',
   IMAGE: '/api/images',
-
-  AVATAR: '/api/games/avatars'
+  AVATAR: '/api/games/avatars',
+  BALANCE: '/api/balance'
 };
 
 const URL = {
@@ -27,9 +32,10 @@ const URL = {
   ACTIVATION: BASE_URL + API.ACTIVATION,
   ORDER: BASE_URL + API.ORDER,
   PLATFORM: BASE_URL + API.PLATFORM,
-
   IMAGE: BASE_URL + API.IMAGE,
-  AVATAR: BASE_URL + API.AVATAR
+  AVATAR: BASE_URL + API.AVATAR,
+  USER: BASE_URL + API.USER,
+  BALANCE: BASE_URL + API.BALANCE
 };
 
-export { URL };
+export { URL, LOCAL_STORAGE };

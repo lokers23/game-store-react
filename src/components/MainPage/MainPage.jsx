@@ -5,7 +5,10 @@ import LeftMenu from './Left/LeftMenu';
 function MainPage() {
   return (
     <div className='wrap'>
-      <div className='mainpage'>
+      <div
+        className='container-fluid d-flex mx-auto'
+        style={{ maxWidth: '1000px' }}
+      >
         <LeftMenu></LeftMenu>
         <Center></Center>
       </div>

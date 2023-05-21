@@ -49,4 +49,12 @@ export class gameService {
       headers: { 'Content-Type': 'multipart/form-data' }
     });
   }
+
+  static getNumberOfKeys(id) {
+    if (id) {
+      return axios.get(URL.GAME + `/${id}/count`);
+    }
+
+    return Promise.resolve(0);
+  }
 }

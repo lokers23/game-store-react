@@ -3,7 +3,7 @@ import React from 'react';
 export default function FooterGamePage({ game }) {
   return (
     <div
-      className='p-2 mb-3 shadow bg-white rounded border'
+      className='p-3 mb-3 shadow bg-white rounded border'
       style={{ minHeight: '300px' }}
     >
       <ul className='nav nav-tabs mb-3' id='tabs1'>
@@ -31,6 +31,19 @@ export default function FooterGamePage({ game }) {
             aria-selected='true'
           >
             Системные требования
+          </button>
+        </li>
+        <li className='nav-item' role='presentation'>
+          <button
+            className='nav-link text-black-50 fw-bold'
+            data-bs-toggle='tab'
+            id='activation-tab'
+            data-bs-target='#activation'
+            role='tab'
+            aria-controls='activation'
+            aria-selected='true'
+          >
+            Активация
           </button>
         </li>
       </ul>
@@ -110,6 +123,26 @@ export default function FooterGamePage({ game }) {
                 ))}
             </div>
           </div>
+        </div>
+        <div
+          className='tab-pane fade show '
+          role='tabpanel'
+          id='activation'
+          aria-labelledby='activation-tab'
+        >
+          {game.activation && (
+            <div className='d-flex flex-column align-items-center'>
+              <p className='m-0'>После покупки вы мгновенно получите</p>
+              <p className='m-0'>{game.name}</p>
+              <p className='m-0'>
+                лицензионный ключ активации для {game.activation.name}
+              </p>
+              <p className='fw-bold fs-5 mt-5'>
+                Как активировать ключ {game.activation.name}?
+              </p>
+              <button className='btn btn-dark'>ПОДРОБНАЯ ИНСТРУКЦИЯ</button>
+            </div>
+          )}
         </div>
       </div>
     </div>

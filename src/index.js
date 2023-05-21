@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import Navigation from './components/Navigation/Navigation';
@@ -18,9 +19,12 @@ import Admin from './components/Admin/Admin';
 import AdminRoutes from './AdminRoutes';
 import MainPage from './components/MainPage/MainPage';
 import Profile from './components/Profile/Profile';
+import Purchases from './components/Profile/Purchases';
 import GamePage from './components/Admin/Game/GamePage';
 import axios from 'axios';
 import { LoginProvider, useLogin } from './contexts/LoginContext';
+import PersonalPage from './components/Profile/PersonalPage';
+import BalancePage from './components/Profile/BalancePage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -48,7 +52,11 @@ root.render(
           </Route>
         </Route>
 
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile' element={<Profile />}>
+          <Route path='' element={<PersonalPage />} />
+          <Route path='purchases' element={<Purchases />} />
+          <Route path='balance' element={<BalancePage />} />
+        </Route>
         <Route path='/cart' element={<Cart />} />
 
         <Route path='*' />
