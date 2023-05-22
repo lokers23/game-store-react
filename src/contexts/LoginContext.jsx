@@ -13,12 +13,7 @@ export const LoginProvider = ({ children }) => {
     const token = localStorage.getItem('token-game-store');
     if (token) {
       setIsLogin(true);
-    }
-
-    const storedToken = localStorage.getItem('token-game-store');
-
-    if (storedToken) {
-      const data = JSON.parse(storedToken);
+      const data = JSON.parse(token);
       setRole(data.role);
     }
 
@@ -27,10 +22,14 @@ export const LoginProvider = ({ children }) => {
 
   const handleLogin = () => {
     setIsLogin(true);
+    const token = localStorage.getItem('token-game-store');
+    const data = JSON.parse(token);
+    setRole(data.role);
   };
 
   const handleLogout = () => {
     setIsLogin(false);
+    setRole('');
     localStorage.removeItem('token-game-store');
   };
 

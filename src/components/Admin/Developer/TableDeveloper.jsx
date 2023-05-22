@@ -33,7 +33,7 @@ export default function TableDeveloper() {
 
   return (
     <div className='container-fluid'>
-      <h1 className='mb-2'>Разработчики</h1>
+      <h2 className='mb-2'>Разработчики</h2>
       <Link className='btn btn-primary btn-sm mb-2' to='create'>
         Добавить новую запись
       </Link>
@@ -53,13 +53,15 @@ export default function TableDeveloper() {
                 <td>{developer.name}</td>
                 <td>
                   <button
-                    className='btn btn-danger me-1'
+                    className='btn btn-danger btn-sm me-1'
                     onClick={() => deleteDeveloper(developer.id)}
                   >
                     <i class='bi-trash-fill' />
                   </button>
-                  <Link className='btn btn-warning' to={`edit/${developer.id}`}>
-                    {' '}
+                  <Link
+                    className='btn btn-warning btn-sm'
+                    to={`edit/${developer.id}`}
+                  >
                     <i class='bi-pencil-square' />
                   </Link>
                 </td>

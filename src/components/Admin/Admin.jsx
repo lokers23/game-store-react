@@ -5,17 +5,14 @@ import { useLogin } from '../../contexts/LoginContext';
 
 export default function Admin() {
   const navigate = useNavigate();
-  const { role } = useLogin();
-
-  useEffect(() => {
-    // if (role !== 'User') {
-    //   navigate('/');
-    // }
-  }, []);
+  const { isLogin, role } = useLogin();
+  if (role === 'User') {
+    navigate('..');
+  }
 
   return (
     <>
-      {role === 'User' && (
+      {isLogin && role !== 'User' && (
         <div className=''>
           <div className='d-flex justify-content-center mb-3'>
             <ul className='list-group list-group-horizontal'>
@@ -74,7 +71,7 @@ export default function Admin() {
                 </Link>
               </li>
               <li className='list-group-item'>
-                <Link to='/' className='text-dark text-decoration-none'>
+                <Link to='orders' className='text-dark text-decoration-none'>
                   Заказы
                 </Link>
               </li>

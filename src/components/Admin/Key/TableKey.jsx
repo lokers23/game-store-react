@@ -31,7 +31,7 @@ export default function TableKey() {
 
   return (
     <div className='container-fluid'>
-      <h1 className='mb-2'>Ключи</h1>
+      <h2 className='mb-2'>Ключи</h2>
       <Link className='btn btn-primary btn-sm mb-2' to='create'>
         Добавить новую запись
       </Link>
@@ -55,12 +55,15 @@ export default function TableKey() {
                 <td>{key.isUsed ? 'Использован' : 'Не использован'}</td>
                 <td>
                   <button
-                    className='btn btn-danger me-1'
+                    className='btn btn-danger btn-sm me-1'
                     onClick={() => deleteKey(key.id)}
                   >
                     <i class='bi-trash-fill' />
                   </button>
-                  <Link className='btn btn-warning' to={`edit/${key.id}`}>
+                  <Link
+                    className='btn btn-warning btn-sm'
+                    to={`edit/${key.id}`}
+                  >
                     <i class='bi-pencil-square' />
                   </Link>
                 </td>

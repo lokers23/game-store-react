@@ -32,21 +32,29 @@ export default function EditGenre() {
   }
 
   return (
-    <div>
-      <h1>Редактирование жанра</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+    <div className='container-fluid'>
+      <h2 className='mb-2'>Редактирование жанра</h2>
+      <form
+        className='d-flex flex-column'
+        onSubmit={handleSubmit}
+        style={{ maxWidth: '500px' }}
+      >
+        <label className='form-label'>
           Название:
           <input
+            className='form-control'
             type='text'
             value={genreName}
             onChange={(event) => setGenreName(event.target.value)}
           />
         </label>
-        <button type='submit'>Submit</button>
+        <button className='btn btn-primary btn-sm mb-2' type='submit'>
+          Отправить
+        </button>
+        <Link className='btn btn-warning btn-sm' to='..'>
+          Назад
+        </Link>
       </form>
-
-      <Link to='..'>Назад</Link>
     </div>
   );
 }

@@ -32,7 +32,7 @@ export default function TablePublisher() {
 
   return (
     <div className='container-fluid'>
-      <h1 className='mb-2'>Издатели</h1>
+      <h2 className='mb-2'>Издатели</h2>
       <Link className='btn btn-primary btn-sm mb-2' to='create'>
         Добавить новую запись
       </Link>
@@ -52,12 +52,15 @@ export default function TablePublisher() {
                 <td>{publisher.name}</td>
                 <td>
                   <button
-                    className='btn btn-danger me-1'
+                    className='btn btn-danger btn-sm me-1'
                     onClick={() => deletePublisher(publisher.id)}
                   >
                     <i class='bi-trash-fill' />
                   </button>
-                  <Link className='btn btn-warning' to={`edit/${publisher.id}`}>
+                  <Link
+                    className='btn btn-warning btn-sm'
+                    to={`edit/${publisher.id}`}
+                  >
                     <i class='bi-pencil-square' />
                   </Link>
                 </td>

@@ -22,7 +22,7 @@ function LeftMenu() {
 
   return (
     <div
-      className='p-2 shadow rounded me-3'
+      className='p-2 shadow border rounded me-3'
       style={{ maxWidth: '300px', minWidth: '200px' }}
     >
       <div className='mb-4'>

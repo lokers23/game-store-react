@@ -2,19 +2,51 @@ import { useEffect, useState } from 'react';
 import { gameService } from '../../services/GameService';
 import { orderService } from '../../services/OrderService';
 import InlineError from '../InlineError';
+import { useCart } from '../../contexts/CartContext';
 
 function Cart() {
+  const { deleteItem, clearCart } = useCart();
+  const [isReload, setIsReload] = useState(true);
   const [games, setGames] = useState(
     JSON.parse(localStorage.getItem('cartGames'))
   );
 
   const [errors, setErrors] = useState({});
-
   const [fullPrice, setFullPrice] = useState(0);
 
   useEffect(() => {
     localStorage.setItem('cartGames', JSON.stringify(games));
+    if (isReload) {
+      updateDataGames(games);
+      setIsReload(false);
+    }
+
+    setFullPrice(
+      games.reduce((prev, curr) => prev + curr.price * curr.count, 0)
+    );
   }, [games]);
+
+  function updateDataGames(newGames) {
+    Promise.all(
+      newGames.map((game) =>
+        gameService.getGameById(game.id).then((response) => {
+          const result = response.data.data;
+          return {
+            ...game,
+            name: result.name,
+            avatar: result.avatarName,
+            price: result.price
+          };
+        })
+      )
+    )
+      .then((newGames) => {
+        setGames(newGames);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -25,7 +57,11 @@ function Cart() {
 
     orderService
       .saveOrder(0, { gameCounts: gameCounts })
-      .then(() => localStorage.removeItem('cartGames'))
+      .then(() => {
+        localStorage.removeItem('cartGames');
+        setGames([]);
+        clearCart();
+      })
       .catch((error) => setErrors(error.response.data.errors));
   }
 
@@ -39,11 +75,12 @@ function Cart() {
       }
     });
 
-    setGames(newGames);
+    updateDataGames(newGames);
   }
 
   function decreaseCount(e, id, count) {
     e.preventDefault();
+
     const newGames = games.map((game) => {
       if (game.id === id && game.count > 1) {
         return { ...game, count: game.count - count };
@@ -52,19 +89,21 @@ function Cart() {
       }
     });
 
-    setGames(newGames);
+    updateDataGames(newGames);
   }
 
   function removeItem(e, id) {
     e.preventDefault();
+
     const newGames = games.filter((game) => game.id !== id);
-    setGames(newGames);
+    updateDataGames(newGames);
+    deleteItem();
   }
 
   return (
     <div className='container'>
       {games !== null && games.length > 0 ? (
-        <div className='w-75 mx-auto'>
+        <div className='mx-auto' style={{ maxWidth: '900px' }}>
           <div className='mb-3'>
             <p className='h2'>Оформление заказа</p>
           </div>
@@ -73,7 +112,7 @@ function Cart() {
               <InlineError field='Game' errors={errors} />
               {games.map((game) => (
                 <div
-                  className='card mb-4 p-1 shadow bg-white rounded'
+                  className='card mb-4 shadow bg-white rounded'
                   key={game.id}
                 >
                   <div className='row g-0'>
@@ -84,58 +123,65 @@ function Cart() {
                         alt={game.avatarName}
                       ></img>
                     </div>
-                    <div className='col-md-8'>
-                      <div className='card-body d-flex flex-column'>
-                        <div className=''>
-                          <h5 className='card-title'>{game.name}</h5>
-                          <p className='card-text'>
-                            <small className='text-muted'>
-                              Активировать продукт можно только на ...
-                            </small>
-                          </p>
-                        </div>
+                    <div className='col-md-4 p-3'>
+                      <h5 className='card-title'>{game.name}</h5>
+                      <p className='card-text'>
+                        <small className='text-muted'>
+                          Активировать продукт можно только на ...
+                        </small>
+                      </p>
+                    </div>
 
-                        <div className='d-flex justify-content-end align-items-center'>
-                          <button
-                            type='button'
-                            className='btn p-0 btn-default'
-                            onClick={(e) => decreaseCount(e, game.id, 1)}
-                          >
-                            <span className='bi-dash-square fs-4'></span>
-                          </button>
-                          <input
-                            value={game.count}
-                            min='1'
-                            max='5'
-                            className='form-control-sm mx-2 text-center'
-                            style={{ width: '30px', height: '30px' }}
-                            readOnly
-                          />
-                          <button
-                            className='btn p-0  btn-default'
-                            onClick={(e) => increaseCount(e, game.id, 1)}
-                          >
-                            <i className='bi bi-plus-square fs-4'></i>
-                          </button>
+                    <div className='col-md-2 d-flex justify-content-center align-items-center'>
+                      <span
+                        type='button'
+                        className={
+                          game.count <= 1 ? 'disabled text-black-50' : ''
+                        }
+                        onClick={(e) => {
+                          if (game.count <= 1) return;
+                          decreaseCount(e, game.id, 1);
+                        }}
+                      >
+                        <span className='bi-dash-square fs-4'></span>
+                      </span>
+                      <input
+                        value={game.count}
+                        min='1'
+                        max='5'
+                        className='form-control-sm mx-2 text-center text-dark'
+                        style={{ width: '30px', height: '30px' }}
+                        readOnly
+                      />
+                      <span
+                        className={
+                          game.count >= 5 ? 'disabled text-black-50' : ''
+                        }
+                        onClick={(e) => {
+                          if (game.count >= 5) return;
+                          increaseCount(e, game.id, 1);
+                        }}
+                      >
+                        <i className='bi bi-plus-square fs-4'></i>
+                      </span>
+                    </div>
+                    <div className='fw-bold col-md-1 d-flex justify-content-center align-items-center'>
+                      ${(game.price * game.count).toFixed(2)}
+                    </div>
 
-                          <span className='ms-2 text-center row g-0 justify-content-center  flex-column fw-bold'>
-                            {game.price}$
-                          </span>
-
-                          <button
-                            onClick={(e) => removeItem(e, game.id)}
-                            className='btn p-0 ms-5 btn-default '
-                          >
-                            <i className='bi bi-x fs-4 text-danger'></i>
-                          </button>
-                        </div>
-                      </div>
+                    <div className='col-md-1 d-flex justify-content-center align-items-center'>
+                      <button
+                        onClick={(e) => removeItem(e, game.id)}
+                        className='btn p-0 btn-default m-0'
+                      >
+                        <i className='bi bi-x fs-4 text-danger'></i>
+                      </button>
                     </div>
                   </div>
                 </div>
               ))}
               <p className='fw-bold text-end'>
-                Итоговая стоимость: {fullPrice}$
+                Итоговая стоимость: ${fullPrice.toFixed(2)}
               </p>
 
               <button className='btn btn-primary'>Подтвердить покупку</button>

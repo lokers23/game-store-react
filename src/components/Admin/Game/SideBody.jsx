@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { gameService } from '../../../services/GameService';
+import { useCart } from '../../../contexts/CartContext';
 
 function SideBody({ game }) {
+  const { addItem } = useCart();
   const [textAlert, setTextAlert] = useState('');
   const [countKeys, setCountKeys] = useState(0);
 
@@ -37,9 +39,11 @@ function SideBody({ game }) {
         storedGames[gameIndex].count++;
       } else {
         storedGames.push(newGame);
+        addItem();
       }
     } else {
       storedGames = [newGame];
+      addItem();
     }
 
     localStorage.setItem('cartGames', JSON.stringify(storedGames));

@@ -15,7 +15,7 @@ export default function EditKey() {
 
   const [value, setValue] = useState('');
   const [gameId, setGameId] = useState(0);
-  const [activationId, setActivationId] = useState(0);
+  //const [activationId, setActivationId] = useState(0);
   const [isUsed, setIsUsed] = useState(false);
 
   const fetchData = () => {
@@ -33,7 +33,7 @@ export default function EditKey() {
       .getKeyById(id)
       .then((response) => {
         const data = response.data.data;
-        setActivationId(data.activation.id);
+        //setActivationId(data.activation.id);
         setValue(data.value);
         if (data.game) {
           setGameId(data.game.id);
@@ -54,7 +54,7 @@ export default function EditKey() {
       .saveKey(id, {
         value: value,
         gameId: gameId,
-        activationId: activationId,
+        //activationId: activationId,
         isUsed: isUsed
       })
       .then((response) => {
@@ -64,20 +64,26 @@ export default function EditKey() {
   }
 
   return (
-    <div>
-      <h1>Редактировать ключ</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
+    <div className='container-fluid'>
+      <h2 className='mb-2'>Редактировать ключ</h2>
+      <form
+        className='d-flex flex-column'
+        onSubmit={handleSubmit}
+        style={{ maxWidth: '500px' }}
+      >
+        <label className='form-label'>
           Значение:
           <input
+            className='form-control'
             type='text'
             value={value}
             onChange={(event) => setValue(event.target.value)}
           />
         </label>
-        <label>
+        <label className='form-label'>
           Игра:
           <select
+            className='form-select'
             size='1'
             value={gameId}
             onChange={(event) => setGameId(Number(event.target.value))}
@@ -92,9 +98,10 @@ export default function EditKey() {
           </select>
         </label>
 
-        <label>
+        {/* <label className='form-label'>
           Активация:
           <select
+            className='form-select'
             size='1'
             value={activationId}
             onChange={(event) => setActivationId(Number(event.target.value))}
@@ -113,11 +120,12 @@ export default function EditKey() {
                 </option>
               ))}
           </select>
-        </label>
+        </label> */}
 
-        <label>
-          Использованный:
+        <label className='form-check form-check-label'>
+          Использованный?
           <input
+            className='form-check-input'
             type='checkbox'
             checked={isUsed}
             value={isUsed}
@@ -125,10 +133,13 @@ export default function EditKey() {
           />
         </label>
 
-        <button type='submit'>Отправить</button>
+        <button className='btn btn-primary btn-sm mb-2' type='submit'>
+          Отправить
+        </button>
+        <Link className='btn btn-warning btn-sm' to='..'>
+          Назад
+        </Link>
       </form>
-
-      <Link to='..'>Назад</Link>
     </div>
   );
 }

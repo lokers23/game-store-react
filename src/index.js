@@ -25,42 +25,45 @@ import axios from 'axios';
 import { LoginProvider, useLogin } from './contexts/LoginContext';
 import PersonalPage from './components/Profile/PersonalPage';
 import BalancePage from './components/Profile/BalancePage';
+import { CartProvider } from './contexts/CartContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-axios.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response.status === 401) {
-      window.location.href = '/login';
-    }
-    return Promise.reject(error);
-  }
-);
+// axios.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response.status === 401) {
+//       window.location.href = '/login';
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 root.render(
   <LoginProvider>
-    <Router>
-      <Navigation />
-      <Routes>
-        <Route path='/' element={<MainPage />} />
-        <Route path='/game/:id' element={<GamePage />} />
-        <Route path='/login' element={<Login />} />
-        <Route>
-          <Route path='/admin' element={<Admin />}>
-            {AdminRoutes()}
+    <CartProvider>
+      <Router>
+        <Navigation />
+        <Routes>
+          <Route path='/' element={<MainPage />} />
+          <Route path='/game/:id' element={<GamePage />} />
+          <Route path='/login' element={<Login />} />
+          <Route>
+            <Route path='/admin' element={<Admin />}>
+              {AdminRoutes()}
+            </Route>
           </Route>
-        </Route>
 
-        <Route path='/profile' element={<Profile />}>
-          <Route path='' element={<PersonalPage />} />
-          <Route path='purchases' element={<Purchases />} />
-          <Route path='balance' element={<BalancePage />} />
-        </Route>
-        <Route path='/cart' element={<Cart />} />
+          <Route path='/profile' element={<Profile />}>
+            <Route path='' element={<PersonalPage />} />
+            <Route path='purchases' element={<Purchases />} />
+            <Route path='balance' element={<BalancePage />} />
+          </Route>
+          <Route path='/cart' element={<Cart />} />
 
-        <Route path='*' />
-      </Routes>
-    </Router>
+          <Route path='*' />
+        </Routes>
+      </Router>
+    </CartProvider>
   </LoginProvider>
 );

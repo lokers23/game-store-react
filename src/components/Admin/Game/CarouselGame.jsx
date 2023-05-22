@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { gameService } from '../../../services/GameService';
 import { imageService } from '../../../services/ImageService';
+import { useLogin } from '../../../contexts/LoginContext';
 function CarouselGame({ game }) {
+  const { role } = useLogin();
   const formData = new FormData();
 
   const [image, setImage] = useState(null);
@@ -114,16 +116,18 @@ function CarouselGame({ game }) {
           <span className='visually-hidden'>Next</span>
         </button>
       </div>
-      <form onSubmit={handleSubmit}>
-        <button type='submit' className='btn btn-primary btn-sm mb-1 mt-1'>
-          Добавить изображение
-        </button>
-        <input
-          type='file'
-          className='form-control form-control-sm'
-          onChange={handleImageChange}
-        />
-      </form>
+      {role !== 'User' && (
+        <form onSubmit={handleSubmit}>
+          <button type='submit' className='btn btn-primary btn-sm mb-1 mt-1'>
+            Добавить изображение
+          </button>
+          <input
+            type='file'
+            className='form-control form-control-sm'
+            onChange={handleImageChange}
+          />
+        </form>
+      )}
     </div>
   );
 }

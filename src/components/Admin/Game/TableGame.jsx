@@ -34,8 +34,8 @@ export default function TableGame() {
 
   return (
     <div className='container-fluid'>
-      <h1>Игры</h1>
-      <Link className='btn btn-primary mb-2' to='create'>
+      <h2>Игры</h2>
+      <Link className='btn btn-primary btn-sm mb-2' to='create'>
         Добавить новую запись
       </Link>
       <table className='table table-bordered'>
@@ -80,12 +80,15 @@ export default function TableGame() {
                 <td>{game.activation.name}</td>
                 <td>
                   <button
-                    className='btn btn-danger me-1'
+                    className='btn btn-danger btn-sm me-1 mb-1'
                     onClick={() => deleteGame(game.id)}
                   >
                     <i class='bi-trash-fill' />
                   </button>
-                  <Link className='btn btn-warning' to={`edit/${game.id}`}>
+                  <Link
+                    className='btn btn-warning btn-sm'
+                    to={`edit/${game.id}`}
+                  >
                     <i class='bi-pencil-square' />
                   </Link>
                 </td>

@@ -33,7 +33,7 @@ export default function TableMinSpecification() {
 
   return (
     <div className='container-fluid'>
-      <h1 className='mb-2'>Минимальная спецификация</h1>
+      <h2 className='mb-2'>Минимальная спецификация</h2>
       <Link className='btn btn-primary btn-sm mb-2' to='create'>
         Добавить новую запись
       </Link>
@@ -63,12 +63,15 @@ export default function TableMinSpecification() {
                 <td>{minSpec.platform.name}</td>
                 <td className='d-flex justify-content-center'>
                   <button
-                    className='btn btn-danger me-1'
+                    className='btn btn-danger btn-sm me-1'
                     onClick={() => deleteMinSpecification(minSpec.id)}
                   >
                     <i class='bi-trash-fill' />
                   </button>
-                  <Link className='btn btn-warning' to={`edit/${minSpec.id}`}>
+                  <Link
+                    className='btn btn-warning btn-sm'
+                    to={`edit/${minSpec.id}`}
+                  >
                     <i class='bi-pencil-square' />
                   </Link>
                 </td>

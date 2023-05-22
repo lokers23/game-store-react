@@ -46,16 +46,15 @@ function Center() {
   }, [navigate]);
 
   return (
-    <div className='p-2 fs-6' style={{ maxWidth: '720px' }}>
-      {/* <div className='d-flex flex-row justify-content-between align-items-center mb-3'>
-        <div className='shadow border rounded p-2 px-5'>Каталог</div>
+    <div className='' style={{ maxWidth: '720px' }}>
+      <div className='d-flex flex-row  mb-3'>
+        <div className='shadow border rounded p-2 px-5 me-3'>Каталог</div>
         <div className='shadow border rounded p-2 px-5'>Новые</div>
-        <div className='shadow border rounded p-2 px-5'>Популярные</div>
-        <div className='shadow border rounded p-2 px-5'>Ожидаемые</div>
-      </div> */}
+      </div>
       {games.length > 0 &&
         games.map((game) => (
           <Link
+            key={game.id}
             to={`game/${game.id}`}
             className=''
             style={{
@@ -63,7 +62,7 @@ function Center() {
               color: 'black'
             }}
           >
-            <div className='card mb-3 shadow bg-white rounded-2' key={game.id}>
+            <div className='card mb-3 shadow bg-white rounded-2'>
               <div className='row g-0'>
                 <div
                   className='col-lg-5 my-auto'

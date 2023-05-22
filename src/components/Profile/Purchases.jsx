@@ -7,7 +7,7 @@ function Purchases() {
 
   useEffect(() => {
     orderService
-      .getOrders()
+      .getOrdersByUser()
       .then((response) => setPurchases(response.data.data))
       .catch();
   }, []);

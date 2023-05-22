@@ -37,6 +37,7 @@ import {
 } from './components/Admin/MinSpecification/MinSpecification';
 
 import { TableKey, CreateKey, EditKey } from './components/Admin/Key/Key';
+import TableOrder from './components/Admin/Order/TableOrder';
 
 export default function AdminRoutes() {
   return (
@@ -81,6 +82,9 @@ export default function AdminRoutes() {
         <Route path='' element={<TableKey />} />
         <Route path='create' element={<CreateKey />} />
         <Route path='edit/:id' element={<EditKey />} />
+      </Route>
+      <Route path='orders'>
+        <Route path='' element={<TableOrder />} />
       </Route>
     </>
   );

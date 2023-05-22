@@ -17,7 +17,7 @@ function Profile() {
                 className='text-dark'
                 style={{ textDecoration: 'none' }}
               >
-                Личный кабинет
+                <i className='bi-people-fill'></i> Личный кабинет
               </Link>
             </li>
             <li className='mb-3'>
@@ -26,10 +26,12 @@ function Profile() {
                 className='text-dark'
                 style={{ textDecoration: 'none' }}
               >
-                Мои покупки
+                <i className='bi-archive-fill'></i> Мои покупки
               </Link>
             </li>
-            <li className='mb-3'>Обратная связь</li>
+            <li className='mb-3'>
+              <i className='bi-envelope-fill'></i> Обратная связь
+            </li>
           </ul>
         </div>
         <div className='col p-0'>

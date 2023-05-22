@@ -53,12 +53,15 @@ export default function TablePlatform() {
                 <td>{platform.name}</td>
                 <td>
                   <button
-                    className='btn btn-danger me-1'
+                    className='btn btn-danger btn-sm me-1'
                     onClick={() => deletePlatform(platform.id)}
                   >
                     <i class='bi-trash-fill' />
                   </button>
-                  <Link className='btn btn-warning' to={`edit/${platform.id}`}>
+                  <Link
+                    className='btn btn-warning btn-sm'
+                    to={`edit/${platform.id}`}
+                  >
                     <i class='bi-pencil-square' />
                   </Link>
                 </td>

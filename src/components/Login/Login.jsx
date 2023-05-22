@@ -44,6 +44,7 @@ function Login() {
         <h3 className='text-center mb-5'>Вход в аккаунт</h3>
         <form onSubmit={onSubmitHandler}>
           <InlineError field='singin' errors={errors} />
+          <InlineError field='login' errors={errors} />
           <div className='mb-4'>
             <input
               className='form-control fs-5 mb-2'
@@ -51,8 +52,9 @@ function Login() {
               name='login'
               onChange={(e) => onChangeHandler(setLogin, e)}
             />
-            <InlineError field='login' errors={errors} />
           </div>
+          <InlineError field='password' errors={errors} />
+
           <div className='mb-4'>
             <input
               className='form-control fs-5 mb-2'
@@ -60,7 +62,6 @@ function Login() {
               name='password'
               onChange={(e) => onChangeHandler(setPassword, e)}
             />
-            <InlineError field='password' errors={errors} />
           </div>
           <button className='btn btn-primary fs-5 w-100 mb-2' type='submit'>
             Вход

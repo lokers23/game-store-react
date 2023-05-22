@@ -36,7 +36,7 @@ export default function TableGenre() {
       className='container-fluid '
       //style={{ maxWidth: '1000px' }}
     >
-      <h1 className='mb-2'>Жанры</h1>
+      <h2 className='mb-2'>Жанры</h2>
       <Link to='create' className='btn btn-primary btn-sm mb-2'>
         Добавить новую запись
       </Link>
