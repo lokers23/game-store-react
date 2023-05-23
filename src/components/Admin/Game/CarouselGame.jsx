@@ -71,6 +71,17 @@ function CarouselGame({ game }) {
             ></img>
           </div>
 
+          <iframe
+            className='carousel-item'
+            title={game.name}
+            width='1280'
+            height='720'
+            src={game.videoUrl}
+            frameBorder='0'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            allowFullScreen
+          />
+
           {images.length > 0 &&
             images.map((image) => (
               <div className='carousel-item' key={image.id}>

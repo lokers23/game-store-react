@@ -18,9 +18,7 @@ function Cart() {
     localStorage.setItem('cartGames', JSON.stringify(games));
     if (isReload) {
       updateDataGames(games);
-      setIsReload(false);
     }
-
     setFullPrice(
       games.reduce((prev, curr) => prev + curr.price * curr.count, 0)
     );
@@ -41,6 +39,7 @@ function Cart() {
       )
     )
       .then((newGames) => {
+        setIsReload(false);
         setGames(newGames);
       })
       .catch((error) => {

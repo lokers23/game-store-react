@@ -103,7 +103,7 @@ export default function CreateGame() {
     formData.append('name', name);
     formData.append('developerId', developerId);
     formData.append('publisherId', publisherId);
-    formData.append('activationd', activationId);
+    formData.append('activationId', activationId);
     formData.append('releaseOn', releaseOn);
     formData.append('description', description);
     const formatPrice = price.toString().replace('.', ',');

@@ -26,6 +26,8 @@ import { LoginProvider, useLogin } from './contexts/LoginContext';
 import PersonalPage from './components/Profile/PersonalPage';
 import BalancePage from './components/Profile/BalancePage';
 import { CartProvider } from './contexts/CartContext';
+import Footer from './components/MainPage/Footer';
+import CatalogPage from './components/Catalog/CatalogPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -46,6 +48,7 @@ root.render(
         <Navigation />
         <Routes>
           <Route path='/' element={<MainPage />} />
+          <Route path='/catalog' element={<CatalogPage />} />
           <Route path='/game/:id' element={<GamePage />} />
           <Route path='/login' element={<Login />} />
           <Route>
@@ -63,6 +66,7 @@ root.render(
 
           <Route path='*' />
         </Routes>
+        <Footer />
       </Router>
     </CartProvider>
   </LoginProvider>

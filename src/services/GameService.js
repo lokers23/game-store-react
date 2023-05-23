@@ -11,8 +11,14 @@ export class gameService {
     };
   }
 
-  static getGames() {
-    return axios.get(URL.GAME); //, this.headers);
+  static getGames(sort, filter) {
+    if (sort) {
+      return axios.get(URL.GAME + `?${sort}&${filter}`);
+    } else if (filter) {
+      return axios.get(URL.GAME + `?${filter}`);
+    }
+
+    return axios.get(URL.GAME);
   }
   static deleteGame(id) {
     return axios.delete(URL.GAME + `/${id}`);

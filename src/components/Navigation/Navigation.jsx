@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLogin } from '../../contexts/LoginContext';
 import { LOCAL_STORAGE } from '../../Constants';
 import { useCart } from '../../contexts/CartContext';
-import logo from '../../game_over.svg';
+import logo from '../../logo3.png';
 
 function Navigation() {
   const { countGames } = useCart();
@@ -17,10 +17,13 @@ function Navigation() {
   }
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-light bg-light mb-3 shadow-sm '>
+    <nav
+      className='navbar navbar-expand-lg navbar-light  mb-3 shadow-sm '
+      style={{ backgroundColor: '#f7f7f7' }}
+    >
       <div className='container-fluid'>
-        <a class='navbar-brand' href='/'>
-          <img src={logo} alt='logo' height='60' />
+        <a className='navbar-brand' href='/'>
+          <img src={`${logo}`} alt='logo' height='50' />
         </a>
         <button
           className='navbar-toggler'
@@ -39,13 +42,21 @@ function Navigation() {
           id='navbarSupportedContent'
         >
           <ul className='navbar-nav  mb-2 mb-lg-0 container-fluid'>
-            <li className='nav-item'>
-              <Link to='/' className='nav-link text-dark'>
+            <li className='nav-item me-2 '>
+              <Link
+                to='/'
+                className='nav-link text-dark'
+                style={{ fontSize: '18px' }}
+              >
                 Главная
               </Link>
             </li>
             <li className='nav-item  me-auto'>
-              <Link to='/catalog' className='nav-link text-dark'>
+              <Link
+                to='/catalog'
+                className='nav-link text-dark'
+                style={{ fontSize: '18px' }}
+              >
                 Каталог
               </Link>
             </li>
