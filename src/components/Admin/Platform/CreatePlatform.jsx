@@ -3,9 +3,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { platformService } from '../../../services/PlatformService';
+import { InlineError } from '../../InlineError';
 
 export default function CreatePlatform() {
   const [platformName, setPlatformName] = useState('');
+  const [errors, setErrors] = useState([]);
+
   const navigate = useNavigate();
 
   function handleSubmit(event) {
@@ -18,7 +21,7 @@ export default function CreatePlatform() {
       .then((response) => {
         navigate('..');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setErrors(error.response.data.errors));
   }
 
   return (
@@ -29,6 +32,8 @@ export default function CreatePlatform() {
         onSubmit={handleSubmit}
         style={{ maxWidth: '500px' }}
       >
+        <InlineError field='Platform' errors={errors} />
+        <InlineError field='name' errors={errors} />
         <label className='form-label'>
           Название:
           <input

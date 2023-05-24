@@ -4,21 +4,31 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { developerService } from '../../../services/DeveloperService';
 import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
+import Pagination from '../../Pagination/Pagination';
 
 export default function TableDeveloper() {
   const navigate = useNavigate();
   const [developers, setDevelopers] = useState([]);
 
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = useState(false);
+
   const fetchData = () => {
     developerService
-      .getDevelopers()
-      .then((response) => setDevelopers(response.data.data))
+      .getDevelopers(page, pageSize)
+      .then((response) => {
+        setDevelopers(response.data.data);
+        setHasNextPage(response.data.hasNextPage);
+        setHasPreviousPage(response.data.hasPreviousPage);
+      })
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     fetchData();
-  }, [navigate]);
+  }, [page]);
 
   function deleteDeveloper(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {
@@ -30,6 +40,10 @@ export default function TableDeveloper() {
         .catch((error) => console.log(error.data.message));
     }
   }
+
+  const handlePageChange = (value) => {
+    setPage(value);
+  };
 
   return (
     <div className='container-fluid'>
@@ -69,6 +83,12 @@ export default function TableDeveloper() {
             ))}
         </tbody>
       </table>
+      <Pagination
+        page={page}
+        onChange={handlePageChange}
+        hasNextPage={hasNextPage}
+        hasPreviousPage={hasPreviousPage}
+      />
     </div>
   );
 }

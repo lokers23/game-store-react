@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';
 import { keyService } from '../../../services/KeyService';
 import { activationService } from '../../../services/ActivationService';
 import { gameService } from '../../../services/GameService';
+import { InlineError } from '../../InlineError';
 
 export default function EditKey() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [errors, setErrors] = useState([]);
 
   const [activations, setActivations] = useState([]);
   const [games, setGames] = useState([]);
@@ -60,7 +62,7 @@ export default function EditKey() {
       .then((response) => {
         navigate('..');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setErrors(error.response.data.errors));
   }
 
   return (
@@ -71,6 +73,8 @@ export default function EditKey() {
         onSubmit={handleSubmit}
         style={{ maxWidth: '500px' }}
       >
+        <InlineError field='Key' errors={errors} />
+        <InlineError field='value' errors={errors} />
         <label className='form-label'>
           Значение:
           <input
@@ -80,6 +84,8 @@ export default function EditKey() {
             onChange={(event) => setValue(event.target.value)}
           />
         </label>
+        <InlineError field='gameId' errors={errors} />
+
         <label className='form-label'>
           Игра:
           <select
@@ -121,7 +127,7 @@ export default function EditKey() {
               ))}
           </select>
         </label> */}
-
+        <InlineError field='isUsed' errors={errors} />
         <label className='form-check form-check-label'>
           Использованный?
           <input

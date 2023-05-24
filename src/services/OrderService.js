@@ -16,12 +16,34 @@ export class orderService {
     return headers;
   }
 
-  static getOrdersByUser() {
-    return axios.get(URL.ORDER + '/user', this.getHeaders());
+  static getOrdersByUser(page, pageSize) {
+    let url = URL.ORDER + '/user';
+    const params = [];
+    if (page && pageSize) {
+      params.push(`page=${page}`);
+      params.push(`pageSize=${pageSize}`);
+    }
+
+    if (params.length > 0) {
+      url += `?${params.join('&')}`;
+    }
+
+    return axios.get(url, this.getHeaders());
   }
 
-  static getOrders() {
-    return axios.get(URL.ORDER, this.getHeaders());
+  static getOrders(page, pageSize) {
+    let url = URL.ORDER;
+    const params = [];
+    if (page && pageSize) {
+      params.push(`page=${page}`);
+      params.push(`pageSize=${pageSize}`);
+    }
+
+    if (params.length > 0) {
+      url += `?${params.join('&')}`;
+    }
+
+    return axios.get(url, this.getHeaders());
   }
 
   static getOrderById(id) {

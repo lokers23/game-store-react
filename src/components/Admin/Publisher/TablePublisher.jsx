@@ -3,15 +3,25 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { publisherService } from '../../../services/PublisherService';
 import { Link } from 'react-router-dom';
+import Pagination from '../../Pagination/Pagination';
 
 export default function TablePublisher() {
   const navigate = useNavigate();
   const [publishers, setPublishers] = useState([]);
 
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = useState(false);
+
   const fetchData = () => {
     publisherService
-      .getPublishers()
-      .then((response) => setPublishers(response.data.data))
+      .getPublishers(page, pageSize)
+      .then((response) => {
+        setPublishers(response.data.data);
+        setHasNextPage(response.data.hasNextPage);
+        setHasPreviousPage(response.data.hasPreviousPage);
+      })
       .catch((error) => console.log(error));
   };
 
@@ -26,9 +36,13 @@ export default function TablePublisher() {
     }
   }
 
+  const handlePageChange = (value) => {
+    setPage(value);
+  };
+
   useEffect(() => {
     fetchData();
-  }, [navigate]);
+  }, [page]);
 
   return (
     <div className='container-fluid'>
@@ -68,6 +82,12 @@ export default function TablePublisher() {
             ))}
         </tbody>
       </table>
+      <Pagination
+        page={page}
+        onChange={handlePageChange}
+        hasNextPage={hasNextPage}
+        hasPreviousPage={hasPreviousPage}
+      />
     </div>
   );
 }

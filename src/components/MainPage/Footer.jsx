@@ -2,7 +2,7 @@ import logo from '../../logo3.png';
 function Footer() {
   return (
     <footer
-      class='text-center text-lg-start mt-5'
+      class='mt-auto position-sticky top-100 text-center text-lg-start mt-5'
       style={{ backgroundColor: '#ebebeb' }}
     >
       <div class='container p-4'>

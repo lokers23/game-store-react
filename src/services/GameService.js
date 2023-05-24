@@ -11,15 +11,38 @@ export class gameService {
     };
   }
 
-  static getGames(sort, filter) {
-    if (sort) {
-      return axios.get(URL.GAME + `?${sort}&${filter}`);
-    } else if (filter) {
-      return axios.get(URL.GAME + `?${filter}`);
+  // static getGames(sort, filter) {
+
+  //   if (sort) {
+  //     return axios.get(URL.GAME + `?${sort}&${filter}`);
+  //   } else if (filter) {
+  //     return axios.get(URL.GAME + `?${filter}`);
+  //   }
+
+  //   return axios.get(URL.GAME);
+  // }
+  static getGames(page, pageSize, sort, filters) {
+    let url = URL.GAME;
+    const params = [];
+    if (page && pageSize) {
+      params.push(`page=${page}`);
+      params.push(`pageSize=${pageSize}`);
     }
 
-    return axios.get(URL.GAME);
+    if (sort) {
+      params.push(`sort=${sort}`);
+    }
+
+    if (filters) {
+      params.push(`${filters}`);
+    }
+
+    if (params.length > 0) {
+      url += `?${params.join('&')}`;
+    }
+    return axios.get(url);
   }
+
   static deleteGame(id) {
     return axios.delete(URL.GAME + `/${id}`);
   }

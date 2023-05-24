@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { publisherService } from '../../../services/PublisherService';
+import { InlineError } from '../../InlineError';
 
 export default function EditPublisher() {
   const { id } = useParams();
   const [publisherName, setPublisherName] = useState('');
+  const [errors, setErrors] = useState([]);
+
   const navigate = useNavigate();
 
   const fetchData = () => {
@@ -28,7 +31,7 @@ export default function EditPublisher() {
       .then((response) => {
         navigate('..');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setErrors(error.response.data.errors));
   }
 
   return (
@@ -39,6 +42,8 @@ export default function EditPublisher() {
         onSubmit={handleSubmit}
         style={{ maxWidth: '500px' }}
       >
+        <InlineError field='Publisher' errors={errors} />
+        <InlineError field='name' errors={errors} />
         <label className='form-label'>
           Название:
           <input

@@ -11,8 +11,11 @@ import { platformService } from '../../../services/PlatformService';
 import { activationService } from '../../../services/ActivationService';
 import '../../../styles/Crud.css';
 import '../../../styles/min-spec.css';
+import { InlineError } from '../../InlineError';
 
 export default function CreateGame() {
+  const [errors, setErrors] = useState([]);
+
   const formData = new FormData();
   const navigate = useNavigate();
   const [genres, setGenres] = useState([]);
@@ -127,7 +130,7 @@ export default function CreateGame() {
       .then((response) => {
         navigate('..');
       })
-      .catch((error) => console.log(error.response.data.errors));
+      .catch((error) => setErrors(error.response.data.errors));
   }
 
   return (
@@ -138,7 +141,10 @@ export default function CreateGame() {
         style={{ maxWidth: '1280px' }}
       >
         <h1>Добавить новую игру</h1>
+        <InlineError field='Game' errors={errors} />
+
         <label htmlFor='name' className='form-label col-md-4'>
+          <InlineError field='name' errors={errors} />
           Название
           <input
             className='form-control'
@@ -146,20 +152,23 @@ export default function CreateGame() {
             name='name'
             value={name}
             onChange={(event) => setName(event.target.value)}
-            required
           />
         </label>
 
         <label htmlFor='developerId' className='form-label col-md-4'>
+          <InlineError field='developerId' errors={errors} />
           Разработчик
           <select
             className='form-select'
             size='1'
             name='developerId'
             onChange={(event) => setDeveloperId(Number(event.target.value))}
-            required
           >
-            {!developerId && <option value=''>Выберите разработчика</option>}
+            {!developerId && (
+              <option key={0} value=''>
+                Выберите разработчика
+              </option>
+            )}
 
             {developers.length > 0 &&
               developers.map((developer) => (
@@ -175,15 +184,19 @@ export default function CreateGame() {
         </label>
 
         <label htmlFor='publisherId' className='form-label col-md-4'>
+          <InlineError field='publisherId' errors={errors} />
           Издатель
           <select
             className='form-select'
             size='1'
             name='publisherId'
             onChange={(event) => setPublisherId(Number(event.target.value))}
-            required
           >
-            {!publisherId && <option value=''>Выберите издателя</option>}
+            {!publisherId && (
+              <option key={0} value=''>
+                Выберите издателя
+              </option>
+            )}
             {publishers.length > 0 &&
               publishers.map((publisher) => (
                 <option key={publisher.id} value={publisher.id}>
@@ -194,17 +207,18 @@ export default function CreateGame() {
         </label>
 
         <label htmlFor='description ' className='form-label col-md-6'>
+          <InlineError field='description' errors={errors} />
           Описание
           <textarea
             className='form-control'
             name='description'
             value={description}
             onChange={(event) => setDescription(event.target.value)}
-            required
           />
         </label>
 
         <label className='form-label col-md-6'>
+          <InlineError field='activationId' errors={errors} />
           Активация:
           <select
             className='form-select'
@@ -212,7 +226,9 @@ export default function CreateGame() {
             onChange={(event) => setActivationId(Number(event.target.value))}
           >
             {!activationId && (
-              <option value=''>Выберите площадку для активации</option>
+              <option key={0} value=''>
+                Выберите площадку для активации
+              </option>
             )}
             {activations.length > 0 &&
               activations.map((activation) => (
@@ -228,6 +244,7 @@ export default function CreateGame() {
         </label>
 
         <label htmlFor='releaseOn ' className='form-label col-md-4'>
+          <InlineError field='releaseOn' errors={errors} />
           Дата выпуска
           <input
             className='form-control'
@@ -239,6 +256,7 @@ export default function CreateGame() {
         </label>
 
         <label htmlFor='price' className='form-label col-md-4'>
+          <InlineError field='price' errors={errors} />
           Цена
           <input
             className='form-control'
@@ -247,11 +265,11 @@ export default function CreateGame() {
             value={price}
             onChange={(event) => setPrice(event.target.value)}
             name='price'
-            required
           />
         </label>
 
         <label htmlFor='videoUrl ' className='form-label col-md-4'>
+          <InlineError field='videoUrl' errors={errors} />
           Видео
           <input
             className='form-control'
@@ -259,31 +277,26 @@ export default function CreateGame() {
             name='videoUrl'
             value={videoUrl}
             onChange={(event) => setVideoUrl(event.target.value)}
-            required
           />
         </label>
 
         <label htmlFor='avatar' className='form-label'>
+          <InlineError field='avatar' errors={errors} />
           Изображение аватара
           <input
             className='form-control'
             type='file'
             onChange={handleImageChange}
-            required
           />
         </label>
-
+        <InlineError field='genreIds' errors={errors} />
         <fieldset className='border rounded mb-2 p-2'>
           <legend className='fw-bold'>Жанры</legend>
           <div className='d-flex'>
             {genres.length > 0 &&
               genres.map((genre) => (
-                <div class='form-check me-4'>
-                  <label
-                    htmlFor='genreIds'
-                    className='form-check-label'
-                    key={genre.id}
-                  />
+                <div class='form-check me-4' key={genre.id}>
+                  <label htmlFor='genreIds' className='form-check-label' />
                   {genre.name}
                   <input
                     className='form-check-input'
@@ -296,7 +309,7 @@ export default function CreateGame() {
               ))}
           </div>
         </fieldset>
-
+        <InlineError field='minimumSpecificationIds' errors={errors} />
         <div className='border mb-2 rounded'>
           <fieldset>
             <legend className='fw-bold p-2 border-bottom '>

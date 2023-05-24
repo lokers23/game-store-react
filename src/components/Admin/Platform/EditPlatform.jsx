@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { platformService } from '../../../services/PlatformService';
+import { InlineError } from '../../InlineError';
 
 export default function EditPlatform() {
   const { id } = useParams();
   const [platformName, setPlatformName] = useState('');
+  const [errors, setErrors] = useState([]);
+
   const navigate = useNavigate();
 
   const fetchData = () => {
@@ -28,7 +31,7 @@ export default function EditPlatform() {
       .then((response) => {
         navigate('..');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setErrors(error.response.data.errors));
   }
 
   return (
@@ -39,6 +42,8 @@ export default function EditPlatform() {
         onSubmit={handleSubmit}
         style={{ maxWidth: '500px' }}
       >
+        <InlineError field='Platform' errors={errors} />
+        <InlineError field='name' errors={errors} />
         <label className='form-label'>
           Название:
           <input

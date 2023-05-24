@@ -11,8 +11,19 @@ export class publisherService {
     };
   }
 
-  static getPublishers() {
-    return axios.get(URL.PUBLISHER);
+  static getPublishers(page, pageSize) {
+    let url = URL.PUBLISHER;
+    const params = [];
+    if (page && pageSize) {
+      params.push(`page=${page}`);
+      params.push(`pageSize=${pageSize}`);
+    }
+
+    if (params.length > 0) {
+      url += `?${params.join('&')}`;
+    }
+
+    return axios.get(url);
   }
 
   static getPublisherById(id) {

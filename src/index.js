@@ -49,6 +49,18 @@ root.render(
         <Routes>
           <Route path='/' element={<MainPage />} />
           <Route path='/catalog' element={<CatalogPage />} />
+          <Route
+            path='/catalog/activation/:activationFilterId'
+            element={<CatalogPage />}
+          />
+          <Route
+            path='/catalog/genre/:genreFilterId'
+            element={<CatalogPage />}
+          />
+          <Route
+            path='/catalog/search/:searchFilter'
+            element={<CatalogPage />}
+          />
           <Route path='/game/:id' element={<GamePage />} />
           <Route path='/login' element={<Login />} />
           <Route>

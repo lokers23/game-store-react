@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { genreService } from '../../../services/GenreService';
+import { InlineError } from '../../InlineError';
 
 export default function EditGenre() {
   const { id } = useParams();
   const [genreName, setGenreName] = useState('');
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
   const fetchData = () => {
     genreService
       .getGenreById(id)
       .then((response) => setGenreName(response.data.data.name))
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.message));
   };
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function EditGenre() {
       .then((response) => {
         navigate('..');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setErrors(error.response.data.errors));
   }
 
   return (
@@ -39,6 +41,8 @@ export default function EditGenre() {
         onSubmit={handleSubmit}
         style={{ maxWidth: '500px' }}
       >
+        <InlineError field='Genre' errors={errors} />
+        <InlineError field='name' errors={errors} />
         <label className='form-label'>
           Название:
           <input

@@ -106,6 +106,7 @@ function Cart() {
           <div className='mb-3'>
             <p className='h2'>Оформление заказа</p>
           </div>
+          <InlineError field='balance' errors={errors} />
           <div>
             <form onSubmit={handleSubmit}>
               <InlineError field='Game' errors={errors} />

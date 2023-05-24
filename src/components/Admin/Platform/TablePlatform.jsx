@@ -4,21 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import { platformService } from '../../../services/PlatformService';
 import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
+import Pagination from '../../Pagination/Pagination';
 
 export default function TablePlatform() {
   const navigate = useNavigate();
   const [platforms, setPlatforms] = useState([]);
 
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = useState(false);
+
   const fetchData = () => {
     platformService
-      .getPlatforms()
-      .then((response) => setPlatforms(response.data.data))
+      .getPlatforms(page, pageSize)
+      .then((response) => {
+        setPlatforms(response.data.data);
+        setHasNextPage(response.data.hasNextPage);
+        setHasPreviousPage(response.data.hasPreviousPage);
+      })
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     fetchData();
-  }, [navigate]);
+  }, [page]);
 
   function deletePlatform(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {
@@ -30,6 +40,10 @@ export default function TablePlatform() {
         .catch((error) => console.log(error.data.message));
     }
   }
+
+  const handlePageChange = (value) => {
+    setPage(value);
+  };
 
   return (
     <div className='container-fluid'>
@@ -69,6 +83,12 @@ export default function TablePlatform() {
             ))}
         </tbody>
       </table>
+      <Pagination
+        page={page}
+        onChange={handlePageChange}
+        hasNextPage={hasNextPage}
+        hasPreviousPage={hasPreviousPage}
+      />
     </div>
   );
 }

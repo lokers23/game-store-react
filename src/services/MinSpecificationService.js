@@ -11,9 +11,36 @@ export class minSpecificationService {
     };
   }
 
-  static getMinSpecs(platformName) {
-    return axios.get(URL.MINSPEC);
-    //return axios.get(`${URL.MINSPEC}?platformName=${platformName}`);
+  // static getMinSpecs(platformName) {
+  //   let url = URL.MINSPEC;
+  //   const params = [];
+  //   if (page && pageSize) {
+  //     params.push(`page=${page}`);
+  //     params.push(`pageSize=${pageSize}`);
+  //   }
+
+  //   if (params.length > 0) {
+  //     url += `?${params.join('&')}`;
+  //   }
+
+  //   return axios.get(url);
+  //   //return axios.get(`${URL.MINSPEC}?platformName=${platformName}`);
+  // }
+  //
+
+  static getMinSpecs(page, pageSize) {
+    let url = URL.MINSPEC;
+    const params = [];
+    if (page && pageSize) {
+      params.push(`page=${page}`);
+      params.push(`pageSize=${pageSize}`);
+    }
+
+    if (params.length > 0) {
+      url += `?${params.join('&')}`;
+    }
+
+    return axios.get(url);
   }
 
   static getMinSpecById(id) {

@@ -29,9 +29,9 @@ function Profile() {
                 <i className='bi-archive-fill'></i> Мои покупки
               </Link>
             </li>
-            <li className='mb-3'>
+            {/* <li className='mb-3'>
               <i className='bi-envelope-fill'></i> Обратная связь
-            </li>
+            </li> */}
           </ul>
         </div>
         <div className='col p-0'>

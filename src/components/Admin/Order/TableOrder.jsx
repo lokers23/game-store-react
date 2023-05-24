@@ -5,21 +5,31 @@ import { keyService } from '../../../services/KeyService';
 import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
 import { orderService } from '../../../services/OrderService';
+import Pagination from '../../Pagination/Pagination';
 
 export default function TableOrder() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
 
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = useState(false);
+
   const fetchData = () => {
     orderService
-      .getOrders()
-      .then((response) => setOrders(response.data.data))
+      .getOrders(page, pageSize)
+      .then((response) => {
+        setOrders(response.data.data);
+        setHasNextPage(response.data.hasNextPage);
+        setHasPreviousPage(response.data.hasPreviousPage);
+      })
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     fetchData();
-  }, [navigate]);
+  }, [page]);
 
   function deleteOrder(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {
@@ -29,6 +39,10 @@ export default function TableOrder() {
         .catch((error) => console.log(error.data.message));
     }
   }
+
+  const handlePageChange = (value) => {
+    setPage(value);
+  };
 
   return (
     <div className='container-fluid'>
@@ -73,6 +87,12 @@ export default function TableOrder() {
             ))}
         </tbody>
       </table>
+      <Pagination
+        page={page}
+        onChange={handlePageChange}
+        hasNextPage={hasNextPage}
+        hasPreviousPage={hasPreviousPage}
+      />
     </div>
   );
 }

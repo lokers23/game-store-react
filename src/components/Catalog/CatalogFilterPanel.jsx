@@ -2,22 +2,21 @@ import { useEffect, useState } from 'react';
 import { genreService } from '../../services/GenreService';
 import { activationService } from '../../services/ActivationService';
 import { platformService } from '../../services/PlatformService';
+import { useParams } from 'react-router-dom';
 
 function CatalogFilterPanel({ onFilterChange }) {
+  const { genreFilterId = null, activationFilterId = null } = useParams();
+
   const [genres, setGenres] = useState([]);
   const [platforms, setPlatforms] = useState([]);
   const [activations, setActivations] = useState([]);
 
-  const [platformId, setPlatformId] = useState(0);
-  const [genre, setGenre] = useState('');
-  const [activationId, setActivationId] = useState(0);
+  const [platformId, setPlatformId] = useState(null);
+  const [genre, setGenre] = useState(genreFilterId);
+  const [activationId, setActivationId] = useState(activationFilterId);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(100);
-
-  function onGenreChange(event) {
-    event.preventDefault();
-    setGenre(event.target.value);
-  }
+  const [name, setName] = useState(null);
 
   useEffect(() => {
     genreService
@@ -35,24 +34,46 @@ function CatalogFilterPanel({ onFilterChange }) {
       .then((response) => setPlatforms(response.data.data))
       .catch();
 
-    onFilterChange(genre, minPrice, maxPrice, activationId, platformId);
-  }, [genre, minPrice, maxPrice, platformId, activationId]);
+    onFilterChange({
+      genre: genre,
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+      activationId: activationId,
+      platformId: platformId,
+      name: name
+    });
+  }, [genre, minPrice, maxPrice, platformId, activationId, name]);
 
   return (
     <div
       className='shadow border rounded me-3 p-2'
-      style={{ maxWidth: '300px', minWidth: '200px' }}
+      style={{ maxWidth: '300px', minWidth: '250px' }}
     >
-      <h5>Фильтры</h5>
+      <input
+        value={name === null ? '' : name}
+        className='form-control mb-3'
+        placeholder='Название игры'
+        onChange={(event) => {
+          const value =
+            event.target.value === 'null' ? null : event.target.value;
+          setName(value);
+        }}
+      />
+      <h6>Жанр:</h6>
       <select
-        className='form-select mb-2'
+        className='form-select mb-3'
         size='1'
         name='genres'
-        onChange={(event) => onGenreChange(event)}
-        required
+        value={genre === null ? '' : genre}
+        onChange={(event) => {
+          const value =
+            event.target.value === 'null' ? null : event.target.value;
+          setGenre(value);
+        }}
       >
-        {!genre && <option value=''>Выберите жанр</option>}
-
+        <option key={0} value={'null'}>
+          Все
+        </option>
         {genres.length > 0 &&
           genres.map((genre) => (
             <option key={genre.id} value={genre.name} datatype='number'>
@@ -61,15 +82,20 @@ function CatalogFilterPanel({ onFilterChange }) {
           ))}
       </select>
 
+      <h6>Платформа:</h6>
       <select
-        className='form-select mb-2'
+        className='form-select mb-3'
         size='1'
         name='platforms'
-        onChange={(event) => setPlatformId(Number(event.target.value))}
-        required
+        onChange={(event) => {
+          const value =
+            event.target.value === 'null' ? null : event.target.value;
+          setPlatformId(value);
+        }}
       >
-        {!platformId && <option value=''>Выберите платформу</option>}
-
+        <option key={0} value={'null'}>
+          Все
+        </option>
         {platforms.length > 0 &&
           platforms.map((platform) => (
             <option key={platform.id} value={platform.id} datatype='number'>
@@ -77,16 +103,22 @@ function CatalogFilterPanel({ onFilterChange }) {
             </option>
           ))}
       </select>
-
+      <h6>Активация:</h6>
       <select
-        className='form-select mb-2'
+        className='form-select mb-3'
         size='1'
         name='platforms'
-        onChange={(event) => setActivationId(event.target.value)}
+        value={activationId === null ? '' : activationId}
+        onChange={(event) => {
+          const value =
+            event.target.value === 'null' ? null : event.target.value;
+          setActivationId(value);
+        }}
         required
       >
-        {!activationId && <option value=''>Выберите активацию</option>}
-
+        <option key={0} value={'null'}>
+          Все
+        </option>
         {activations.length > 0 &&
           activations.map((activation) => (
             <option key={activation.id} value={activation.id} datatype='number'>

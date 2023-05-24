@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import '../../../styles/LeftSide.css';
 import { activationService } from '../../../services/ActivationService';
 import { genreService } from '../../../services/GenreService';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function LeftMenu() {
   const [activations, setActivations] = useState([]);
   const [genres, setGenres] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     activationService
@@ -35,7 +37,11 @@ function LeftMenu() {
           {activations.length > 0 &&
             activations.map((activation) => (
               <li key={activation.id} className='mb-2'>
-                <Link className='text-dark' style={{ textDecoration: 'none' }}>
+                <Link
+                  to={`/catalog/activation/${activation.id}`}
+                  className='text-dark'
+                  style={{ textDecoration: 'none' }}
+                >
                   {activation.name}
                 </Link>
               </li>
@@ -51,7 +57,11 @@ function LeftMenu() {
           {genres.length > 0 &&
             genres.map((genre) => (
               <li key={genre.id} className='mb-2'>
-                <Link className='text-dark' style={{ textDecoration: 'none' }}>
+                <Link
+                  to={`/catalog/genre/${genre.name}`}
+                  className='text-dark'
+                  style={{ textDecoration: 'none' }}
+                >
                   {genre.name}
                 </Link>
               </li>

@@ -4,24 +4,36 @@ import { useNavigate } from 'react-router-dom';
 import { gameService } from '../../../services/GameService';
 import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
+import Pagination from '../../Pagination/Pagination';
 
 export default function TableGame() {
   const navigate = useNavigate();
   const [games, setGames] = useState([]);
 
+  const [sort, setSort] = useState('id_desc');
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(3);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = useState(false);
+
+  const handlePageChange = (value) => {
+    setPage(value);
+  };
+
   const fetchData = () => {
     gameService
-      .getGames()
+      .getGames(page, pageSize, sort)
       .then((response) => {
         setGames(response.data.data);
-        console.log(response.data);
+        setHasNextPage(response.data.hasNextPage);
+        setHasPreviousPage(response.data.hasPreviousPage);
       })
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     fetchData();
-  }, [navigate]);
+  }, [page]);
 
   function deleteGame(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {
@@ -33,7 +45,7 @@ export default function TableGame() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid mb-5'>
       <h2>Игры</h2>
       <Link className='btn btn-primary btn-sm mb-2' to='create'>
         Добавить новую запись
@@ -60,7 +72,15 @@ export default function TableGame() {
             games.map((game) => (
               <tr key={game.id}>
                 <td>{game.id}</td>
-                <td>{game.name}</td>
+                <td>
+                  <Link
+                    className='text-dark'
+                    to={`/game/${game.id}`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    {game.name}
+                  </Link>
+                </td>
                 <td>{game.developer && game.developer.name}</td>
                 <td>{game.publisher.name}</td>
                 <td>{game.description}</td>
@@ -96,6 +116,12 @@ export default function TableGame() {
             ))}
         </tbody>
       </table>
+      <Pagination
+        page={page}
+        onChange={handlePageChange}
+        hasNextPage={hasNextPage}
+        hasPreviousPage={hasPreviousPage}
+      />
     </div>
   );
 }

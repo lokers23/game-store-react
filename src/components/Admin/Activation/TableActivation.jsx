@@ -4,21 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import { activationService } from '../../../services/ActivationService';
 import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
+import Pagination from '../../Pagination/Pagination';
 
 export default function TableActivation() {
   const navigate = useNavigate();
   const [activations, setActivations] = useState([]);
 
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(3);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = useState(false);
+
   const fetchData = () => {
     activationService
-      .getActivations()
-      .then((response) => setActivations(response.data.data))
+      .getActivations(page, pageSize)
+      .then((response) => {
+        setActivations(response.data.data);
+        setHasNextPage(response.data.hasNextPage);
+        setHasPreviousPage(response.data.hasPreviousPage);
+      })
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     fetchData();
-  }, [navigate]);
+  }, [page]);
 
   function deleteActivation(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {
@@ -32,6 +42,10 @@ export default function TableActivation() {
         .catch((error) => console.log(error.data.message));
     }
   }
+
+  const handlePageChange = (value) => {
+    setPage(value);
+  };
 
   return (
     <div className='container-fluid'>
@@ -71,6 +85,12 @@ export default function TableActivation() {
             ))}
         </tbody>
       </table>
+      <Pagination
+        page={page}
+        onChange={handlePageChange}
+        hasNextPage={hasNextPage}
+        hasPreviousPage={hasPreviousPage}
+      />
     </div>
   );
 }

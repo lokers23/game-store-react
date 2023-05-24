@@ -5,13 +5,15 @@ import { Link } from 'react-router-dom';
 import { keyService } from '../../../services/KeyService';
 import { activationService } from '../../../services/ActivationService';
 import { gameService } from '../../../services/GameService';
+import { InlineError } from '../../InlineError';
 
 export default function CreateKey() {
   //const [activations, setActivations] = useState([]);
   const [games, setGames] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   const [value, setValue] = useState('');
-  const [gameId, setGameId] = useState(0);
+  const [gameId, setGameId] = useState(null);
   // const [activationId, setActivationId] = useState(0);
   const [isUsed, setIsUsed] = useState(false);
 
@@ -26,7 +28,7 @@ export default function CreateKey() {
     gameService
       .getGames()
       .then((response) => setGames(response.data.data))
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.message));
   };
 
   useEffect(() => {
@@ -46,7 +48,7 @@ export default function CreateKey() {
       .then((response) => {
         navigate('..');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setErrors(error.response.data.errors));
   }
 
   return (
@@ -57,6 +59,8 @@ export default function CreateKey() {
         onSubmit={handleSubmit}
         style={{ maxWidth: '500px' }}
       >
+        <InlineError field='Key' errors={errors} />
+        <InlineError field='value' errors={errors} />
         <label className='form-label'>
           Значение:
           <input
@@ -66,6 +70,8 @@ export default function CreateKey() {
             onChange={(event) => setValue(event.target.value)}
           />
         </label>
+        <InlineError field='gameId' errors={errors} />
+
         <label className='form-label'>
           Игра:
           <select
@@ -83,6 +89,7 @@ export default function CreateKey() {
           </select>
         </label>
 
+        <InlineError field='isUsed' errors={errors} />
         <div className='form-check'>
           <input
             className='form-check-input'

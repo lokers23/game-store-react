@@ -3,9 +3,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { publisherService } from '../../../services/PublisherService';
+import { InlineError } from '../../InlineError';
 
 export default function CreatePublisher() {
   const [publisherName, setPublisherName] = useState('');
+  const [errors, setErrors] = useState([]);
+
   const navigate = useNavigate();
 
   function handleSubmit(event) {
@@ -18,7 +21,7 @@ export default function CreatePublisher() {
       .then((response) => {
         navigate('..');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setErrors(error.response.data.errors));
   }
 
   return (
@@ -29,6 +32,8 @@ export default function CreatePublisher() {
         onSubmit={handleSubmit}
         style={{ maxWidth: '500px' }}
       >
+        <InlineError field='Publisher' errors={errors} />
+        <InlineError field='name' errors={errors} />
         <label className='form-label'>
           Название:
           <input

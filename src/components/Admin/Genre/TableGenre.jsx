@@ -4,21 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import { genreService } from '../../../services/GenreService';
 import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
+import Pagination from '../../Pagination/Pagination';
 
 export default function TableGenre() {
   const navigate = useNavigate();
   const [genres, setGenres] = useState([]);
 
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = useState(false);
+
   const fetchData = () => {
     genreService
-      .getGenres()
-      .then((response) => setGenres(response.data.data))
+      .getGenres(page, pageSize)
+      .then((response) => {
+        setGenres(response.data.data);
+        setHasNextPage(response.data.hasNextPage);
+        setHasPreviousPage(response.data.hasPreviousPage);
+      })
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     fetchData();
-  }, [navigate]);
+  }, [page]);
 
   function deleteGenre(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {
@@ -30,6 +40,10 @@ export default function TableGenre() {
         .catch((error) => console.log(error.data.message));
     }
   }
+
+  const handlePageChange = (value) => {
+    setPage(value);
+  };
 
   return (
     <div
@@ -72,6 +86,12 @@ export default function TableGenre() {
             ))}
         </tbody>
       </table>
+      <Pagination
+        page={page}
+        onChange={handlePageChange}
+        hasNextPage={hasNextPage}
+        hasPreviousPage={hasPreviousPage}
+      />
     </div>
   );
 }

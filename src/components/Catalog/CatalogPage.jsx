@@ -3,42 +3,65 @@ import { gameService } from '../../services/GameService';
 import { Link } from 'react-router-dom';
 import CatalogSortPanel from './CatalogSortPanel';
 import CatalogFilterPanel from './CatalogFilterPanel';
+import Pagination from '../Pagination/Pagination';
 
 function CatalogPage() {
   const [games, setGames] = useState([]);
   const [sort, setSort] = useState(null);
   const [filter, setFilter] = useState(null);
 
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(3);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = useState(false);
+
   function handleSortChange(sort) {
-    setSort(`sort=${sort}`);
+    setPage(1);
+    setSort(sort);
   }
 
-  function handleFilterChange(genre, minPrice, maxPrice, activation, platform) {
-    const newFilter = `genre=${genre}&minPrice=${minPrice}&maxPrice=${maxPrice}&activationId=${activation}&platformId=${platform}`;
-    setFilter(newFilter);
+  function handleFilterChange(objectFilter) {
+    let newFilter = '';
+    for (const [key, value] of Object.entries(objectFilter)) {
+      if (value !== null) {
+        newFilter += `${key}=${value}&`;
+      }
+    }
+
+    setPage(1);
+    setFilter(newFilter.slice(0, -1));
   }
+
+  const handlePageChange = (value) => {
+    setPage(value);
+  };
 
   useEffect(() => {
     gameService
-      .getGames(sort, filter)
-      .then((response) => setGames(response.data.data))
+      .getGames(page, pageSize, sort, filter)
+      .then((response) => {
+        setGames(response.data.data);
+        setHasNextPage(response.data.hasNextPage);
+        setHasPreviousPage(response.data.hasPreviousPage);
+      })
       .catch();
-  }, [sort, filter]);
+  }, [sort, filter, page]);
 
   return (
     <div
       className='container-fluid d-flex mx-auto p-2'
-      style={{ maxWidth: '1100px' }}
+      style={{ maxWidth: '1200px' }}
     >
       <CatalogFilterPanel onFilterChange={handleFilterChange} />
 
       <div className='' style={{ maxWidth: '720px' }}>
         <CatalogSortPanel onSortChange={handleSortChange} />
+
         {games.length > 0 &&
           games.map((game) => (
             <Link
               key={game.id}
-              to={`game/${game.id}`}
+              to={`/game/${game.id}`}
               className=''
               style={{
                 textDecoration: 'none',
@@ -101,6 +124,12 @@ function CatalogPage() {
               </div>
             </Link>
           ))}
+        <Pagination
+          page={page}
+          onChange={handlePageChange}
+          hasNextPage={hasNextPage}
+          hasPreviousPage={hasPreviousPage}
+        />
       </div>
     </div>
   );

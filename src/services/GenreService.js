@@ -11,8 +11,19 @@ export class genreService {
     };
   }
 
-  static getGenres() {
-    return axios.get(URL.GENRE);
+  static getGenres(page, pageSize) {
+    let url = URL.GENRE;
+    const params = [];
+    if (page && pageSize) {
+      params.push(`page=${page}`);
+      params.push(`pageSize=${pageSize}`);
+    }
+
+    if (params.length > 0) {
+      url += `?${params.join('&')}`;
+    }
+
+    return axios.get(url);
   }
 
   static getGenreById(id) {

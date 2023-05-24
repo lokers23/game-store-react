@@ -4,21 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import { keyService } from '../../../services/KeyService';
 import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
+import Pagination from '../../Pagination/Pagination';
 
 export default function TableKey() {
   const navigate = useNavigate();
   const [keys, setKeys] = useState([]);
 
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = useState(false);
+
   const fetchData = () => {
     keyService
-      .getKeys()
-      .then((response) => setKeys(response.data.data))
+      .getKeys(page, pageSize)
+      .then((response) => {
+        setKeys(response.data.data);
+        setHasNextPage(response.data.hasNextPage);
+        setHasPreviousPage(response.data.hasPreviousPage);
+      })
       .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     fetchData();
-  }, [navigate]);
+  }, [page]);
 
   function deleteKey(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {
@@ -28,6 +38,10 @@ export default function TableKey() {
         .catch((error) => console.log(error.data.message));
     }
   }
+
+  const handlePageChange = (value) => {
+    setPage(value);
+  };
 
   return (
     <div className='container-fluid'>
@@ -71,6 +85,12 @@ export default function TableKey() {
             ))}
         </tbody>
       </table>
+      <Pagination
+        page={page}
+        onChange={handlePageChange}
+        hasNextPage={hasNextPage}
+        hasPreviousPage={hasPreviousPage}
+      />
     </div>
   );
 }

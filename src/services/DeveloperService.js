@@ -11,8 +11,19 @@ export class developerService {
     };
   }
 
-  static getDevelopers() {
-    return axios.get(URL.DEVELOPER);
+  static getDevelopers(page, pageSize) {
+    let url = URL.DEVELOPER;
+    const params = [];
+    if (page && pageSize) {
+      params.push(`page=${page}`);
+      params.push(`pageSize=${pageSize}`);
+    }
+
+    if (params.length > 0) {
+      url += `?${params.join('&')}`;
+    }
+
+    return axios.get(url);
   }
 
   static getDeveloperById(id) {

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { platformService } from '../../../services/PlatformService';
 import { minSpecificationService } from '../../../services/MinSpecificationService';
+import { InlineError } from '../../InlineError';
 
 export default function EditMinSpecification() {
   const { id } = useParams();
+  const [errors, setErrors] = useState([]);
 
   const [operatingSystem, setOperatingSystem] = useState('');
   const [processor, setProcessor] = useState('');
@@ -56,7 +58,7 @@ export default function EditMinSpecification() {
       .then((response) => {
         navigate('..');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setErrors(error.response.data.errors));
   }
 
   return (
@@ -67,6 +69,8 @@ export default function EditMinSpecification() {
         onSubmit={handleSubmit}
         style={{ maxWidth: '500px' }}
       >
+        <InlineError field='MinimumSpecification' errors={errors} />
+        <InlineError field='operatingSystem' errors={errors} />
         <label className='form-label'>
           Операционная система:
           <input
@@ -76,6 +80,8 @@ export default function EditMinSpecification() {
             onChange={(event) => setOperatingSystem(event.target.value)}
           />
         </label>
+        <InlineError field='processor' errors={errors} />
+
         <label className='form-label'>
           Процессор:
           <input
@@ -85,6 +91,8 @@ export default function EditMinSpecification() {
             onChange={(event) => setProcessor(event.target.value)}
           />
         </label>
+        <InlineError field='memory' errors={errors} />
+
         <label className='form-label'>
           Оперативная память:
           <input
@@ -94,6 +102,8 @@ export default function EditMinSpecification() {
             onChange={(event) => setMemory(event.target.value)}
           />
         </label>
+        <InlineError field='graphics' errors={errors} />
+
         <label className='form-label'>
           Видеокарта:
           <input
@@ -103,6 +113,8 @@ export default function EditMinSpecification() {
             onChange={(event) => setGraphics(event.target.value)}
           />
         </label>
+        <InlineError field='storage' errors={errors} />
+
         <label className='form-label'>
           Свободное место:
           <input
@@ -112,6 +124,8 @@ export default function EditMinSpecification() {
             onChange={(event) => setStorage(event.target.value)}
           />
         </label>
+        <InlineError field='platformId' errors={errors} />
+
         <label className='form-label'>
           Платформа
           <select

@@ -10,43 +10,18 @@ function Center() {
   const [gamesOrderByDate, setGamesOrderByDate] = useState([]);
 
   const fetchData = () => {
+    const sortIdDesc = 'id_desc';
+    const sortDateDesc = 'date_desc';
     gameService
-      .getGames('id_desc')
+      .getGames(1, 4, sortIdDesc)
       .then((response) => setGamesOrderById(response.data.data))
       .catch((error) => console.log(error));
 
     gameService
-      .getGames('date_desc')
+      .getGames(1, 4, sortDateDesc)
       .then((response) => setGamesOrderByDate(response.data.data))
       .catch((error) => console.log(error));
   };
-
-  // function addToCart(event, game) {
-  //   event.preventDefault();
-  //   var newGame = {
-  //     id: game.id,
-  //     name: game.name,
-  //     avatar: game.avatarName,
-  //     price: game.price,
-  //     count: 1
-  //   };
-  //   var storedGames = JSON.parse(localStorage.getItem('cartGames'));
-  //   if (storedGames) {
-  //     var gameIndex = storedGames.findIndex(function (game) {
-  //       return game.id === newGame.id;
-  //     });
-
-  //     if (gameIndex !== -1) {
-  //       storedGames[gameIndex].count++;
-  //     } else {
-  //       storedGames.push(newGame);
-  //     }
-  //   } else {
-  //     storedGames = [newGame];
-  //   }
-
-  //   localStorage.setItem('cartGames', JSON.stringify(storedGames));
-  // }
 
   useEffect(() => {
     fetchData();
@@ -54,10 +29,6 @@ function Center() {
 
   return (
     <div className='' style={{ maxWidth: '720px' }}>
-      {/* <div className='d-flex flex-row  mb-3'>
-        <div className='shadow border rounded p-2 px-5 me-3'>Каталог</div>
-        <div className='shadow border rounded p-2 px-5'>Новые</div>
-      </div> */}
       <div className='d-flex flex-column'>
         <ul
           className='nav nav-pills mb-3 fw-bold'
@@ -139,7 +110,7 @@ function Center() {
 
                         <div className='mb-2'>
                           {game.genres.length > 0 &&
-                            game.genres.map((genre) => (
+                            game.genres.slice(0, 3).map((genre) => (
                               <span
                                 key={genre.id}
                                 className='badge bg-dark me-2 p-2'
@@ -154,15 +125,20 @@ function Center() {
                               {new Date(game.releaseOn).getFullYear()}
                             </span>
                             {game.minimumSpecifications.length > 0 &&
-                              game.minimumSpecifications.map((minSpec) => (
-                                <span
-                                  key={minSpec.id}
-                                  className='badge bg-secondary me-2 p-2'
-                                  style={{ fontSize: '13px', padding: '3px' }}
-                                >
-                                  {minSpec.platform.name}
-                                </span>
-                              ))}
+                              game.minimumSpecifications
+                                .slice(0, 2)
+                                .map((minSpec) => (
+                                  <span
+                                    key={minSpec.id}
+                                    className='badge bg-secondary me-2 p-2'
+                                    style={{ fontSize: '13px', padding: '3px' }}
+                                  >
+                                    {minSpec.platform.name}
+                                  </span>
+                                ))}
+                            <span className='badge bg-secondary p-2'>
+                              {game.activation && game.activation.name}
+                            </span>
                           </div>
                         </div>
                         <span className='fw-bold border-1 border-dark d-flex justify-content-end'>
@@ -222,7 +198,7 @@ function Center() {
 
                         <div className='mb-2'>
                           {game.genres.length > 0 &&
-                            game.genres.map((genre) => (
+                            game.genres.slice(0, 3).map((genre) => (
                               <span
                                 key={genre.id}
                                 className='badge bg-dark me-2 p-2'
@@ -237,15 +213,20 @@ function Center() {
                               {new Date(game.releaseOn).getFullYear()}
                             </span>
                             {game.minimumSpecifications.length > 0 &&
-                              game.minimumSpecifications.map((minSpec) => (
-                                <span
-                                  key={minSpec.id}
-                                  className='badge bg-secondary me-2 p-2'
-                                  style={{ fontSize: '13px', padding: '3px' }}
-                                >
-                                  {minSpec.platform.name}
-                                </span>
-                              ))}
+                              game.minimumSpecifications
+                                .slice(0, 2)
+                                .map((minSpec) => (
+                                  <span
+                                    key={minSpec.id}
+                                    className='badge bg-secondary me-2 p-2'
+                                    style={{ fontSize: '13px', padding: '3px' }}
+                                  >
+                                    {minSpec.platform.name}
+                                  </span>
+                                ))}
+                            <span className='badge bg-secondary p-2'>
+                              {game.activation && game.activation.name}
+                            </span>
                           </div>
                         </div>
                         <span className='fw-bold border-1 border-dark d-flex justify-content-end'>

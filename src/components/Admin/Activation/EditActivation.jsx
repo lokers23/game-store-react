@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { activationService } from '../../../services/ActivationService';
+import { InlineError } from '../../InlineError';
 
 export default function EditActivation() {
   const { id } = useParams();
   const [activationName, setActivationName] = useState('');
+  const [errors, setErrors] = useState([]);
+
   const navigate = useNavigate();
 
   const fetchData = () => {
@@ -28,7 +31,7 @@ export default function EditActivation() {
       .then((response) => {
         navigate('..');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setErrors(error.response.data.errors));
   }
 
   return (
@@ -39,6 +42,8 @@ export default function EditActivation() {
         onSubmit={handleSubmit}
         style={{ maxWidth: '500px' }}
       >
+        <InlineError field='Activation' errors={errors} />
+        <InlineError field='name' errors={errors} />
         <label className='form-label'>
           Название:
           <input

@@ -28,7 +28,6 @@ function CatalogSortPanel({ onSortChange }) {
 
   return (
     <div>
-      <h5>Сортировать по:</h5>
       <div className='mb-2'>
         <button
           className='btn btn-secondary me-2'

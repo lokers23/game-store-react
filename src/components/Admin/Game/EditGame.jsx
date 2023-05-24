@@ -10,9 +10,11 @@ import { minSpecificationService } from '../../../services/MinSpecificationServi
 import { platformService } from '../../../services/PlatformService';
 import { activationService } from '../../../services/ActivationService';
 import '../../../styles/Crud.css';
+import { InlineError } from '../../InlineError';
 
 export default function EditGame() {
   const { id } = useParams();
+  const [errors, setErrors] = useState([]);
 
   const formData = new FormData();
   const navigate = useNavigate();
@@ -156,7 +158,7 @@ export default function EditGame() {
       .then((response) => {
         navigate('..');
       })
-      .catch((error) => console.log(error.response.data.errors));
+      .catch((error) => setErrors(error.response.data.errors));
   }
 
   return (
@@ -167,7 +169,9 @@ export default function EditGame() {
         style={{ maxWidth: '1280px' }}
       >
         <h1>Редактировать игру</h1>
+        <InlineError field='Game' errors={errors} />
         <label className='form-label col-md-4' htmlFor='name'>
+          <InlineError field='name' errors={errors} />
           Название
           <input
             className='form-control'
@@ -180,6 +184,7 @@ export default function EditGame() {
         </label>
 
         <label htmlFor='developerId' className='form-label col-md-4'>
+          <InlineError field='developerId' errors={errors} />
           Разработчик
           <select
             size='1'
@@ -205,6 +210,7 @@ export default function EditGame() {
         </label>
 
         <label htmlFor='publisherId' className='form-label col-md-4'>
+          <InlineError field='publisherId' errors={errors} />
           Издатель
           <select
             className='form-select'
@@ -225,6 +231,7 @@ export default function EditGame() {
         </label>
 
         <label className='form-label col-md-6' htmlFor='description'>
+          <InlineError field='description' errors={errors} />
           Описание
           <textarea
             className='form-control'
@@ -236,6 +243,7 @@ export default function EditGame() {
         </label>
 
         <label className='form-label col-md-6'>
+          <InlineError field='activationId' errors={errors} />
           Активация:
           <select
             className='form-select'
@@ -258,6 +266,7 @@ export default function EditGame() {
         </label>
 
         <label className='form-label col-md-4' htmlFor='releaseOn'>
+          <InlineError field='releaseOn' errors={errors} />
           Дата выпуска
           <input
             className='form-control'
@@ -270,6 +279,7 @@ export default function EditGame() {
         </label>
 
         <label className='form-label col-md-4' htmlFor='price'>
+          <InlineError field='price' errors={errors} />
           Цена
           <input
             className='form-control'
@@ -283,6 +293,7 @@ export default function EditGame() {
         </label>
 
         <label className='form-label col-md-4' htmlFor='videoUrl'>
+          <InlineError field='videoUrl' errors={errors} />
           Видео
           <input
             className='form-control'
@@ -295,6 +306,7 @@ export default function EditGame() {
         </label>
 
         <label className='form-label d-flex flex-column' htmlFor='avatar'>
+          <InlineError field='avatar' errors={errors} />
           Изображение аватара
           {!isChangedAvatar && (
             <img
@@ -314,6 +326,8 @@ export default function EditGame() {
             //required
           />
         </label>
+
+        <InlineError field='genreIds' errors={errors} />
 
         <fieldset className='border rounded mb-2 p-2'>
           <legend className='fw-bold'>Жанры</legend>
@@ -340,6 +354,7 @@ export default function EditGame() {
               ))}
           </div>
         </fieldset>
+        <InlineError field='minimumSpecificationIds' errors={errors} />
 
         <div className='border mb-2 rounded'>
           <fieldset>

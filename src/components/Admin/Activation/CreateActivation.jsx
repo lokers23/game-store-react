@@ -3,9 +3,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { activationService } from '../../../services/ActivationService';
+import { InlineError } from '../../InlineError';
 
 export default function CreateActivation() {
   const [activationName, setActivationName] = useState('');
+  const [errors, setErrors] = useState([]);
+
   const navigate = useNavigate();
 
   function handleSubmit(event) {
@@ -18,7 +21,7 @@ export default function CreateActivation() {
       .then((response) => {
         navigate('..');
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setErrors(error.response.data.errors));
   }
 
   return (
@@ -29,6 +32,8 @@ export default function CreateActivation() {
         onSubmit={handleSubmit}
         style={{ maxWidth: '500px' }}
       >
+        <InlineError field='Activation' errors={errors} />
+        <InlineError field='name' errors={errors} />
         <label className='form-label'>
           Название:
           <input
