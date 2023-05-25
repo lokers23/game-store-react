@@ -1,5 +1,11 @@
 const BASE_URL = 'https://localhost:7125';
 
+const ROLES = {
+  1: 'Administrator',
+  2: 'Moderator',
+  3: 'User'
+};
+
 const LOCAL_STORAGE = {
   TOKEN_STORAGE: 'token-game-store',
   CART_GAME: 'cartGames'
@@ -38,4 +44,4 @@ const URL = {
   BALANCE: BASE_URL + API.BALANCE
 };
 
-export { URL, LOCAL_STORAGE };
+export { URL, LOCAL_STORAGE, ROLES };

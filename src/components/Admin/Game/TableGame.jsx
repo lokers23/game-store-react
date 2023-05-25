@@ -10,6 +10,9 @@ export default function TableGame() {
   const navigate = useNavigate();
   const [games, setGames] = useState([]);
 
+  const [filters, setFilters] = useState(null);
+  const [name, setName] = useState(null);
+
   const [sort, setSort] = useState('id_desc');
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(3);
@@ -22,7 +25,7 @@ export default function TableGame() {
 
   const fetchData = () => {
     gameService
-      .getGames(page, pageSize, sort)
+      .getGames(page, pageSize, sort, filters)
       .then((response) => {
         setGames(response.data.data);
         setHasNextPage(response.data.hasNextPage);
@@ -33,7 +36,8 @@ export default function TableGame() {
 
   useEffect(() => {
     fetchData();
-  }, [page]);
+    console.log('filt');
+  }, [page, sort, filters]);
 
   function deleteGame(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {
@@ -44,12 +48,31 @@ export default function TableGame() {
     }
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    const nameFilter = `&name=${name}`;
+    setFilters(nameFilter);
+  }
+
   return (
     <div className='container-fluid mb-5'>
       <h2>Игры</h2>
       <Link className='btn btn-primary btn-sm mb-2' to='create'>
         Добавить новую запись
       </Link>
+      <form className='d-flex flex-row p-2 mb-2' onSubmit={handleSubmit}>
+        <div>
+          <label className='form-label '>Название</label>
+          <input
+            className='form-control'
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
+        </div>
+        <button type='submit' className='btn btn-primary align-self-end ms-2'>
+          Отфильтровать
+        </button>
+      </form>
       <table className='table table-bordered'>
         <thead>
           <tr>

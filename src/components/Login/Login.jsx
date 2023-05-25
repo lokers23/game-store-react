@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import tokenService from '../../services/TokenService';
 import InlineError from '../InlineError';
 import '../../styles/login.css';
@@ -39,10 +39,10 @@ function Login() {
   };
 
   return (
-    <div className='mx-auto' style={{ maxWidth: '400px' }}>
-      <div className=' shadow rounded-2 p-4'>
+    <div className='mx-auto mb-5' style={{ maxWidth: '400px' }}>
+      <div className='shadow rounded-2 p-4'>
         <h3 className='text-center mb-5'>Вход в аккаунт</h3>
-        <form onSubmit={onSubmitHandler}>
+        <form onSubmit={onSubmitHandler} className='mb-3'>
           <InlineError field='singin' errors={errors} />
           <InlineError field='login' errors={errors} />
           <div className='mb-4'>
@@ -67,6 +67,10 @@ function Login() {
             Вход
           </button>
         </form>
+        <p className='text-center p-0 m-0' style={{ fontSize: '12px' }}>
+          У вас нет учётной записи?{' '}
+          <Link to={'/register'}> Зарегистрироваться</Link>
+        </p>
       </div>
     </div>
   );

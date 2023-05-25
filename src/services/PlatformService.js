@@ -11,12 +11,20 @@ export class platformService {
     };
   }
 
-  static getPlatforms(page, pageSize) {
+  static getPlatforms(page, pageSize, sort, filters) {
     let url = URL.PLATFORM;
     const params = [];
     if (page && pageSize) {
       params.push(`page=${page}`);
       params.push(`pageSize=${pageSize}`);
+    }
+
+    if (sort) {
+      params.push(`sort=${sort}`);
+    }
+
+    if (filters) {
+      params.push(`${filters}`);
     }
 
     if (params.length > 0) {

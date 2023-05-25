@@ -11,12 +11,20 @@ export class developerService {
     };
   }
 
-  static getDevelopers(page, pageSize) {
+  static getDevelopers(page, pageSize, sort, filters) {
     let url = URL.DEVELOPER;
     const params = [];
     if (page && pageSize) {
       params.push(`page=${page}`);
       params.push(`pageSize=${pageSize}`);
+    }
+
+    if (sort) {
+      params.push(`sort=${sort}`);
+    }
+
+    if (filters) {
+      params.push(`${filters}`);
     }
 
     if (params.length > 0) {

@@ -11,6 +11,9 @@ export default function TableOrder() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
 
+  const [filters, setFilters] = useState(null);
+  const [login, setLogin] = useState(null);
+
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -18,7 +21,7 @@ export default function TableOrder() {
 
   const fetchData = () => {
     orderService
-      .getOrders(page, pageSize)
+      .getOrders(page, pageSize, null, filters)
       .then((response) => {
         setOrders(response.data.data);
         setHasNextPage(response.data.hasNextPage);
@@ -29,7 +32,7 @@ export default function TableOrder() {
 
   useEffect(() => {
     fetchData();
-  }, [page]);
+  }, [page, filters]);
 
   function deleteOrder(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {
@@ -44,9 +47,28 @@ export default function TableOrder() {
     setPage(value);
   };
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    const nameFilter = `&login=${login}`;
+    setFilters(nameFilter);
+  }
+
   return (
     <div className='container-fluid'>
       <h2 className='mb-2'>Заказы</h2>
+      <form className='d-flex flex-row p-2 mb-2' onSubmit={handleSubmit}>
+        <div>
+          <label className='form-label '>Логин</label>
+          <input
+            className='form-control'
+            value={login}
+            onChange={(event) => setLogin(event.target.value)}
+          />
+        </div>
+        <button type='submit' className='btn btn-primary align-self-end ms-2'>
+          Отфильтровать
+        </button>
+      </form>
       <table className='table table-bordered'>
         <thead>
           <tr>

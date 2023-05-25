@@ -76,7 +76,7 @@ export default function Admin() {
                 </Link>
               </li>
               <li className='list-group-item'>
-                <Link to='/' className='text-dark text-decoration-none'>
+                <Link to='users' className='text-dark text-decoration-none'>
                   Пользователи
                 </Link>
               </li>

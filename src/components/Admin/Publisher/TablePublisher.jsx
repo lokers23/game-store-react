@@ -9,6 +9,9 @@ export default function TablePublisher() {
   const navigate = useNavigate();
   const [publishers, setPublishers] = useState([]);
 
+  const [filters, setFilters] = useState(null);
+  const [name, setName] = useState(null);
+
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -16,7 +19,7 @@ export default function TablePublisher() {
 
   const fetchData = () => {
     publisherService
-      .getPublishers(page, pageSize)
+      .getPublishers(page, pageSize, null, filters)
       .then((response) => {
         setPublishers(response.data.data);
         setHasNextPage(response.data.hasNextPage);
@@ -42,7 +45,13 @@ export default function TablePublisher() {
 
   useEffect(() => {
     fetchData();
-  }, [page]);
+  }, [page, filters]);
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const nameFilter = `&name=${name}`;
+    setFilters(nameFilter);
+  }
 
   return (
     <div className='container-fluid'>
@@ -50,6 +59,19 @@ export default function TablePublisher() {
       <Link className='btn btn-primary btn-sm mb-2' to='create'>
         Добавить новую запись
       </Link>
+      <form className='d-flex flex-row p-2 mb-2' onSubmit={handleSubmit}>
+        <div>
+          <label className='form-label '>Название</label>
+          <input
+            className='form-control'
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
+        </div>
+        <button type='submit' className='btn btn-primary align-self-end ms-2'>
+          Отфильтровать
+        </button>
+      </form>
       <table className='table table-bordered'>
         <thead>
           <tr>

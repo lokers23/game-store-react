@@ -11,12 +11,20 @@ export class publisherService {
     };
   }
 
-  static getPublishers(page, pageSize) {
+  static getPublishers(page, pageSize, sort, filters) {
     let url = URL.PUBLISHER;
     const params = [];
     if (page && pageSize) {
       params.push(`page=${page}`);
       params.push(`pageSize=${pageSize}`);
+    }
+
+    if (sort) {
+      params.push(`sort=${sort}`);
+    }
+
+    if (filters) {
+      params.push(`${filters}`);
     }
 
     if (params.length > 0) {

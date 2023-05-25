@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function FooterGamePage({ game }) {
   return (
@@ -140,7 +141,9 @@ export default function FooterGamePage({ game }) {
               <p className='fw-bold fs-5 mt-5'>
                 Как активировать ключ {game.activation.name}?
               </p>
-              <button className='btn btn-dark'>ПОДРОБНАЯ ИНСТРУКЦИЯ</button>
+              <Link to={'/faq/activation'} className='btn btn-dark'>
+                ПОДРОБНАЯ ИНСТРУКЦИЯ
+              </Link>
             </div>
           )}
         </div>

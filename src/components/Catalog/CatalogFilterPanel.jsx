@@ -5,7 +5,11 @@ import { platformService } from '../../services/PlatformService';
 import { useParams } from 'react-router-dom';
 
 function CatalogFilterPanel({ onFilterChange }) {
-  const { genreFilterId = null, activationFilterId = null } = useParams();
+  const {
+    genreFilterId = null,
+    activationFilterId = null,
+    searchFilter = null
+  } = useParams();
 
   const [genres, setGenres] = useState([]);
   const [platforms, setPlatforms] = useState([]);
@@ -16,7 +20,11 @@ function CatalogFilterPanel({ onFilterChange }) {
   const [activationId, setActivationId] = useState(activationFilterId);
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(100);
-  const [name, setName] = useState(null);
+  const [name, setName] = useState(searchFilter);
+
+  useEffect(() => {
+    setName(searchFilter);
+  }, [searchFilter]);
 
   useEffect(() => {
     genreService
@@ -103,6 +111,7 @@ function CatalogFilterPanel({ onFilterChange }) {
             </option>
           ))}
       </select>
+
       <h6>Активация:</h6>
       <select
         className='form-select mb-3'
@@ -126,6 +135,7 @@ function CatalogFilterPanel({ onFilterChange }) {
             </option>
           ))}
       </select>
+
       <div className='border-top'>
         <h6>Цена($):</h6>
         <div className='d-flex align-items-center justify-content-center'>

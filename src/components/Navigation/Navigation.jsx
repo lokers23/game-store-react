@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useLogin } from '../../contexts/LoginContext';
@@ -7,6 +7,8 @@ import { useCart } from '../../contexts/CartContext';
 import logo from '../../logo3.png';
 
 function Navigation() {
+  const navigate = useNavigate();
+
   const { countGames } = useCart();
   const { isLogin, role } = useLogin();
   const { isLoading } = useLogin();
@@ -15,6 +17,13 @@ function Navigation() {
   if (isLoading) {
     return null;
   }
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      const text = event.target.value;
+      navigate(`/catalog/search/${text}`);
+    }
+  };
 
   return (
     <nav
@@ -46,21 +55,29 @@ function Navigation() {
               <Link
                 to='/'
                 className='nav-link text-dark'
-                style={{ fontSize: '18px' }}
+                style={{ fontSize: '17px' }}
               >
                 Главная
               </Link>
             </li>
-            <li className='nav-item  me-auto'>
+            <li className='nav-item me-2'>
               <Link
                 to='/catalog'
                 className='nav-link text-dark'
-                style={{ fontSize: '18px' }}
+                style={{ fontSize: '17px' }}
               >
                 Каталог
               </Link>
             </li>
-
+            <li className='nav-item me-auto'>
+              <Link
+                to='/faq'
+                className='nav-link text-dark'
+                style={{ fontSize: '17px' }}
+              >
+                Помощь
+              </Link>
+            </li>
             {isLogin && role === 'Administrator' && (
               <li className='nav-item me-3'>
                 <Link to='/admin' className='nav-link text-dark'>
@@ -108,14 +125,13 @@ function Navigation() {
               </Link>
             </li>
           </ul>
-
-          <form>
-            <input
-              className='form-control'
-              type='text'
-              placeholder='Поиск...'
-            />
-          </form>
+          <input
+            className='form-control'
+            type='text'
+            onKeyDown={handleKeyDown}
+            placeholder='Поиск...'
+            style={{ maxWidth: '200px' }}
+          />
         </div>
       </div>
     </nav>

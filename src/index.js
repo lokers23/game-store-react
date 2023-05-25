@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom';
 import Center from './components/MainPage/Center/Center';
 import Login from './components/Login/Login';
+import Registration from './components/Login/Registration';
 import Cart from './components/Cart/Cart';
 import Admin from './components/Admin/Admin';
 import AdminRoutes from './AdminRoutes';
@@ -28,6 +29,10 @@ import BalancePage from './components/Profile/BalancePage';
 import { CartProvider } from './contexts/CartContext';
 import Footer from './components/MainPage/Footer';
 import CatalogPage from './components/Catalog/CatalogPage';
+import ResetPasswordPage from './components/Profile/ResetPasswordPage';
+import HelpPage from './components/Help/HelpPage';
+import ContactHelpPage from './components/Help/ContactHelpPage';
+import ActivationHelpPage from './components/Help/ActivationHelpPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -61,8 +66,15 @@ root.render(
             path='/catalog/search/:searchFilter'
             element={<CatalogPage />}
           />
+
+          <Route path='/faq' element={<HelpPage />}>
+            <Route path='' element={<ContactHelpPage />} />
+            <Route path='activation' element={<ActivationHelpPage />} />
+          </Route>
+
           <Route path='/game/:id' element={<GamePage />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Registration />} />
           <Route>
             <Route path='/admin' element={<Admin />}>
               {AdminRoutes()}
@@ -73,6 +85,7 @@ root.render(
             <Route path='' element={<PersonalPage />} />
             <Route path='purchases' element={<Purchases />} />
             <Route path='balance' element={<BalancePage />} />
+            <Route path='reset-password' element={<ResetPasswordPage />} />
           </Route>
           <Route path='/cart' element={<Cart />} />
 

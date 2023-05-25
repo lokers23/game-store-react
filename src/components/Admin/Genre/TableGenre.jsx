@@ -10,6 +10,9 @@ export default function TableGenre() {
   const navigate = useNavigate();
   const [genres, setGenres] = useState([]);
 
+  const [filters, setFilters] = useState(null);
+  const [name, setName] = useState(null);
+
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -17,7 +20,7 @@ export default function TableGenre() {
 
   const fetchData = () => {
     genreService
-      .getGenres(page, pageSize)
+      .getGenres(page, pageSize, null, filters)
       .then((response) => {
         setGenres(response.data.data);
         setHasNextPage(response.data.hasNextPage);
@@ -28,7 +31,7 @@ export default function TableGenre() {
 
   useEffect(() => {
     fetchData();
-  }, [page]);
+  }, [page, filters]);
 
   function deleteGenre(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {
@@ -45,6 +48,12 @@ export default function TableGenre() {
     setPage(value);
   };
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    const nameFilter = `&name=${name}`;
+    setFilters(nameFilter);
+  }
+
   return (
     <div
       className='container-fluid '
@@ -54,6 +63,19 @@ export default function TableGenre() {
       <Link to='create' className='btn btn-primary btn-sm mb-2'>
         Добавить новую запись
       </Link>
+      <form className='d-flex flex-row p-2 mb-2' onSubmit={handleSubmit}>
+        <div>
+          <label className='form-label '>Название</label>
+          <input
+            className='form-control'
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
+        </div>
+        <button type='submit' className='btn btn-primary align-self-end ms-2'>
+          Отфильтровать
+        </button>
+      </form>
       <table className='table table-bordered table-responsive'>
         <thead>
           <tr>

@@ -20,4 +20,17 @@ export class userService {
     const headers = this.getHeader();
     return axios.get(URL.USER + '/profile', headers);
   }
+
+  // for admin/moderator
+  static getUsers() {
+    const url = URL.USER;
+    const headers = this.getHeader();
+    return axios.get(url, headers);
+  }
+
+  static changePassword(data) {
+    const url = URL.USER + '/password';
+    const headers = this.getHeader();
+    return axios.put(url, data, headers);
+  }
 }

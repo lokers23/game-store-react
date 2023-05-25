@@ -11,12 +11,20 @@ export class genreService {
     };
   }
 
-  static getGenres(page, pageSize) {
+  static getGenres(page, pageSize, sort, filters) {
     let url = URL.GENRE;
     const params = [];
     if (page && pageSize) {
       params.push(`page=${page}`);
       params.push(`pageSize=${pageSize}`);
+    }
+
+    if (sort) {
+      params.push(`sort=${sort}`);
+    }
+
+    if (filters) {
+      params.push(`${filters}`);
     }
 
     if (params.length > 0) {

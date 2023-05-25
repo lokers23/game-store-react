@@ -21,9 +21,13 @@ function BalancePage() {
   }
 
   return (
-    <div>
+    <div
+      className='d-flex flex-column shadow bordered rounded p-3'
+      style={{ minHeight: '300px' }}
+    >
       <form onSubmit={handleSubmit}>
         <input
+          className='form-control'
           value={amount}
           onChange={(event) => setAmount(event.target.value)}
         />

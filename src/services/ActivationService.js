@@ -11,12 +11,20 @@ export class activationService {
     };
   }
 
-  static getActivations(page, pageSize) {
+  static getActivations(page, pageSize, sort, filters) {
     let url = URL.ACTIVATION;
     const params = [];
     if (page && pageSize) {
       params.push(`page=${page}`);
       params.push(`pageSize=${pageSize}`);
+    }
+
+    if (sort) {
+      params.push(`sort=${sort}`);
+    }
+
+    if (filters) {
+      params.push(`${filters}`);
     }
 
     if (params.length > 0) {

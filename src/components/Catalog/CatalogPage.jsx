@@ -49,7 +49,7 @@ function CatalogPage() {
 
   return (
     <div
-      className='container-fluid d-flex mx-auto p-2'
+      className='container-fluid d-flex mx-auto p-2 mb-5'
       style={{ maxWidth: '1200px' }}
     >
       <CatalogFilterPanel onFilterChange={handleFilterChange} />

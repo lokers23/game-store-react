@@ -10,6 +10,9 @@ export default function TableActivation() {
   const navigate = useNavigate();
   const [activations, setActivations] = useState([]);
 
+  const [filters, setFilters] = useState(null);
+  const [name, setName] = useState(null);
+
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(3);
   const [hasNextPage, setHasNextPage] = useState(false);
@@ -17,7 +20,7 @@ export default function TableActivation() {
 
   const fetchData = () => {
     activationService
-      .getActivations(page, pageSize)
+      .getActivations(page, pageSize, null, filters)
       .then((response) => {
         setActivations(response.data.data);
         setHasNextPage(response.data.hasNextPage);
@@ -28,7 +31,7 @@ export default function TableActivation() {
 
   useEffect(() => {
     fetchData();
-  }, [page]);
+  }, [page, filters]);
 
   function deleteActivation(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {
@@ -47,12 +50,31 @@ export default function TableActivation() {
     setPage(value);
   };
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    const nameFilter = `&name=${name}`;
+    setFilters(nameFilter);
+  }
+
   return (
     <div className='container-fluid'>
       <h2 className='mb-2'>Площадки для активации</h2>
       <Link className='btn btn-primary btn-sm mb-2' to='create'>
         Добавить новую запись
       </Link>
+      <form className='d-flex flex-row p-2 mb-2' onSubmit={handleSubmit}>
+        <div>
+          <label className='form-label '>Название</label>
+          <input
+            className='form-control'
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
+        </div>
+        <button type='submit' className='btn btn-primary align-self-end ms-2'>
+          Отфильтровать
+        </button>
+      </form>
       <table className='table table-bordered'>
         <thead>
           <tr>

@@ -12,7 +12,10 @@ function PersonalPage() {
   }, []);
 
   return (
-    <div className='shadow bordered rounded p-3' style={{ minHeight: '300px' }}>
+    <div
+      className='d-flex flex-column shadow bordered rounded p-3'
+      style={{ minHeight: '300px' }}
+    >
       <p>
         <b>Логин: </b>
         {user.login}
@@ -25,6 +28,7 @@ function PersonalPage() {
         <b>Баланс: </b>${user.balance}
       </p>
       <Link to={'balance'}>Пополнить баланс</Link>
+      <Link to={'reset-password'}>Сменить пароль</Link>
     </div>
   );
 }

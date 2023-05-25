@@ -27,7 +27,7 @@ function GamePage() {
   }, [navigate]);
 
   return (
-    <div className='d-flex'>
+    <div className='d-flex mb-5'>
       <div
         className=' mx-auto'
         style={{ maxWidth: '1200px', minWidth: '1200px' }}
