@@ -22,7 +22,9 @@ function Cart() {
     setFullPrice(
       games.reduce((prev, curr) => prev + curr.price * curr.count, 0)
     );
-  }, [games]);
+
+    //isReload возможно нужно будет удалить isReload из скобок
+  }, [games, isReload]);
 
   function updateDataGames(newGames) {
     Promise.all(
