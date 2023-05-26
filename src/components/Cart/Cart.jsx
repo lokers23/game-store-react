@@ -112,76 +112,78 @@ function Cart() {
           <div>
             <form onSubmit={handleSubmit}>
               <InlineError field='Game' errors={errors} />
-              {games.map((game) => (
-                <div
-                  className='card mb-4 shadow bg-white rounded'
-                  key={game.id}
-                >
-                  <div className='row g-0'>
-                    <div className='col-md-4'>
-                      <img
-                        className='img-fluid rounded-start'
-                        src={gameService.getAvatarUrl(game.avatar)}
-                        alt={game.avatarName}
-                      ></img>
-                    </div>
-                    <div className='col-md-4 p-3'>
-                      <h5 className='card-title'>{game.name}</h5>
-                      <p className='card-text'>
-                        <small className='text-muted'>
-                          Активировать продукт можно только на ...
-                        </small>
-                      </p>
-                    </div>
+              {games &&
+                games.length &&
+                games.map((game) => (
+                  <div
+                    className='card mb-4 shadow bg-white rounded'
+                    key={game.id}
+                  >
+                    <div className='row g-0'>
+                      <div className='col-md-4'>
+                        <img
+                          className='img-fluid rounded-start'
+                          src={gameService.getAvatarUrl(game.avatar)}
+                          alt={game.avatarName}
+                        ></img>
+                      </div>
+                      <div className='col-md-4 p-3'>
+                        <h5 className='card-title'>{game.name}</h5>
+                        <p className='card-text'>
+                          <small className='text-muted'>
+                            Активировать продукт можно только на ...
+                          </small>
+                        </p>
+                      </div>
 
-                    <div className='col-md-2 d-flex justify-content-center align-items-center'>
-                      <span
-                        type='button'
-                        className={
-                          game.count <= 1 ? 'disabled text-black-50' : ''
-                        }
-                        onClick={(e) => {
-                          if (game.count <= 1) return;
-                          decreaseCount(e, game.id, 1);
-                        }}
-                      >
-                        <span className='bi-dash-square fs-4'></span>
-                      </span>
-                      <input
-                        value={game.count}
-                        min='1'
-                        max='5'
-                        className='form-control-sm mx-2 text-center text-dark'
-                        style={{ width: '30px', height: '30px' }}
-                        readOnly
-                      />
-                      <span
-                        className={
-                          game.count >= 5 ? 'disabled text-black-50' : ''
-                        }
-                        onClick={(e) => {
-                          if (game.count >= 5) return;
-                          increaseCount(e, game.id, 1);
-                        }}
-                      >
-                        <i className='bi bi-plus-square fs-4'></i>
-                      </span>
-                    </div>
-                    <div className='fw-bold col-md-1 d-flex justify-content-center align-items-center'>
-                      ${(game.price * game.count).toFixed(2)}
-                    </div>
+                      <div className='col-md-2 d-flex justify-content-center align-items-center'>
+                        <span
+                          type='button'
+                          className={
+                            game.count <= 1 ? 'disabled text-black-50' : ''
+                          }
+                          onClick={(e) => {
+                            if (game.count <= 1) return;
+                            decreaseCount(e, game.id, 1);
+                          }}
+                        >
+                          <span className='bi-dash-square fs-4'></span>
+                        </span>
+                        <input
+                          value={game.count}
+                          min='1'
+                          max='5'
+                          className='form-control-sm mx-2 text-center text-dark'
+                          style={{ width: '30px', height: '30px' }}
+                          readOnly
+                        />
+                        <span
+                          className={
+                            game.count >= 5 ? 'disabled text-black-50' : ''
+                          }
+                          onClick={(e) => {
+                            if (game.count >= 5) return;
+                            increaseCount(e, game.id, 1);
+                          }}
+                        >
+                          <i className='bi bi-plus-square fs-4'></i>
+                        </span>
+                      </div>
+                      <div className='fw-bold col-md-1 d-flex justify-content-center align-items-center'>
+                        ${(game.price * game.count).toFixed(2)}
+                      </div>
 
-                    <div className='col-md-1 d-flex justify-content-center align-items-center'>
-                      <button
-                        onClick={(e) => removeItem(e, game.id)}
-                        className='btn p-0 btn-default m-0'
-                      >
-                        <i className='bi bi-x fs-4 text-danger'></i>
-                      </button>
+                      <div className='col-md-1 d-flex justify-content-center align-items-center'>
+                        <button
+                          onClick={(e) => removeItem(e, game.id)}
+                          className='btn p-0 btn-default m-0'
+                        >
+                          <i className='bi bi-x fs-4 text-danger'></i>
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
               <p className='fw-bold text-end'>
                 Итоговая стоимость: ${fullPrice.toFixed(2)}
               </p>
