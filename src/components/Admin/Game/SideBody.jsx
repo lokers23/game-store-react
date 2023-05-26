@@ -64,7 +64,7 @@ function SideBody({ game }) {
       </div>
       <div className='p-3 shadow rounded border  flex-grow-1'>
         <p>
-          <b>Платформа: </b>
+          <b className='me-2'>Платформа:</b>
           {game.minimumSpecifications &&
             game.minimumSpecifications.length > 0 &&
             game.minimumSpecifications.map((minSpec, index) => (
@@ -75,11 +75,11 @@ function SideBody({ game }) {
             ))}
         </p>
         <p>
-          <b>Активация: </b>
+          <b className='me-2'>Активация:</b>
           {game.activation && game.activation.name}
         </p>
         <p className=''>
-          <b>Жанр: </b>
+          <b className='me-2'>Жанр:</b>
           {game.genres &&
             game.genres.length > 0 &&
             game.genres.map((genre, index) => (
@@ -90,19 +90,23 @@ function SideBody({ game }) {
             ))}
         </p>
         <p>
-          <b>Издатель: </b>
+          <b className='me-2'>Издатель:</b>
           {game.publisher && game.publisher.name}
         </p>
         <p>
-          <b>Разработчик: </b>
+          <b className='me-2'>Разработчик:</b>
           {game.developer && game.developer.name}
         </p>
         <p>
-          <b>Дата выхода: </b>
-          {game.releaseOn}
+          <b className='me-2'>Дата выхода:</b>
+          {new Date(game.releaseOn).toLocaleDateString('ru-RU', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
         </p>
         <p className=''>
-          <b>Наличие: </b>
+          <b className='me-2'>Наличие:</b>
           {countKeys === 0 && (
             <span className='text-danger fw-bold'> нет в наличии</span>
           )}

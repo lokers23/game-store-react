@@ -56,7 +56,7 @@ export default function TableOrder() {
   return (
     <div className='container-fluid'>
       <h2 className='mb-2'>Заказы</h2>
-      <form className='d-flex flex-row p-2 mb-2' onSubmit={handleSubmit}>
+      <form className='d-flex flex-row mb-2' onSubmit={handleSubmit}>
         <div>
           <label className='form-label '>Логин</label>
           <input

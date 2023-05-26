@@ -39,6 +39,7 @@ import {
 import { TableKey, CreateKey, EditKey } from './components/Admin/Key/Key';
 import TableOrder from './components/Admin/Order/TableOrder';
 import TableUser from './components/Admin/User/TableUser';
+import ChangeRoleForm from './components/Admin/User/ChangeRoleForm';
 
 export default function AdminRoutes() {
   return (
@@ -88,6 +89,7 @@ export default function AdminRoutes() {
       </Route>
       <Route path='users'>
         <Route path='' element={<TableUser />} />
+        <Route path=':id/role' element={<ChangeRoleForm />} />
       </Route>
     </>
   );

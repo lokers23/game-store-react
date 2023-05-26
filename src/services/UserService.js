@@ -22,9 +22,29 @@ export class userService {
   }
 
   // for admin/moderator
-  static getUsers() {
-    const url = URL.USER;
+  static getUsers(page, pageSize, sort, filters) {
+    let url = URL.USER;
     const headers = this.getHeader();
+    //return axios.get(url, headers);
+
+    const params = [];
+    if (page && pageSize) {
+      params.push(`page=${page}`);
+      params.push(`pageSize=${pageSize}`);
+    }
+
+    if (sort) {
+      params.push(`sort=${sort}`);
+    }
+
+    if (filters) {
+      params.push(`${filters}`);
+    }
+
+    if (params.length > 0) {
+      url += `?${params.join('&')}`;
+    }
+
     return axios.get(url, headers);
   }
 
@@ -32,5 +52,28 @@ export class userService {
     const url = URL.USER + '/password';
     const headers = this.getHeader();
     return axios.put(url, data, headers);
+  }
+
+  static deleteUser(id) {
+    //const url = ;
+    const headers = this.getHeader();
+    return axios.delete(URL.USER + `/${id}`, headers);
+  }
+
+  static getUserById(id) {
+    //const url = ;
+    const headers = this.getHeader();
+    return axios.get(URL.USER + `/${id}`, headers);
+  }
+
+  static changeRole(userId, role) {
+    console.log(`${userId}${role}`);
+    const headers = this.getHeader();
+    const roleObject = {
+      userId: Number(userId),
+      role: Number(role)
+    };
+
+    return axios.put(URL.USER + `/role`, roleObject, headers);
   }
 }

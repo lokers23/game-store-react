@@ -65,7 +65,13 @@ function Purchases() {
                       </div>
                     ))}
                   <p className='fw-bold'>Стоимость: {purchase.amount}$</p>
-                  <div className='card-footer text-end'>{purchase.payOn}</div>
+                  <div className='card-footer text-end'>
+                    {new Date(purchase.payOn).toLocaleDateString('ru-RU', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </div>
                 </div>
               ))}
           </div>

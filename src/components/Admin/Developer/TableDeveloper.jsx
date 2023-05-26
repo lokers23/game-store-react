@@ -60,7 +60,7 @@ export default function TableDeveloper() {
       <Link className='btn btn-primary btn-sm mb-2' to='create'>
         Добавить новую запись
       </Link>
-      <form className='d-flex flex-row p-2 mb-2' onSubmit={handleSubmit}>
+      <form className='d-flex flex-row mb-2' onSubmit={handleSubmit}>
         <div>
           <label className='form-label '>Название</label>
           <input
