@@ -1,5 +1,5 @@
 //const BASE_URL = 'https://localhost:7125';
-const BASE_URL = 'http://lokers-001-site1.ctempurl.com';
+const BASE_URL = 'https://lokers-001-site1.ctempurl.com';
 
 const ROLES = {
   1: 'Administrator',
