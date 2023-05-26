@@ -45,4 +45,4 @@ const URL = {
   BALANCE: BASE_URL + API.BALANCE
 };
 
-export { URL, LOCAL_STORAGE, ROLES };
+export { BASE_URL, URL, LOCAL_STORAGE, ROLES };

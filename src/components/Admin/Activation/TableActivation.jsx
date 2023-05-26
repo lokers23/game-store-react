@@ -1,24 +1,34 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { activationService } from '../../../services/ActivationService';
 import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
 import Pagination from '../../Pagination/Pagination';
 
 export default function TableActivation() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [activations, setActivations] = useState([]);
 
   const [filters, setFilters] = useState(null);
   const [name, setName] = useState(null);
 
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize] = useState(3);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   activationService
+  //     .getActivations(page, pageSize, null, filters)
+  //     .then((response) => {
+  //       setActivations(response.data.data);
+  //       setHasNextPage(response.data.hasNextPage);
+  //       setHasPreviousPage(response.data.hasPreviousPage);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     activationService
       .getActivations(page, pageSize, null, filters)
       .then((response) => {
@@ -27,11 +37,7 @@ export default function TableActivation() {
         setHasPreviousPage(response.data.hasPreviousPage);
       })
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [page, filters]);
+  }, [page, pageSize, filters]);
 
   function deleteActivation(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {

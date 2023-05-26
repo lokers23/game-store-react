@@ -5,6 +5,7 @@ import tokenService from '../../services/TokenService';
 import InlineError from '../InlineError';
 import '../../styles/login.css';
 import { useLogin } from '../../contexts/LoginContext';
+import { BASE_URL } from '../../Constants';
 
 function Login() {
   const { handleLogin } = useLogin();
@@ -26,7 +27,7 @@ function Login() {
     user.login = login;
     user.password = password;
 
-    const url = 'https://localhost:7125/api/account/login';
+    const url = BASE_URL + '/api/account/login';
 
     axios
       .post(url, user)

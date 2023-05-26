@@ -10,16 +10,21 @@ export default function EditActivation() {
 
   const navigate = useNavigate();
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   activationService
+  //     .getActivationById(id)
+  //     .then((response) => setActivationName(response.data.data.name))
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
+    //fetchData();
+    console.log('act');
     activationService
       .getActivationById(id)
       .then((response) => setActivationName(response.data.data.name))
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [navigate]);
+  }, [id]);
 
   function handleSubmit(event) {
     event.preventDefault();

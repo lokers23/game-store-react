@@ -4,7 +4,7 @@ import { useCart } from '../../../contexts/CartContext';
 
 function SideBody({ game }) {
   const { addItem } = useCart();
-  const [textAlert, setTextAlert] = useState('');
+  //const [textAlert, setTextAlert] = useState('');
   const [countKeys, setCountKeys] = useState(0);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ function SideBody({ game }) {
     }
 
     localStorage.setItem('cartGames', JSON.stringify(storedGames));
-    setTextAlert(`${game.name} добавлен в корзину!`);
+    //setTextAlert(`${game.name} добавлен в корзину!`);
   }
 
   return (
