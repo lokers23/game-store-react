@@ -11,7 +11,7 @@ function CatalogPage() {
   const [filter, setFilter] = useState(null);
 
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize] = useState(3);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
@@ -45,7 +45,7 @@ function CatalogPage() {
         setHasPreviousPage(response.data.hasPreviousPage);
       })
       .catch();
-  }, [sort, filter, page]);
+  }, [sort, filter, page, pageSize]);
 
   return (
     <div

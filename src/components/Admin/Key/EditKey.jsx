@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { keyService } from '../../../services/KeyService';
-import { activationService } from '../../../services/ActivationService';
+//import { activationService } from '../../../services/ActivationService';
 import { gameService } from '../../../services/GameService';
 import { InlineError } from '../../InlineError';
 
@@ -12,7 +12,7 @@ export default function EditKey() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
 
-  const [activations, setActivations] = useState([]);
+  //const [activations, setActivations] = useState([]);
   const [games, setGames] = useState([]);
 
   const [value, setValue] = useState('');
@@ -20,12 +20,32 @@ export default function EditKey() {
   //const [activationId, setActivationId] = useState(0);
   const [isUsed, setIsUsed] = useState(false);
 
-  const fetchData = () => {
-    activationService
-      .getActivations()
-      .then((response) => setActivations(response.data.data))
-      .catch((error) => console.log(error));
+  // const fetchData = () => {
+  //   // activationService
+  //   //   .getActivations()
+  //   //   .then((response) => setActivations(response.data.data))
+  //   //   .catch((error) => console.log(error));
 
+  //   gameService
+  //     .getGames()
+  //     .then((response) => setGames(response.data.data))
+  //     .catch((error) => console.log(error));
+
+  //   keyService
+  //     .getKeyById(id)
+  //     .then((response) => {
+  //       const data = response.data.data;
+  //       //setActivationId(data.activation.id);
+  //       setValue(data.value);
+  //       if (data.game) {
+  //         setGameId(data.game.id);
+  //       }
+  //       setIsUsed(data.isUsed);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     gameService
       .getGames()
       .then((response) => setGames(response.data.data))
@@ -43,11 +63,7 @@ export default function EditKey() {
         setIsUsed(data.isUsed);
       })
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [navigate]);
+  }, [navigate, id]);
 
   function handleSubmit(event) {
     event.preventDefault();

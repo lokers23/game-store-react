@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { userService } from '../../services/UserService';
 import { InlineError } from '../InlineError';
 import { useNavigate } from 'react-router-dom';

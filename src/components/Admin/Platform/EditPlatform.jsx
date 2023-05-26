@@ -10,16 +10,19 @@ export default function EditPlatform() {
 
   const navigate = useNavigate();
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   platformService
+  //     .getPlatformById(id)
+  //     .then((response) => setPlatformName(response.data.data.name))
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     platformService
       .getPlatformById(id)
       .then((response) => setPlatformName(response.data.data.name))
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [navigate]);
+  }, [navigate, id]);
 
   function handleSubmit(event) {
     event.preventDefault();

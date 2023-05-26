@@ -1,25 +1,36 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { keyService } from '../../../services/KeyService';
-import { Link } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
+//import { keyService } from '../../../services/KeyService';
+//import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
 import { orderService } from '../../../services/OrderService';
 import Pagination from '../../Pagination/Pagination';
 
 export default function TableOrder() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
 
   const [filters, setFilters] = useState(null);
   const [login, setLogin] = useState(null);
 
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize] = useState(5);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   orderService
+  //     .getOrders(page, pageSize, null, filters)
+  //     .then((response) => {
+  //       setOrders(response.data.data);
+  //       setHasNextPage(response.data.hasNextPage);
+  //       setHasPreviousPage(response.data.hasPreviousPage);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     orderService
       .getOrders(page, pageSize, null, filters)
       .then((response) => {
@@ -28,11 +39,7 @@ export default function TableOrder() {
         setHasPreviousPage(response.data.hasPreviousPage);
       })
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [page, filters]);
+  }, [page, filters, pageSize]);
 
   function deleteOrder(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {

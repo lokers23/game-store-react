@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import '../../../styles/Center.css';
-import { Link, json, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { gameService } from '../../../services/GameService';
-import { Card, CardImg, Col, Container, Row, Button } from 'react-bootstrap';
 
 function Center() {
   const navigate = useNavigate();

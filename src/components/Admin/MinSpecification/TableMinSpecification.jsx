@@ -1,21 +1,32 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import { minSpecificationService } from '../../../services/MinSpecificationService';
 import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
 import Pagination from '../../Pagination/Pagination';
 
 export default function TableMinSpecification() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [minSpecs, setMinSpecs] = useState([]);
 
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(2);
+  const [pageSize] = useState(2);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   minSpecificationService
+  //     .getMinSpecs(page, pageSize)
+  //     .then((response) => {
+  //       setMinSpecs(response.data.data);
+  //       setHasNextPage(response.data.hasNextPage);
+  //       setHasPreviousPage(response.data.hasPreviousPage);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     minSpecificationService
       .getMinSpecs(page, pageSize)
       .then((response) => {
@@ -24,11 +35,7 @@ export default function TableMinSpecification() {
         setHasPreviousPage(response.data.hasPreviousPage);
       })
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [page]);
+  }, [page, pageSize]);
 
   function deleteMinSpecification(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {

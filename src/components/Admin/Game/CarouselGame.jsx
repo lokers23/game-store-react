@@ -10,17 +10,22 @@ function CarouselGame({ game }) {
   const [images, setImages] = useState([]);
   const [isChangedImages, setIsChangedImages] = useState(false);
 
-  function fetchData() {
+  // function fetchData() {
+  //   imageService
+  //     .getImages(game.id)
+  //     .then((response) => {
+  //       setImages(response.data.data);
+  //     })
+  //     .catch((error) => error.message);
+  // }
+
+  useEffect(() => {
     imageService
       .getImages(game.id)
       .then((response) => {
         setImages(response.data.data);
       })
       .catch((error) => error.message);
-  }
-
-  useEffect(() => {
-    fetchData();
   }, [game, isChangedImages]);
 
   const handleImageChange = (event) => {

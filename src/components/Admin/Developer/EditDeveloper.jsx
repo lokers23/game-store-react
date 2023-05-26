@@ -10,16 +10,19 @@ export default function EditDeveloper() {
 
   const navigate = useNavigate();
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   developerService
+  //     .getDeveloperById(id)
+  //     .then((response) => setDeveloperName(response.data.data.name))
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     developerService
       .getDeveloperById(id)
       .then((response) => setDeveloperName(response.data.data.name))
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [navigate]);
+  }, [navigate, id]);
 
   function handleSubmit(event) {
     event.preventDefault();

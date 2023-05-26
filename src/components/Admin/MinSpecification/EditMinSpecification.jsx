@@ -19,7 +19,26 @@ export default function EditMinSpecification() {
 
   const navigate = useNavigate();
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   platformService
+  //     .getPlatforms()
+  //     .then((response) => setPlatforms(response.data.data))
+  //     .catch((error) => console.log(error));
+
+  //   minSpecificationService
+  //     .getMinSpecById(id)
+  //     .then((response) => {
+  //       setOperatingSystem(response.data.data.operatingSystem);
+  //       setProcessor(response.data.data.processor);
+  //       setMemory(response.data.data.memory);
+  //       setGraphics(response.data.data.graphics);
+  //       setStorage(response.data.data.storage);
+  //       setPlatformId(response.data.data.platform.id);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     platformService
       .getPlatforms()
       .then((response) => setPlatforms(response.data.data))
@@ -36,11 +55,7 @@ export default function EditMinSpecification() {
         setPlatformId(response.data.data.platform.id);
       })
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [navigate]);
+  }, [navigate, id]);
 
   function handleSubmit(event) {
     event.preventDefault();

@@ -14,7 +14,17 @@ export default function ChangeRoleForm() {
 
   const navigate = useNavigate();
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   userService
+  //     .getUserById(id)
+  //     .then((response) => {
+  //       setUser(response.data.data);
+  //       setRole(response.data.data.role);
+  //     })
+  //     .catch();
+  // };
+
+  useEffect(() => {
     userService
       .getUserById(id)
       .then((response) => {
@@ -22,11 +32,7 @@ export default function ChangeRoleForm() {
         setRole(response.data.data.role);
       })
       .catch();
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [navigate]);
+  }, [navigate, id]);
 
   function handleSubmit(event) {
     event.preventDefault();

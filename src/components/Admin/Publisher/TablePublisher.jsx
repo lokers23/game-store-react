@@ -1,32 +1,32 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import { publisherService } from '../../../services/PublisherService';
 import { Link } from 'react-router-dom';
 import Pagination from '../../Pagination/Pagination';
 
 export default function TablePublisher() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [publishers, setPublishers] = useState([]);
 
   const [filters, setFilters] = useState(null);
   const [name, setName] = useState(null);
 
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize] = useState(5);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
-  const fetchData = () => {
-    publisherService
-      .getPublishers(page, pageSize, null, filters)
-      .then((response) => {
-        setPublishers(response.data.data);
-        setHasNextPage(response.data.hasNextPage);
-        setHasPreviousPage(response.data.hasPreviousPage);
-      })
-      .catch((error) => console.log(error));
-  };
+  // const fetchData = () => {
+  //   publisherService
+  //     .getPublishers(page, pageSize, null, filters)
+  //     .then((response) => {
+  //       setPublishers(response.data.data);
+  //       setHasNextPage(response.data.hasNextPage);
+  //       setHasPreviousPage(response.data.hasPreviousPage);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
 
   function deletePublisher(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {
@@ -44,8 +44,15 @@ export default function TablePublisher() {
   };
 
   useEffect(() => {
-    fetchData();
-  }, [page, filters]);
+    publisherService
+      .getPublishers(page, pageSize, null, filters)
+      .then((response) => {
+        setPublishers(response.data.data);
+        setHasNextPage(response.data.hasNextPage);
+        setHasPreviousPage(response.data.hasPreviousPage);
+      })
+      .catch((error) => console.log(error));
+  }, [page, filters, pageSize]);
 
   function handleSubmit(event) {
     event.preventDefault();

@@ -1,5 +1,4 @@
 import { Link, Outlet } from 'react-router-dom';
-import Purchases from './Purchases';
 
 function Profile() {
   return (

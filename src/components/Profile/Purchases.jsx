@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { orderService } from '../../services/OrderService';
-import { gameService } from '../../services/GameService';
+//import { gameService } from '../../services/GameService';
 
 function Purchases() {
   const [purchases, setPurchases] = useState([]);

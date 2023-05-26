@@ -13,18 +13,23 @@ function GamePage() {
   const { id } = useParams();
   const [game, setGame] = useState([]);
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   gameService
+  //     .getGameById(id)
+  //     .then((response) => {
+  //       setGame(response.data.data);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     gameService
       .getGameById(id)
       .then((response) => {
         setGame(response.data.data);
       })
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [navigate]);
+  }, [navigate, id]);
 
   return (
     <div className='d-flex mb-5'>

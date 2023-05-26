@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { userService } from '../../services/UserService';
+//import { useEffect, useState } from 'react';
+//import { userService } from '../../services/UserService';
 import { Link } from 'react-router-dom';
 
 function ActivationHelpPage() {

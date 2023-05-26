@@ -1,24 +1,35 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import { platformService } from '../../../services/PlatformService';
 import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
 import Pagination from '../../Pagination/Pagination';
 
 export default function TablePlatform() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [platforms, setPlatforms] = useState([]);
 
   const [filters, setFilters] = useState(null);
   const [name, setName] = useState(null);
 
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(1);
+  const [pageSize] = useState(1);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   platformService
+  //     .getPlatforms(page, pageSize, null, filters)
+  //     .then((response) => {
+  //       setPlatforms(response.data.data);
+  //       setHasNextPage(response.data.hasNextPage);
+  //       setHasPreviousPage(response.data.hasPreviousPage);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     platformService
       .getPlatforms(page, pageSize, null, filters)
       .then((response) => {
@@ -27,11 +38,7 @@ export default function TablePlatform() {
         setHasPreviousPage(response.data.hasPreviousPage);
       })
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [page, filters]);
+  }, [page, filters, pageSize]);
 
   function deletePlatform(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {

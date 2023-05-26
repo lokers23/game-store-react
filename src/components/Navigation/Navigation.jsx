@@ -1,8 +1,5 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Container, Navbar, Nav, Button } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLogin } from '../../contexts/LoginContext';
-import { LOCAL_STORAGE } from '../../Constants';
 import { useCart } from '../../contexts/CartContext';
 import logo from '../../logo3.png';
 

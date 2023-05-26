@@ -39,7 +39,62 @@ export default function EditGame() {
   const [isChangedAvatar, setIsChangedAvatar] = useState(false);
   const [avatarName, setAvatarName] = useState(null);
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   gameService
+  //     .getGameById(id)
+  //     .then((response) => {
+  //       setName(response.data.data.name);
+  //       setDeveloperId(response.data.data.developer.id);
+  //       setPublisherId(response.data.data.publisher.id);
+  //       setDescription(response.data.data.description);
+  //       setReleaseOn(response.data.data.releaseOn);
+  //       setPrice(response.data.data.price);
+  //       setVideoUrl(response.data.data.videoUrl);
+  //       setGenreIds(response.data.data.genres.map((genre) => genre.id));
+  //       setActivationId(response.data.data.activation.id);
+  //       const minSpecifications = response.data.data.minimumSpecifications;
+  //       const minSpecIds = minSpecifications.reduce((acc, spec) => {
+  //         acc[spec.platform.name] = spec.id;
+  //         return acc;
+  //       }, {});
+
+  //       setMinimumSpecificationIds(minSpecIds);
+  //       setAvatarName(gameService.getAvatarUrl(response.data.data.avatarName));
+  //     })
+  //     .catch((error) => error.message);
+
+  //   genreService
+  //     .getGenres()
+  //     .then((response) => setGenres(response.data.data))
+  //     .catch((error) => error.message);
+
+  //   developerService
+  //     .getDevelopers()
+  //     .then((response) => setDevelopers(response.data.data))
+  //     .catch((error) => error.message);
+
+  //   publisherService
+  //     .getPublishers()
+  //     .then((response) => setPublishers(response.data.data))
+  //     .catch((error) => error.message);
+
+  //   minSpecificationService
+  //     .getMinSpecs()
+  //     .then((response) => setMinSpecs(response.data.data))
+  //     .catch((error) => error.message);
+
+  //   platformService
+  //     .getPlatforms()
+  //     .then((response) => setPlatforms(response.data.data))
+  //     .catch((error) => error.message);
+
+  //   activationService
+  //     .getActivations()
+  //     .then((response) => setActivations(response.data.data))
+  //     .catch((error) => error.message);
+  // };
+
+  useEffect(() => {
     gameService
       .getGameById(id)
       .then((response) => {
@@ -92,11 +147,7 @@ export default function EditGame() {
       .getActivations()
       .then((response) => setActivations(response.data.data))
       .catch((error) => error.message);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [navigate]);
+  }, [navigate, id]);
 
   const handleImageChange = (event) => {
     setAvatar(event.target.files[0]);

@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react';
 import '../../../styles/LeftSide.css';
 import { activationService } from '../../../services/ActivationService';
 import { genreService } from '../../../services/GenreService';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function LeftMenu() {
   const [activations, setActivations] = useState([]);
   const [genres, setGenres] = useState([]);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     activationService

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { keyService } from '../../../services/KeyService';
-import { activationService } from '../../../services/ActivationService';
+//import { activationService } from '../../../services/ActivationService';
 import { gameService } from '../../../services/GameService';
 import { InlineError } from '../../InlineError';
 

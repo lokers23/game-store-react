@@ -1,21 +1,21 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import { gameService } from '../../../services/GameService';
 import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
 import Pagination from '../../Pagination/Pagination';
 
 export default function TableGame() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [games, setGames] = useState([]);
 
   const [filters, setFilters] = useState(null);
   const [name, setName] = useState(null);
 
-  const [sort, setSort] = useState('id_desc');
+  const [sort] = useState('id_desc');
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize] = useState(3);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
@@ -23,7 +23,18 @@ export default function TableGame() {
     setPage(value);
   };
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   gameService
+  //     .getGames(page, pageSize, sort, filters)
+  //     .then((response) => {
+  //       setGames(response.data.data);
+  //       setHasNextPage(response.data.hasNextPage);
+  //       setHasPreviousPage(response.data.hasPreviousPage);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     gameService
       .getGames(page, pageSize, sort, filters)
       .then((response) => {
@@ -32,12 +43,7 @@ export default function TableGame() {
         setHasPreviousPage(response.data.hasPreviousPage);
       })
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-    console.log('filt');
-  }, [page, sort, filters]);
+  }, [page, sort, filters, pageSize]);
 
   function deleteGame(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {

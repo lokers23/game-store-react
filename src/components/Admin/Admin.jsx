@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import '../../styles/Admin.css';
 import { useLogin } from '../../contexts/LoginContext';

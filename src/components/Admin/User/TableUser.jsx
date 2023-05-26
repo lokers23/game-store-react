@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { userService } from '../../../services/UserService';
 import Pagination from '../../Pagination/Pagination';
 import { ROLES } from '../../../Constants';
 
 function TableUser() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const [users, setUsers] = useState([]);
-  const roles = ROLES;
+  //const roles = ROLES;
 
   const [login, setLogin] = useState(null);
   const [filters, setFilters] = useState(null);
 
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(2);
+  const [pageSize] = useState(2);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
@@ -31,7 +31,18 @@ function TableUser() {
     setPage(value);
   };
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   userService
+  //     .getUsers(page, pageSize, null, filters)
+  //     .then((response) => {
+  //       setUsers(response.data.data);
+  //       setHasNextPage(response.data.hasNextPage);
+  //       setHasPreviousPage(response.data.hasPreviousPage);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     userService
       .getUsers(page, pageSize, null, filters)
       .then((response) => {
@@ -40,11 +51,7 @@ function TableUser() {
         setHasPreviousPage(response.data.hasPreviousPage);
       })
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [page, filters]);
+  }, [page, filters, pageSize]);
 
   function handleSubmit(event) {
     console.log('filt');

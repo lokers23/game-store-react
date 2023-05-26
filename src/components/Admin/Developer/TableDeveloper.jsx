@@ -1,24 +1,35 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import { developerService } from '../../../services/DeveloperService';
 import { Link } from 'react-router-dom';
 import '../../../styles/Crud.css';
 import Pagination from '../../Pagination/Pagination';
 
 export default function TableDeveloper() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const [developers, setDevelopers] = useState([]);
 
   const [filters, setFilters] = useState(null);
   const [name, setName] = useState(null);
 
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize] = useState(5);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   developerService
+  //     .getDevelopers(page, pageSize, null, filters)
+  //     .then((response) => {
+  //       setDevelopers(response.data.data);
+  //       setHasNextPage(response.data.hasNextPage);
+  //       setHasPreviousPage(response.data.hasPreviousPage);
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     developerService
       .getDevelopers(page, pageSize, null, filters)
       .then((response) => {
@@ -27,11 +38,7 @@ export default function TableDeveloper() {
         setHasPreviousPage(response.data.hasPreviousPage);
       })
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [page, filters]);
+  }, [page, filters, pageSize]);
 
   function deleteDeveloper(id) {
     if (window.confirm('Вы точно хотите удалить эту запись?')) {

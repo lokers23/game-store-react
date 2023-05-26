@@ -50,7 +50,17 @@ function CatalogFilterPanel({ onFilterChange }) {
       platformId: platformId,
       name: name
     });
-  }, [genre, minPrice, maxPrice, platformId, activationId, name]);
+
+    // onFilterChange ВОЗМОЖНО ОШИБКА ЧТО В []
+  }, [
+    genre,
+    minPrice,
+    maxPrice,
+    platformId,
+    activationId,
+    name,
+    onFilterChange
+  ]);
 
   return (
     <div

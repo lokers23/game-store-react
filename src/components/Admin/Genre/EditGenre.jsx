@@ -9,16 +9,19 @@ export default function EditGenre() {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   genreService
+  //     .getGenreById(id)
+  //     .then((response) => setGenreName(response.data.data.name))
+  //     .catch((error) => console.log(error.message));
+  // };
+
+  useEffect(() => {
     genreService
       .getGenreById(id)
       .then((response) => setGenreName(response.data.data.name))
       .catch((error) => console.log(error.message));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [navigate]);
+  }, [navigate, id]);
 
   function handleSubmit(event) {
     event.preventDefault();

@@ -10,16 +10,19 @@ export default function EditPublisher() {
 
   const navigate = useNavigate();
 
-  const fetchData = () => {
+  // const fetchData = () => {
+  //   publisherService
+  //     .getPublisherById(id)
+  //     .then((response) => setPublisherName(response.data.data.name))
+  //     .catch((error) => console.log(error));
+  // };
+
+  useEffect(() => {
     publisherService
       .getPublisherById(id)
       .then((response) => setPublisherName(response.data.data.name))
       .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [navigate]);
+  }, [navigate, id]);
 
   function handleSubmit(event) {
     event.preventDefault();
