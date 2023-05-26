@@ -6,13 +6,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import Navigation from './components/Navigation/Navigation';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate
-} from 'react-router-dom';
-import Center from './components/MainPage/Center/Center';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+//import Center from './components/MainPage/Center/Center';
 import Login from './components/Login/Login';
 import Registration from './components/Login/Registration';
 import Cart from './components/Cart/Cart';
@@ -22,8 +17,8 @@ import MainPage from './components/MainPage/MainPage';
 import Profile from './components/Profile/Profile';
 import Purchases from './components/Profile/Purchases';
 import GamePage from './components/Admin/Game/GamePage';
-import axios from 'axios';
-import { LoginProvider, useLogin } from './contexts/LoginContext';
+//import axios from 'axios';
+import { LoginProvider } from './contexts/LoginContext';
 import PersonalPage from './components/Profile/PersonalPage';
 import BalancePage from './components/Profile/BalancePage';
 import { CartProvider } from './contexts/CartContext';
