@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { gameService } from '../../../services/GameService';
 import { imageService } from '../../../services/ImageService';
 import { useLogin } from '../../../contexts/LoginContext';
+import { ROLES } from '../../../Constants';
 function CarouselGame({ game }) {
   const { role } = useLogin();
   const formData = new FormData();
@@ -132,7 +133,7 @@ function CarouselGame({ game }) {
           <span className='visually-hidden'>Next</span>
         </button>
       </div>
-      {role !== 'User' && (
+      {(role === ROLES[1] || role === ROLES[2]) && (
         <form onSubmit={handleSubmit}>
           <button type='submit' className='btn btn-primary btn-sm mb-1 mt-1'>
             Добавить изображение

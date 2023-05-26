@@ -5,6 +5,7 @@ import tokenService from '../../services/TokenService';
 import InlineError from '../InlineError';
 import '../../styles/login.css';
 import { useLogin } from '../../contexts/LoginContext';
+import { BASE_URL } from '../../Constants';
 
 function Registration() {
   const { handleLogin } = useLogin();
@@ -28,7 +29,7 @@ function Registration() {
       mail: mail
     };
 
-    const url = 'https://localhost:7125/api/account/register';
+    const url = BASE_URL + '/api/account/register';
     axios
       .post(url, user)
       .then((response) =>
