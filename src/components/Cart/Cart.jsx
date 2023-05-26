@@ -16,12 +16,14 @@ function Cart() {
 
   useEffect(() => {
     localStorage.setItem('cartGames', JSON.stringify(games));
-    if (isReload && games) {
-      updateDataGames(games);
+    if (games) {
+      if (isReload) {
+        updateDataGames(games);
+      }
+      setFullPrice(
+        games.reduce((prev, curr) => prev + curr.price * curr.count, 0)
+      );
     }
-    setFullPrice(
-      games.reduce((prev, curr) => prev + curr.price * curr.count, 0)
-    );
 
     //isReload возможно нужно будет удалить isReload из скобок
   }, [games, isReload]);
