@@ -16,7 +16,7 @@ function Cart() {
 
   useEffect(() => {
     localStorage.setItem('cartGames', JSON.stringify(games));
-    if (isReload) {
+    if (isReload && games) {
       updateDataGames(games);
     }
     setFullPrice(
@@ -103,7 +103,7 @@ function Cart() {
 
   return (
     <div className='container'>
-      {games !== null && games.length > 0 ? (
+      {games && games.length > 0 ? (
         <div className='mx-auto' style={{ maxWidth: '900px' }}>
           <div className='mb-3'>
             <p className='h2'>Оформление заказа</p>
