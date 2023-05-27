@@ -6,7 +6,12 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import Navigation from './components/Navigation/Navigation';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  //BrowserRouter as Router,
+  Routes,
+  Route,
+  HashRouter
+} from 'react-router-dom';
 //import Center from './components/MainPage/Center/Center';
 import Login from './components/Login/Login';
 import Registration from './components/Login/Registration';
@@ -44,7 +49,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <LoginProvider>
     <CartProvider>
-      <Router>
+      <HashRouter>
         <Navigation />
         <Routes>
           <Route path='/' element={<MainPage />} />
@@ -87,7 +92,7 @@ root.render(
           <Route path='*' />
         </Routes>
         <Footer />
-      </Router>
+      </HashRouter>
     </CartProvider>
   </LoginProvider>
 );
