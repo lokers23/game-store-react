@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useLogin } from '../../contexts/LoginContext';
 import { useCart } from '../../contexts/CartContext';
-import logo from '../../logo3.png';
+//import logo from '../../logo3.png';
+import logo from '../../white-logo.png';
 
 function Navigation() {
   const navigate = useNavigate();
@@ -24,8 +25,8 @@ function Navigation() {
 
   return (
     <nav
-      className='navbar navbar-expand-lg navbar-light  mb-3 shadow-sm '
-      style={{ backgroundColor: '#f7f7f7' }}
+      className='navbar navbar-expand-lg  mb-3'
+      style={{ backgroundColor: '#2b2e32' }}
     >
       <div className='container-fluid'>
         <a className='navbar-brand' href='/'>
@@ -51,7 +52,7 @@ function Navigation() {
             <li className='nav-item me-2 '>
               <Link
                 to='/'
-                className='nav-link text-dark'
+                className='nav-link text-white'
                 style={{ fontSize: '17px' }}
               >
                 Главная
@@ -60,7 +61,7 @@ function Navigation() {
             <li className='nav-item me-2'>
               <Link
                 to='/catalog'
-                className='nav-link text-dark'
+                className='nav-link text-white'
                 style={{ fontSize: '17px' }}
               >
                 Каталог
@@ -69,7 +70,7 @@ function Navigation() {
             <li className='nav-item me-auto'>
               <Link
                 to='/faq'
-                className='nav-link text-dark'
+                className='nav-link  text-white'
                 style={{ fontSize: '17px' }}
               >
                 Помощь
@@ -77,28 +78,28 @@ function Navigation() {
             </li>
             {isLogin && role === 'Administrator' && (
               <li className='nav-item me-3'>
-                <Link to='/admin' className='nav-link text-dark'>
+                <Link to='/admin' className='nav-link text-white'>
                   <i className='bi-table'></i> Панель администратора
                 </Link>
               </li>
             )}
             {!isLogin ? (
               <li className='nav-item me-3'>
-                <Link to='/login' className='nav-link me-5 text-dark'>
+                <Link to='/login' className='nav-link me-5 text-white'>
                   <i className='bi-door-closed-fill'></i> Войти
                 </Link>
               </li>
             ) : (
               <>
                 <li className='nav-item me-3'>
-                  <Link to='/profile' className='nav-link text-dark'>
+                  <Link to='/profile' className='nav-link text-white'>
                     <i className='bi-person-fill'></i> Личный кабинет
                   </Link>
                 </li>
                 <li className='nav-item me-3'>
                   <Link
                     to='/login'
-                    className='nav-link text-dark'
+                    className='nav-link text-white'
                     onClick={() => handleLogout()}
                   >
                     <i className='bi-door-open-fill'></i> Выйти
@@ -109,13 +110,17 @@ function Navigation() {
             <li className='nav-item me-3'>
               <Link
                 to='/cart'
-                className='nav-link position-relative text-dark'
+                className='nav-link position-relative text-white'
                 style={{ textDecoration: 'none', maxWidth: '98.25px' }}
               >
                 <i className='bi-cart4'></i> Корзина
                 <span
-                  className='position-absolute start-100 translate-middle badge rounded-pill bg-danger'
-                  style={{ top: '25%', fontSize: '11px' }}
+                  className='position-absolute start-100 translate-middle badge rounded-pill'
+                  style={{
+                    top: '25%',
+                    fontSize: '11px',
+                    backgroundColor: '#FF4500'
+                  }}
                 >
                   {countGames !== 0 && countGames}
                 </span>

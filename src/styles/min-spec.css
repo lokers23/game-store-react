@@ -1,18 +1,9 @@
-.bg-min-spec {
-  background-color: rgba(13, 110, 253, 0.2);
-}
-
-.border-min-spec {
-  border: 1px solid;
-  border-color: rgba(13, 110, 253, 0.3);
-}
-
 .nav-pills .nav-link.active {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #2b2e32;
   color: white;
 }
 
 .nav-pills .nav-link {
   background-color: rgb(255, 255, 255);
-  color: rgb(149, 149, 149);
+  color: rgba(149, 149, 149, 0.852);
 }

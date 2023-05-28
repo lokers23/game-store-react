@@ -1,13 +1,11 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-//import { useNavigate } from 'react-router-dom';
 import { keyService } from '../../../services/KeyService';
 import { Link } from 'react-router-dom';
-import '../../../styles/Crud.css';
+import '../../../styles/admin-table.css';
 import Pagination from '../../Pagination/Pagination';
 
 export default function TableKey() {
-  //const navigate = useNavigate();
   const [keys, setKeys] = useState([]);
 
   const [filters, setFilters] = useState(null);
@@ -17,17 +15,6 @@ export default function TableKey() {
   const [pageSize] = useState(5);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
-
-  // const fetchData = () => {
-  //   keyService
-  //     .getKeys(page, pageSize, null, filters)
-  //     .then((response) => {
-  //       setKeys(response.data.data);
-  //       setHasNextPage(response.data.hasNextPage);
-  //       setHasPreviousPage(response.data.hasPreviousPage);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
 
   useEffect(() => {
     keyService
@@ -60,9 +47,9 @@ export default function TableKey() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid admin-table'>
       <h2 className='mb-2'>Ключи</h2>
-      <Link className='btn btn-primary btn-sm mb-2' to='create'>
+      <Link className='btn admin-create-button btn-sm mb-2' to='create'>
         Добавить новую запись
       </Link>
       <form className='d-flex flex-row mb-2' onSubmit={handleSubmit}>
@@ -74,11 +61,14 @@ export default function TableKey() {
             onChange={(event) => setGameName(event.target.value)}
           />
         </div>
-        <button type='submit' className='btn btn-primary align-self-end ms-2'>
+        <button
+          type='submit'
+          className='btn align-self-end ms-2 admin-filter-button'
+        >
           Отфильтровать
         </button>
       </form>
-      <table className='table table-bordered'>
+      <table className='table table-striped table-auto'>
         <thead>
           <tr>
             <th scope='col'>Id</th>
@@ -101,13 +91,13 @@ export default function TableKey() {
                     className='btn btn-danger btn-sm me-1'
                     onClick={() => deleteKey(key.id)}
                   >
-                    <i class='bi-trash-fill' />
+                    <i className='bi-trash-fill' />
                   </button>
                   <Link
                     className='btn btn-warning btn-sm'
                     to={`edit/${key.id}`}
                   >
-                    <i class='bi-pencil-square' />
+                    <i className='bi-pencil-square' />
                   </Link>
                 </td>
               </tr>

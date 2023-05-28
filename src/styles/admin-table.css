@@ -1,0 +1,32 @@
+.admin-table table {
+  border: solid 1px black;
+}
+
+.admin-table thead {
+  background-color: #2b2e32;
+  border-color: #2b2e32;
+}
+
+.admin-table thead th {
+  color: #fff;
+}
+
+.admin-create-button {
+  background-color: #288928;
+  color: white;
+}
+
+.admin-create-button:hover {
+  background-color: #288928ad;
+  color: white;
+}
+
+.admin-filter-button {
+  background-color: #2b2e32;
+  color: white;
+}
+
+.admin-filter-button:hover {
+  background-color: #2b2e32b8;
+  color: white;
+}

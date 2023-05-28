@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { gameService } from '../../../services/GameService';
 import { useCart } from '../../../contexts/CartContext';
+import '../../../styles/game-page.css';
 
 function SideBody({ game }) {
   const { addItem } = useCart();
@@ -53,10 +54,11 @@ function SideBody({ game }) {
   return (
     <div className='d-flex flex-column' style={{ minWidth: '350px' }}>
       <div className='d-flex fw-bold fs-3 mb-3 p-3 shadow rounded border justify-content-between'>
-        <p className='my-auto me-3'>Цена: ${game.price}</p>
+        <p className='my-auto me-3'>
+          Цена: ${game && Number(game.price).toFixed(2)}
+        </p>
         <button
-          className=' btn btn-lg '
-          style={{ backgroundColor: '#0081B4', color: 'white' }}
+          className=' btn btn-lg buy-button'
           onClick={(event) => addToCart(event, game)}
         >
           В корзину

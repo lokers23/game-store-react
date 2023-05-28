@@ -1,11 +1,12 @@
-import logo from '../../logo3.png';
+import { Link } from 'react-router-dom';
+import logo from '../../white-logo.png';
 function Footer() {
   return (
     <footer
       className='mt-auto position-sticky top-100 text-center text-lg-start mt-5'
-      style={{ backgroundColor: '#ebebeb' }}
+      style={{ backgroundColor: '#2b2e32' }}
     >
-      <div className='container p-4' style={{ color: 'gray' }}>
+      <div className='container p-4 text-white'>
         <div className='row'>
           <div className='col-lg-6 col-md-12 mb-4 mb-md-0'>
             <a className='d-flex justify-content-start mb-2' href='/'>
@@ -18,39 +19,55 @@ function Footer() {
             </p>
           </div>
           <div className='col-lg-3 col-md-6 mb-4 mb-md-0'>
-            <ul className='list-unstyled' style={{ color: 'gray' }}>
+            <ul className='list-unstyled'>
               <li className='mb-2'>
-                <a
-                  href='#!'
-                  className=''
-                  style={{ textDecoration: 'none', color: 'gray' }}
+                <Link
+                  to={'/'}
+                  className='text-white'
+                  style={{ textDecoration: 'none' }}
                 >
                   Главная
-                </a>
+                </Link>
               </li>
               <li className='mb-2'>
-                <a href='#!' style={{ textDecoration: 'none', color: 'gray' }}>
+                <Link
+                  to={'/catalog'}
+                  className='text-white'
+                  style={{ textDecoration: 'none' }}
+                >
                   Каталог
-                </a>
+                </Link>
+              </li>
+              <li className='mb-2'>
+                <Link
+                  to={'/faq'}
+                  className='text-white'
+                  style={{ textDecoration: 'none' }}
+                >
+                  Помощь
+                </Link>
               </li>
             </ul>
           </div>
           <div className='col-lg-3 col-md-6 mb-4 mb-md-0'>
             <ul className='list-unstyled mb-0'>
               <li className='mb-2'>
-                <a href='#!' style={{ textDecoration: 'none', color: 'gray' }}>
+                <Link
+                  to={'/profile'}
+                  className='text-white'
+                  style={{ textDecoration: 'none' }}
+                >
                   Личный кабинет
-                </a>
+                </Link>
               </li>
               <li className='mb-2'>
-                <a href='#!' style={{ textDecoration: 'none', color: 'gray' }}>
+                <Link
+                  to={'/profile/purchases'}
+                  className='text-white'
+                  style={{ textDecoration: 'none' }}
+                >
                   Мои покупки
-                </a>
-              </li>
-              <li>
-                <a href='#!' style={{ textDecoration: 'none', color: 'gray' }}>
-                  Активация игры
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -58,8 +75,8 @@ function Footer() {
       </div>
 
       <div
-        className='text-center p-3 fw-bold'
-        style={{ backgroundColor: '#f7f7f7' }}
+        className='text-center p-3 fw-bold text-white border-top'
+        style={{ backgroundColor: '#2b2e32' }}
       >
         Copyright © 2023 Game Over - все права защищены
       </div>

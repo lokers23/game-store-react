@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom';
 import { userService } from '../../../services/UserService';
 import Pagination from '../../Pagination/Pagination';
 import { ROLES } from '../../../Constants';
+import '../../../styles/admin-table.css';
 
 function TableUser() {
-  //const navigate = useNavigate();
-
   const [users, setUsers] = useState([]);
-  //const roles = ROLES;
 
   const [login, setLogin] = useState(null);
   const [filters, setFilters] = useState(null);
@@ -31,17 +29,6 @@ function TableUser() {
     setPage(value);
   };
 
-  // const fetchData = () => {
-  //   userService
-  //     .getUsers(page, pageSize, null, filters)
-  //     .then((response) => {
-  //       setUsers(response.data.data);
-  //       setHasNextPage(response.data.hasNextPage);
-  //       setHasPreviousPage(response.data.hasPreviousPage);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
-
   useEffect(() => {
     userService
       .getUsers(page, pageSize, null, filters)
@@ -61,7 +48,7 @@ function TableUser() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid admin-table'>
       <h2 className='mb-2'>Пользователи</h2>
       <form className='d-flex flex-row mb-2' onSubmit={handleSubmit}>
         <div>
@@ -72,11 +59,14 @@ function TableUser() {
             onChange={(event) => setLogin(event.target.value)}
           />
         </div>
-        <button type='submit' className='btn btn-primary align-self-end ms-2'>
+        <button
+          type='submit'
+          className='btn align-self-end ms-2 admin-filter-button'
+        >
           Отфильтровать
         </button>
       </form>
-      <table className='table table-bordered'>
+      <table className='table table-striped table-auto'>
         <thead>
           <tr>
             <th scope='col'>Id</th>
@@ -96,7 +86,7 @@ function TableUser() {
                 <td>
                   {ROLES[user.role]}
                   <Link className='btn  btn-sm' to={`${user.id}/role`}>
-                    <i class='bi-pencil-square' />
+                    <i className='bi-pencil-square' />
                   </Link>
                 </td>
                 <td>
@@ -104,7 +94,7 @@ function TableUser() {
                     className='btn btn-danger btn-sm me-1'
                     onClick={() => deleteUser(user.id)}
                   >
-                    <i class='bi-trash-fill' />
+                    <i className='bi-trash-fill' />
                   </button>
                 </td>
               </tr>

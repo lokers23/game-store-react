@@ -3,6 +3,8 @@ import { gameService } from '../../../services/GameService';
 import { imageService } from '../../../services/ImageService';
 import { useLogin } from '../../../contexts/LoginContext';
 import { ROLES } from '../../../Constants';
+import '../../../styles/game-page.css';
+
 function CarouselGame({ game }) {
   const { role } = useLogin();
   const formData = new FormData();
@@ -10,15 +12,6 @@ function CarouselGame({ game }) {
   const [image, setImage] = useState(null);
   const [images, setImages] = useState([]);
   const [isChangedImages, setIsChangedImages] = useState(false);
-
-  // function fetchData() {
-  //   imageService
-  //     .getImages(game.id)
-  //     .then((response) => {
-  //       setImages(response.data.data);
-  //     })
-  //     .catch((error) => error.message);
-  // }
 
   useEffect(() => {
     imageService
@@ -135,7 +128,7 @@ function CarouselGame({ game }) {
       </div>
       {(role === ROLES[1] || role === ROLES[2]) && (
         <form onSubmit={handleSubmit}>
-          <button type='submit' className='btn btn-primary btn-sm mb-1 mt-1'>
+          <button type='submit' className='btn add-img-button btn-sm mb-1 mt-1'>
             Добавить изображение
           </button>
           <input

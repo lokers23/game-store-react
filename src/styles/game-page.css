@@ -1,0 +1,19 @@
+.buy-button {
+  background-color: #ff4500;
+  color: white;
+}
+
+.buy-button:hover {
+  background-color: #ff4400db;
+  color: white;
+}
+
+.add-img-button {
+  background-color: #288928;
+  color: white;
+}
+
+.add-img-button:hover {
+  background-color: #288928ad;
+  color: white;
+}

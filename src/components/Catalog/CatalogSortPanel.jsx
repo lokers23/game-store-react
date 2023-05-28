@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../../styles/catalog.css';
 
 function CatalogSortPanel({ onSortChange }) {
   const [sortDate, setSortDate] = useState(true);
@@ -28,7 +29,7 @@ function CatalogSortPanel({ onSortChange }) {
 
   return (
     <div>
-      <div className='mb-2'>
+      <div className='mb-2 sort-panel'>
         <button
           className='btn btn-secondary me-2'
           onClick={(event) => handleSortDate(event)}

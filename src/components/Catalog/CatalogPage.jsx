@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { gameService } from '../../services/GameService';
 import { Link } from 'react-router-dom';
 import CatalogSortPanel from './CatalogSortPanel';
@@ -7,6 +7,7 @@ import Pagination from '../Pagination/Pagination';
 
 function CatalogPage() {
   const [games, setGames] = useState([]);
+
   const [sort, setSort] = useState(null);
   const [filter, setFilter] = useState(null);
 
@@ -20,7 +21,7 @@ function CatalogPage() {
     setSort(sort);
   }
 
-  function handleFilterChange(objectFilter) {
+  const handleFilterChange = useCallback((objectFilter) => {
     let newFilter = '';
     for (const [key, value] of Object.entries(objectFilter)) {
       if (value !== null) {
@@ -30,13 +31,13 @@ function CatalogPage() {
 
     setPage(1);
     setFilter(newFilter.slice(0, -1));
-  }
+  }, []);
 
   const handlePageChange = (value) => {
     setPage(value);
   };
 
-  useEffect(() => {
+  const getGames = useCallback(() => {
     gameService
       .getGames(page, pageSize, sort, filter)
       .then((response) => {
@@ -46,6 +47,10 @@ function CatalogPage() {
       })
       .catch();
   }, [sort, filter, page, pageSize]);
+
+  useEffect(() => {
+    getGames();
+  }, [getGames]);
 
   return (
     <div

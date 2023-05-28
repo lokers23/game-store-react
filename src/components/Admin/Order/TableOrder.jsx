@@ -1,14 +1,10 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-//import { useNavigate } from 'react-router-dom';
-//import { keyService } from '../../../services/KeyService';
-//import { Link } from 'react-router-dom';
-import '../../../styles/Crud.css';
+import '../../../styles/admin-table.css';
 import { orderService } from '../../../services/OrderService';
 import Pagination from '../../Pagination/Pagination';
 
 export default function TableOrder() {
-  //const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
 
   const [filters, setFilters] = useState(null);
@@ -18,17 +14,6 @@ export default function TableOrder() {
   const [pageSize] = useState(5);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
-
-  // const fetchData = () => {
-  //   orderService
-  //     .getOrders(page, pageSize, null, filters)
-  //     .then((response) => {
-  //       setOrders(response.data.data);
-  //       setHasNextPage(response.data.hasNextPage);
-  //       setHasPreviousPage(response.data.hasPreviousPage);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
 
   useEffect(() => {
     orderService
@@ -61,7 +46,7 @@ export default function TableOrder() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid admin-table'>
       <h2 className='mb-2'>Заказы</h2>
       <form className='d-flex flex-row mb-2' onSubmit={handleSubmit}>
         <div>
@@ -72,11 +57,14 @@ export default function TableOrder() {
             onChange={(event) => setLogin(event.target.value)}
           />
         </div>
-        <button type='submit' className='btn btn-primary align-self-end ms-2'>
+        <button
+          type='submit'
+          className='btn align-self-end ms-2 admin-filter-button'
+        >
           Отфильтровать
         </button>
       </form>
-      <table className='table table-bordered'>
+      <table className='table table-striped table-auto'>
         <thead>
           <tr>
             <th scope='col'>Id</th>

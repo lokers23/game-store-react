@@ -74,7 +74,7 @@ export default function FooterGamePage({ game }) {
                 game.minimumSpecifications.map((minSpec, index) => (
                   <li
                     key={minSpec.id}
-                    className='nav-item border rounded-3 border-primary me-3'
+                    className='nav-item border rounded-3 border-dark me-3'
                     role='presentation'
                   >
                     <button
@@ -92,7 +92,7 @@ export default function FooterGamePage({ game }) {
                 ))}
             </ul>
             <div
-              className='tab-content mx-auto p-2 w-25 border-min-spec rounded bg-min-spec'
+              className='tab-content mx-auto p-2  rounded'
               id='pills-tabContent'
             >
               {game.minimumSpecifications &&
@@ -105,21 +105,32 @@ export default function FooterGamePage({ game }) {
                     id={`pills-${minSpec.platform.name}`}
                     aria-labelledby={`pills-${minSpec.platform.name}-tab`}
                   >
-                    <p>
-                      <b>ОС:</b> {minSpec.operatingSystem}
-                    </p>
-                    <p>
-                      <b>Процессор:</b> {minSpec.processor}
-                    </p>
-                    <p>
-                      <b>Оперативная память:</b> {minSpec.memory}
-                    </p>
-                    <p>
-                      <b>Графика:</b> {minSpec.graphics}
-                    </p>
-                    <p>
-                      <b>Место на диске:</b> {minSpec.storage}
-                    </p>
+                    <table className='table'>
+                      <tbody>
+                        <tr>
+                          <td className='fw-bold pe-5'>
+                            Операционная система:
+                          </td>
+                          <td>{minSpec.operatingSystem}</td>
+                        </tr>
+                        <tr>
+                          <td className='fw-bold pe-5'>Процессор:</td>
+                          <td>{minSpec.processor}</td>
+                        </tr>
+                        <tr>
+                          <td className='fw-bold pe-5'>Оперативная память:</td>
+                          <td>{minSpec.memory}</td>
+                        </tr>
+                        <tr>
+                          <td className='fw-bold pe-5'>Графика:</td>
+                          <td>{minSpec.graphics}</td>
+                        </tr>
+                        <tr>
+                          <td className='fw-bold pe-5'>Место на диске:</td>
+                          <td>{minSpec.storage}</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 ))}
             </div>

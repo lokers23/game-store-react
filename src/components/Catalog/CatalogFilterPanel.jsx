@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { genreService } from '../../services/GenreService';
 import { activationService } from '../../services/ActivationService';
 import { platformService } from '../../services/PlatformService';
@@ -22,11 +22,7 @@ function CatalogFilterPanel({ onFilterChange }) {
   const [maxPrice, setMaxPrice] = useState(100);
   const [name, setName] = useState(searchFilter);
 
-  useEffect(() => {
-    setName(searchFilter);
-  }, [searchFilter]);
-
-  useEffect(() => {
+  const getFilters = useCallback(() => {
     genreService
       .getGenres()
       .then((response) => setGenres(response.data.data))
@@ -41,7 +37,17 @@ function CatalogFilterPanel({ onFilterChange }) {
       .getPlatforms()
       .then((response) => setPlatforms(response.data.data))
       .catch();
+  }, []);
 
+  useEffect(() => {
+    getFilters();
+  }, [getFilters]);
+
+  useEffect(() => {
+    setName(searchFilter);
+  }, [searchFilter]);
+
+  useEffect(() => {
     onFilterChange({
       genre: genre,
       minPrice: minPrice,
@@ -50,8 +56,6 @@ function CatalogFilterPanel({ onFilterChange }) {
       platformId: platformId,
       name: name
     });
-
-    // onFilterChange ВОЗМОЖНО ОШИБКА ЧТО В []
   }, [
     genre,
     minPrice,
@@ -65,7 +69,7 @@ function CatalogFilterPanel({ onFilterChange }) {
   return (
     <div
       className='shadow border rounded me-3 p-2'
-      style={{ maxWidth: '300px', minWidth: '250px' }}
+      style={{ maxWidth: '300px', minWidth: '250px', minHeight: '700px' }}
     >
       <input
         value={name === null ? '' : name}

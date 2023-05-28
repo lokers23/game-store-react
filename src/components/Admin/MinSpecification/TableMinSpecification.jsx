@@ -1,30 +1,17 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-//import { useNavigate } from 'react-router-dom';
 import { minSpecificationService } from '../../../services/MinSpecificationService';
 import { Link } from 'react-router-dom';
-import '../../../styles/Crud.css';
+import '../../../styles/admin-table.css';
 import Pagination from '../../Pagination/Pagination';
 
 export default function TableMinSpecification() {
-  //const navigate = useNavigate();
   const [minSpecs, setMinSpecs] = useState([]);
 
   const [page, setPage] = useState(1);
   const [pageSize] = useState(2);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
-
-  // const fetchData = () => {
-  //   minSpecificationService
-  //     .getMinSpecs(page, pageSize)
-  //     .then((response) => {
-  //       setMinSpecs(response.data.data);
-  //       setHasNextPage(response.data.hasNextPage);
-  //       setHasPreviousPage(response.data.hasPreviousPage);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
 
   useEffect(() => {
     minSpecificationService
@@ -53,12 +40,12 @@ export default function TableMinSpecification() {
   };
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid admin-table'>
       <h2 className='mb-2'>Минимальная спецификация</h2>
-      <Link className='btn btn-primary btn-sm mb-2' to='create'>
+      <Link className='btn admin-create-button btn-sm mb-2' to='create'>
         Добавить новую запись
       </Link>
-      <table className='table table-bordered'>
+      <table className='table table-striped table-auto'>
         <thead>
           <tr>
             <th scope='col'>Id</th>
@@ -82,18 +69,18 @@ export default function TableMinSpecification() {
                 <td>{minSpec.graphics}</td>
                 <td>{minSpec.storage}</td>
                 <td>{minSpec.platform.name}</td>
-                <td className='d-flex justify-content-center'>
+                <td className=''>
                   <button
                     className='btn btn-danger btn-sm me-1'
                     onClick={() => deleteMinSpecification(minSpec.id)}
                   >
-                    <i class='bi-trash-fill' />
+                    <i className='bi-trash-fill' />
                   </button>
                   <Link
                     className='btn btn-warning btn-sm'
                     to={`edit/${minSpec.id}`}
                   >
-                    <i class='bi-pencil-square' />
+                    <i className='bi-pencil-square' />
                   </Link>
                 </td>
               </tr>

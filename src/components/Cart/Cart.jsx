@@ -104,7 +104,7 @@ function Cart() {
   }
 
   return (
-    <div className='container'>
+    <div className='container mb-5'>
       {games && games.length > 0 ? (
         <div className='mx-auto' style={{ maxWidth: '900px' }}>
           <div className='mb-3'>

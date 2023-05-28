@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import '../../../styles/LeftSide.css';
 import { activationService } from '../../../services/ActivationService';
 import { genreService } from '../../../services/GenreService';
 import { Link } from 'react-router-dom';

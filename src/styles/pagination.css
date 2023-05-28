@@ -1,0 +1,14 @@
+.page:disabled {
+  background-color: #2b2e32;
+  color: rgb(216, 216, 216);
+}
+
+.page {
+  background-color: #2b2e32;
+  color: rgb(255, 255, 255);
+}
+
+.page:hover {
+  background-color: #2b2e32bc;
+  color: rgb(255, 255, 255);
+}
