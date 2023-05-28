@@ -3,6 +3,7 @@ import { useLogin } from '../../contexts/LoginContext';
 import { useCart } from '../../contexts/CartContext';
 //import logo from '../../logo3.png';
 import logo from '../../white-logo.png';
+import { ROLES } from '../../Constants';
 
 function Navigation() {
   const navigate = useNavigate();
@@ -76,7 +77,7 @@ function Navigation() {
                 Помощь
               </Link>
             </li>
-            {isLogin && role === 'Administrator' && (
+            {isLogin && (role === ROLES[1] || role === ROLES[2]) && (
               <li className='nav-item me-3'>
                 <Link to='/admin' className='nav-link text-white'>
                   <i className='bi-table'></i> Панель администратора

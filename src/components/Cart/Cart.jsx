@@ -190,7 +190,7 @@ function Cart() {
                 Итоговая стоимость: ${fullPrice.toFixed(2)}
               </p>
 
-              <button className='btn btn-primary'>Подтвердить покупку</button>
+              <button className='btn buy-button'>Подтвердить покупку</button>
             </form>
           </div>
         </div>

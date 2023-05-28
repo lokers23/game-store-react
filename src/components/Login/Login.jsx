@@ -49,7 +49,7 @@ function Login() {
           <div className='mb-4'>
             <input
               className='form-control fs-5 mb-2'
-              placeholder='Login...'
+              placeholder='Логин...'
               name='login'
               onChange={(e) => onChangeHandler(setLogin, e)}
             />
@@ -58,13 +58,14 @@ function Login() {
 
           <div className='mb-4'>
             <input
+              type='password'
               className='form-control fs-5 mb-2'
-              placeholder='Password...'
+              placeholder='Пароль...'
               name='password'
               onChange={(e) => onChangeHandler(setPassword, e)}
             />
           </div>
-          <button className='btn btn-primary fs-5 w-100 mb-2' type='submit'>
+          <button className='btn login-button fs-5 w-100 mb-2' type='submit'>
             Вход
           </button>
         </form>

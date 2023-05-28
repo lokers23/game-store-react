@@ -1,14 +1,19 @@
 import axios from 'axios';
 import { URL } from '../Constants';
+import tokenService from './TokenService';
 
 export class minSpecificationService {
-  constructor(headers) {
-    headers = {
+  static #getHeader() {
+    const token = tokenService.getToken();
+    const headers = {
       headers: {
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     };
+
+    return headers;
   }
 
   // static getMinSpecs(platformName) {
@@ -48,14 +53,14 @@ export class minSpecificationService {
   }
 
   static deleteMinSpec(id) {
-    return axios.delete(URL.MINSPEC + `/${id}`);
+    return axios.delete(URL.MINSPEC + `/${id}`, this.#getHeader());
   }
 
   static saveMinSpec(id, minSpec) {
     if (id > 0) {
-      return axios.put(URL.MINSPEC + `/${id}`, minSpec);
+      return axios.put(URL.MINSPEC + `/${id}`, minSpec, this.#getHeader());
     }
 
-    return axios.post(URL.MINSPEC, minSpec);
+    return axios.post(URL.MINSPEC, minSpec, this.#getHeader());
   }
 }

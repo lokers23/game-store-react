@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { LOCAL_STORAGE, URL } from '../Constants';
+import { URL } from '../Constants';
+import tokenService from './TokenService';
 
 export class orderService {
-  static getHeaders() {
-    const data = localStorage.getItem(LOCAL_STORAGE.TOKEN_STORAGE);
-    const jsonData = JSON.parse(data);
+  static #getHeader() {
+    const token = tokenService.getToken();
     const headers = {
       headers: {
-        Authorization: `Bearer ${jsonData.token}`,
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
@@ -28,7 +28,7 @@ export class orderService {
       url += `?${params.join('&')}`;
     }
 
-    return axios.get(url, this.getHeaders());
+    return axios.get(url, this.#getHeader());
   }
 
   static getOrders(page, pageSize, sort, filters) {
@@ -51,22 +51,22 @@ export class orderService {
       url += `?${params.join('&')}`;
     }
 
-    return axios.get(url, this.getHeaders());
+    return axios.get(url, this.#getHeader());
   }
 
   static getOrderById(id) {
-    return axios.get(URL.ORDER + `/${id}`);
+    return axios.get(URL.ORDER + `/${id}`, this.#getHeader());
   }
 
   static deleteOrder(id) {
-    return axios.delete(URL.ORDER + `/${id}`);
+    return axios.delete(URL.ORDER + `/${id}`, this.#getHeader());
   }
 
   static saveOrder(id, order) {
     if (id > 0) {
-      return axios.put(URL.ORDER + `/${id}`, order, this.getHeaders());
+      return axios.put(URL.ORDER + `/${id}`, order, this.#getHeader());
     }
 
-    return axios.post(URL.ORDER, order, this.getHeaders());
+    return axios.post(URL.ORDER, order, this.#getHeader());
   }
 }

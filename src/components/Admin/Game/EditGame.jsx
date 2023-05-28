@@ -9,7 +9,7 @@ import { publisherService } from '../../../services/PublisherService';
 import { minSpecificationService } from '../../../services/MinSpecificationService';
 import { platformService } from '../../../services/PlatformService';
 import { activationService } from '../../../services/ActivationService';
-import '../../../styles/Crud.css';
+import '../../../styles/admin-form.css';
 import { InlineError } from '../../InlineError';
 
 export default function EditGame() {
@@ -213,7 +213,7 @@ export default function EditGame() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid mb-5'>
       <form
         onSubmit={handleSubmit}
         className='row g-3 mx-auto'
@@ -385,12 +385,8 @@ export default function EditGame() {
           <div className='d-flex'>
             {genres.length > 0 &&
               genres.map((genre) => (
-                <div class='form-check me-4'>
-                  <label
-                    htmlFor='genreIds'
-                    className='form-check-label'
-                    key={genre.id}
-                  >
+                <div key={genre.id} className='form-check me-4'>
+                  <label htmlFor='genreIds' className='form-check-label'>
                     {genre.name}
                     <input
                       className='form-check-input'
@@ -488,11 +484,13 @@ export default function EditGame() {
           </fieldset>
         </div>
 
-        <button className='btn btn-primary' type='submit'>
+        <button className='btn btn-sm submit-button mb-2' type='submit'>
           Отправить
         </button>
+        <Link className='btn btn-sm back-button m-0' to='..'>
+          Назад
+        </Link>
       </form>
-      <Link to='..'>Назад</Link>
     </div>
   );
 }

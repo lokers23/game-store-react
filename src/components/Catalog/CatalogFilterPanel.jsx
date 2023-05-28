@@ -69,7 +69,7 @@ function CatalogFilterPanel({ onFilterChange }) {
   return (
     <div
       className='shadow border rounded me-3 p-2'
-      style={{ maxWidth: '300px', minWidth: '250px', minHeight: '700px' }}
+      style={{ maxWidth: '350px', minWidth: '250px', minHeight: '700px' }}
     >
       <input
         value={name === null ? '' : name}

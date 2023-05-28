@@ -3,28 +3,21 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { keyService } from '../../../services/KeyService';
-//import { activationService } from '../../../services/ActivationService';
 import { gameService } from '../../../services/GameService';
 import { InlineError } from '../../InlineError';
+import '../../../styles/admin-form.css';
 
 export default function CreateKey() {
-  //const [activations, setActivations] = useState([]);
   const [games, setGames] = useState([]);
   const [errors, setErrors] = useState([]);
 
   const [value, setValue] = useState('');
   const [gameId, setGameId] = useState(null);
-  // const [activationId, setActivationId] = useState(0);
   const [isUsed, setIsUsed] = useState(false);
 
   const navigate = useNavigate();
 
   const fetchData = () => {
-    // activationService
-    //   .getActivations()
-    //   .then((response) => setActivations(response.data.data))
-    //   .catch((error) => console.log(error));
-
     gameService
       .getGames()
       .then((response) => setGames(response.data.data))
@@ -42,7 +35,6 @@ export default function CreateKey() {
       .saveKey(0, {
         value: value,
         gameId: gameId,
-        //activationId: activationId,
         isUsed: isUsed
       })
       .then((response) => {
@@ -52,7 +44,7 @@ export default function CreateKey() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid mb-5'>
       <h2 className='mb-2'>Добавить новый ключ</h2>
       <form
         className='d-flex flex-column'
@@ -100,10 +92,10 @@ export default function CreateKey() {
           <label className='form-check-label'>Использованный?</label>
         </div>
 
-        <button className='btn btn-primary btn-sm mb-2' type='submit'>
+        <button className='btn btn-sm submit-button mb-2' type='submit'>
           Отправить
         </button>
-        <Link className='btn btn-warning btn-sm' to='..'>
+        <Link className='btn btn-sm back-button m-0' to='..'>
           Назад
         </Link>
       </form>

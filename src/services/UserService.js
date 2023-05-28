@@ -1,13 +1,13 @@
 import axios from 'axios';
-import { URL, LOCAL_STORAGE } from '../Constants';
+import { URL } from '../Constants';
+import tokenService from './TokenService';
 
 export class userService {
-  static getHeader() {
-    const data = localStorage.getItem(LOCAL_STORAGE.TOKEN_STORAGE);
-    const jsonData = JSON.parse(data);
+  static #getHeader() {
+    const token = tokenService.getToken();
     const headers = {
       headers: {
-        Authorization: `Bearer ${jsonData.token}`,
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
@@ -17,14 +17,14 @@ export class userService {
   }
 
   static getUserData() {
-    const headers = this.getHeader();
+    const headers = this.#getHeader();
     return axios.get(URL.USER + '/profile', headers);
   }
 
   // for admin/moderator
   static getUsers(page, pageSize, sort, filters) {
     let url = URL.USER;
-    const headers = this.getHeader();
+    const headers = this.#getHeader();
     //return axios.get(url, headers);
 
     const params = [];
@@ -50,25 +50,24 @@ export class userService {
 
   static changePassword(data) {
     const url = URL.USER + '/password';
-    const headers = this.getHeader();
+    const headers = this.#getHeader();
     return axios.put(url, data, headers);
   }
 
   static deleteUser(id) {
     //const url = ;
-    const headers = this.getHeader();
+    const headers = this.#getHeader();
     return axios.delete(URL.USER + `/${id}`, headers);
   }
 
   static getUserById(id) {
     //const url = ;
-    const headers = this.getHeader();
+    const headers = this.#getHeader();
     return axios.get(URL.USER + `/${id}`, headers);
   }
 
   static changeRole(userId, role) {
-    console.log(`${userId}${role}`);
-    const headers = this.getHeader();
+    const headers = this.#getHeader();
     const roleObject = {
       userId: Number(userId),
       role: Number(role)

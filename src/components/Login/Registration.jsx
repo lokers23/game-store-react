@@ -93,7 +93,7 @@ function Registration() {
               onChange={(event) => setMail(event.target.value)}
             />
           </div>
-          <button className='btn btn-primary fs-5 w-100 mb-2' type='submit'>
+          <button className='btn login-button fs-5 w-100 mb-2' type='submit'>
             Зарегистрироваться
           </button>
         </form>

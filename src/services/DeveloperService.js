@@ -1,14 +1,19 @@
 import axios from 'axios';
 import { URL } from '../Constants';
+import tokenService from './TokenService';
 
 export class developerService {
-  constructor(headers) {
-    headers = {
+  static #getHeader() {
+    const token = tokenService.getToken();
+    const headers = {
       headers: {
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     };
+
+    return headers;
   }
 
   static getDevelopers(page, pageSize, sort, filters) {
@@ -39,14 +44,14 @@ export class developerService {
   }
 
   static deleteDeveloper(id) {
-    return axios.delete(URL.DEVELOPER + `/${id}`);
+    return axios.delete(URL.DEVELOPER + `/${id}`, this.#getHeader());
   }
 
   static saveDeveloper(id, developer) {
     if (id > 0) {
-      return axios.put(URL.DEVELOPER + `/${id}`, developer);
+      return axios.put(URL.DEVELOPER + `/${id}`, developer, this.#getHeader());
     }
 
-    return axios.post(URL.DEVELOPER, developer);
+    return axios.post(URL.DEVELOPER, developer, this.#getHeader());
   }
 }

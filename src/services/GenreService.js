@@ -1,14 +1,19 @@
 import axios from 'axios';
 import { URL } from '../Constants';
+import tokenService from './TokenService';
 
 export class genreService {
-  constructor(headers) {
-    headers = {
+  static #getHeader() {
+    const token = tokenService.getToken();
+    const headers = {
       headers: {
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     };
+
+    return headers;
   }
 
   static getGenres(page, pageSize, sort, filters) {
@@ -39,14 +44,14 @@ export class genreService {
   }
 
   static deleteGenre(id) {
-    return axios.delete(URL.GENRE + `/${id}`);
+    return axios.delete(URL.GENRE + `/${id}`, this.#getHeader());
   }
 
   static saveGenre(id, genre) {
     if (id > 0) {
-      return axios.put(URL.GENRE + `/${id}`, genre);
+      return axios.put(URL.GENRE + `/${id}`, genre, this.#getHeader());
     }
 
-    return axios.post(URL.GENRE, genre);
+    return axios.post(URL.GENRE, genre, this.#getHeader());
   }
 }

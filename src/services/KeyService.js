@@ -1,14 +1,19 @@
 import axios from 'axios';
 import { URL } from '../Constants';
+import tokenService from './TokenService';
 
 export class keyService {
-  constructor(headers) {
-    headers = {
+  static #getHeader() {
+    const token = tokenService.getToken();
+    const headers = {
       headers: {
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     };
+
+    return headers;
   }
 
   static getKeys(page, pageSize, sort, filters) {
@@ -31,22 +36,22 @@ export class keyService {
       url += `?${params.join('&')}`;
     }
 
-    return axios.get(url);
+    return axios.get(url, this.#getHeader());
   }
 
   static getKeyById(id) {
-    return axios.get(URL.KEY + `/${id}`);
+    return axios.get(URL.KEY + `/${id}`, this.#getHeader());
   }
 
   static deleteKey(id) {
-    return axios.delete(URL.KEY + `/${id}`);
+    return axios.delete(URL.KEY + `/${id}`, this.#getHeader());
   }
 
   static saveKey(id, key) {
     if (id > 0) {
-      return axios.put(URL.KEY + `/${id}`, key);
+      return axios.put(URL.KEY + `/${id}`, key, this.#getHeader());
     }
 
-    return axios.post(URL.KEY, key);
+    return axios.post(URL.KEY, key, this.#getHeader());
   }
 }

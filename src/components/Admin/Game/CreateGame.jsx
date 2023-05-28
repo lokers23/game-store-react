@@ -9,7 +9,7 @@ import { publisherService } from '../../../services/PublisherService';
 import { minSpecificationService } from '../../../services/MinSpecificationService';
 import { platformService } from '../../../services/PlatformService';
 import { activationService } from '../../../services/ActivationService';
-import '../../../styles/Crud.css';
+import '../../../styles/admin-form.css';
 import '../../../styles/min-spec.css';
 import { InlineError } from '../../InlineError';
 
@@ -134,7 +134,7 @@ export default function CreateGame() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid mb-5'>
       <form
         onSubmit={handleSubmit}
         className='row g-3 mx-auto'
@@ -387,11 +387,13 @@ export default function CreateGame() {
           </fieldset>
         </div>
 
-        <button type='submit' className='btn btn-primary'>
+        <button type='submit' className='btn btn-sm submit-button mb-2'>
           Отправить
         </button>
+        <Link className='btn btn-sm back-button m-0' to='..'>
+          Назад
+        </Link>
       </form>
-      <Link to='..'>Назад</Link>
     </div>
   );
 }

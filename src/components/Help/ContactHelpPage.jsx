@@ -7,7 +7,7 @@ function ContactHelpPage() {
       <h2 className='mb-2'>Контакты</h2>
       <div>
         <i className='bi-envelope-fill'></i> <b>Почта: </b>
-        support_gameover@mail.ru
+        pevloks@gmail.com
       </div>
     </div>
   );

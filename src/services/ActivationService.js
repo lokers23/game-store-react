@@ -1,14 +1,19 @@
 import axios from 'axios';
 import { URL } from '../Constants';
+import tokenService from './TokenService';
 
 export class activationService {
-  constructor(headers) {
-    headers = {
+  static #getHeader() {
+    const token = tokenService.getToken();
+    const headers = {
       headers: {
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     };
+
+    return headers;
   }
 
   static getActivations(page, pageSize, sort, filters) {
@@ -39,14 +44,18 @@ export class activationService {
   }
 
   static deleteActivation(id) {
-    return axios.delete(URL.ACTIVATION + `/${id}`);
+    return axios.delete(URL.ACTIVATION + `/${id}`, this.#getHeader());
   }
 
   static saveActivation(id, activation) {
     if (id > 0) {
-      return axios.put(URL.ACTIVATION + `/${id}`, activation);
+      return axios.put(
+        URL.ACTIVATION + `/${id}`,
+        activation,
+        this.#getHeader()
+      );
     }
 
-    return axios.post(URL.ACTIVATION, activation);
+    return axios.post(URL.ACTIVATION, activation, this.#getHeader());
   }
 }

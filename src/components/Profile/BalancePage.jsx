@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { URL } from '../../Constants';
 import { userService } from '../../services/UserService';
+import '../../styles/admin-form.css';
 
 function BalancePage() {
   const [amount, setAmount] = useState(0);
@@ -27,12 +28,19 @@ function BalancePage() {
     >
       <form onSubmit={handleSubmit}>
         <input
-          className='form-control'
+          type='number'
+          className='form-control mb-2'
+          step={0.01}
           value={amount}
-          onChange={(event) => setAmount(event.target.value)}
+          onChange={(event) => {
+            const value = Number(event.target.value);
+            if (value >= 0 && value <= 1000) {
+              setAmount(event.target.value);
+            }
+          }}
         />
-        <button type='submit' className='btn btn-primary'>
-          Подтвердить
+        <button type='submit' className='btn btn submit-button'>
+          Пополнить баланс
         </button>
       </form>
     </div>

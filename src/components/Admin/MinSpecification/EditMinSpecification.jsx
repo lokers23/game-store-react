@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { platformService } from '../../../services/PlatformService';
 import { minSpecificationService } from '../../../services/MinSpecificationService';
 import { InlineError } from '../../InlineError';
+import '../../../styles/admin-form.css';
 
 export default function EditMinSpecification() {
   const { id } = useParams();
@@ -18,25 +19,6 @@ export default function EditMinSpecification() {
   const [platforms, setPlatforms] = useState([]);
 
   const navigate = useNavigate();
-
-  // const fetchData = () => {
-  //   platformService
-  //     .getPlatforms()
-  //     .then((response) => setPlatforms(response.data.data))
-  //     .catch((error) => console.log(error));
-
-  //   minSpecificationService
-  //     .getMinSpecById(id)
-  //     .then((response) => {
-  //       setOperatingSystem(response.data.data.operatingSystem);
-  //       setProcessor(response.data.data.processor);
-  //       setMemory(response.data.data.memory);
-  //       setGraphics(response.data.data.graphics);
-  //       setStorage(response.data.data.storage);
-  //       setPlatformId(response.data.data.platform.id);
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
 
   useEffect(() => {
     platformService
@@ -77,7 +59,7 @@ export default function EditMinSpecification() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid mb-5'>
       <h2 className='mb-2'>Редактировать минимальную спецификацию</h2>
       <form
         className='d-flex flex-column'
@@ -159,10 +141,10 @@ export default function EditMinSpecification() {
               ))}
           </select>
         </label>
-        <button className='btn btn-primary btn-sm mb-2' type='submit'>
+        <button className='btn btn-sm submit-button mb-2' type='submit'>
           Отправить
         </button>
-        <Link className='btn btn-warning btn-sm' to='..'>
+        <Link className='btn btn-sm back-button m-0' to='..'>
           Назад
         </Link>
       </form>

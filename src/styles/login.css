@@ -7,3 +7,12 @@ body,
 html {
   height: 100%;
 }
+
+.login-button {
+  background-color: #2b2e32;
+  color: white;
+}
+.login-button:hover {
+  background-color: #2b2e32b8;
+  color: white;
+}

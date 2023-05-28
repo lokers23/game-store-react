@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { activationService } from '../../../services/ActivationService';
 import { InlineError } from '../../InlineError';
+import '../../../styles/admin-form.css';
 
 export default function CreateActivation() {
   const [activationName, setActivationName] = useState('');
@@ -25,7 +26,7 @@ export default function CreateActivation() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid mb-5'>
       <h2 className='mb-2'>Добавить новую площадку для активации ключа</h2>
       <form
         className='d-flex flex-column'
@@ -43,10 +44,10 @@ export default function CreateActivation() {
             onChange={(event) => setActivationName(event.target.value)}
           />
         </label>
-        <button className='btn btn-primary btn-sm mb-2' type='submit'>
+        <button className='btn btn-sm submit-button mb-2' type='submit'>
           Отправить
         </button>
-        <Link className='btn btn-warning btn-sm' to='..'>
+        <Link className='btn btn-sm back-button m-0' to='..'>
           Назад
         </Link>
       </form>

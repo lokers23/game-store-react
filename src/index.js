@@ -12,7 +12,6 @@ import {
   Route,
   HashRouter
 } from 'react-router-dom';
-//import Center from './components/MainPage/Center/Center';
 import Login from './components/Login/Login';
 import Registration from './components/Login/Registration';
 import Cart from './components/Cart/Cart';
@@ -22,7 +21,6 @@ import MainPage from './components/MainPage/MainPage';
 import Profile from './components/Profile/Profile';
 import Purchases from './components/Profile/Purchases';
 import GamePage from './components/Admin/Game/GamePage';
-//import axios from 'axios';
 import { LoginProvider } from './contexts/LoginContext';
 import PersonalPage from './components/Profile/PersonalPage';
 import BalancePage from './components/Profile/BalancePage';
@@ -33,6 +31,9 @@ import ResetPasswordPage from './components/Profile/ResetPasswordPage';
 import HelpPage from './components/Help/HelpPage';
 import ContactHelpPage from './components/Help/ContactHelpPage';
 import ActivationHelpPage from './components/Help/ActivationHelpPage';
+//import axios from 'axios';
+import AxiosInterceptor from './AxiosInterceptor';
+import ForbiddenPage from './components/ForbiddenPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -42,6 +43,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //     if (error.response.status === 401) {
 //       window.location.href = '/login';
 //     }
+
 //     return Promise.reject(error);
 //   }
 // );
@@ -50,9 +52,11 @@ root.render(
   <LoginProvider>
     <CartProvider>
       <HashRouter>
+        <AxiosInterceptor />
         <Navigation />
         <Routes>
           <Route path='/' element={<MainPage />} />
+          <Route path='/forbidden' element={<ForbiddenPage />} />
           <Route path='/catalog' element={<CatalogPage />} />
           <Route
             path='/catalog/activation/:activationFilterId'
@@ -75,6 +79,7 @@ root.render(
           <Route path='/game/:id' element={<GamePage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Registration />} />
+
           <Route>
             <Route path='/admin' element={<Admin />}>
               {AdminRoutes()}

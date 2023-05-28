@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { minSpecificationService } from '../../../services/MinSpecificationService';
 import { platformService } from '../../../services/PlatformService';
 import { InlineError } from '../../InlineError';
+import '../../../styles/admin-form.css';
 
 export default function CreateMinSpecification() {
   const [errors, setErrors] = useState([]);
@@ -51,7 +52,7 @@ export default function CreateMinSpecification() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid mb-5'>
       <h2 className='mb-2'>Добавить новую минимальную спецификацию</h2>
       <form
         className='d-flex flex-column'
@@ -130,10 +131,10 @@ export default function CreateMinSpecification() {
               ))}
           </select>
         </label>
-        <button className='btn btn-primary btn-sm mb-2' type='submit'>
+        <button className='btn btn-sm submit-button mb-2' type='submit'>
           Отправить
         </button>
-        <Link className='btn btn-warning btn-sm' to='..'>
+        <Link className='btn btn-sm back-button m-0' to='..'>
           Назад
         </Link>
       </form>

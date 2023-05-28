@@ -1,14 +1,19 @@
 import axios from 'axios';
 import { URL } from '../Constants';
+import tokenService from './TokenService';
 
 export class publisherService {
-  constructor(headers) {
-    headers = {
+  static #getHeader() {
+    const token = tokenService.getToken();
+    const headers = {
       headers: {
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     };
+
+    return headers;
   }
 
   static getPublishers(page, pageSize, sort, filters) {
@@ -39,14 +44,14 @@ export class publisherService {
   }
 
   static deletePublisher(id) {
-    return axios.delete(URL.PUBLISHER + `/${id}`);
+    return axios.delete(URL.PUBLISHER + `/${id}`, this.#getHeader());
   }
 
   static savePublisher(id, publisher) {
     if (id > 0) {
-      return axios.put(URL.PUBLISHER + `/${id}`, publisher);
+      return axios.put(URL.PUBLISHER + `/${id}`, publisher, this.#getHeader());
     }
 
-    return axios.post(URL.PUBLISHER, publisher);
+    return axios.post(URL.PUBLISHER, publisher, this.#getHeader());
   }
 }

@@ -1,0 +1,19 @@
+.submit-button {
+  background-color: #2b2e32;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #2b2e32b8;
+  color: white;
+}
+
+.back-button {
+  background-color: #ff8c00;
+  color: white;
+}
+
+.back-button:hover {
+  background-color: #ff8c00d4;
+  color: white;
+}

@@ -1,6 +1,17 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { useLogin } from '../../contexts/LoginContext';
+import { useEffect } from 'react';
 
 function Profile() {
+  const { isLogin } = useLogin();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate('/login');
+    }
+  }, [isLogin, navigate]);
+
   return (
     <div className='mx-auto mb-5' style={{ maxWidth: '1000px' }}>
       <h1 className='mb-3 p-3 shadow bordered rounded'>Личный кабинет</h1>

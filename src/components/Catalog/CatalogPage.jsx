@@ -54,8 +54,8 @@ function CatalogPage() {
 
   return (
     <div
-      className='container-fluid d-flex mx-auto p-2 mb-5'
-      style={{ maxWidth: '1200px' }}
+      className='container-fluid d-flex mx-auto mb-5'
+      style={{ maxWidth: '1050px' }}
     >
       <CatalogFilterPanel onFilterChange={handleFilterChange} />
 
@@ -67,7 +67,7 @@ function CatalogPage() {
             <Link
               key={game.id}
               to={`/game/${game.id}`}
-              className=''
+              className='m-0'
               style={{
                 textDecoration: 'none',
                 color: 'black'

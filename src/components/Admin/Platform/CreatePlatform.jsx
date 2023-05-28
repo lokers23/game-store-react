@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { platformService } from '../../../services/PlatformService';
 import { InlineError } from '../../InlineError';
+import '../../../styles/admin-form.css';
 
 export default function CreatePlatform() {
   const [platformName, setPlatformName] = useState('');
@@ -25,7 +26,7 @@ export default function CreatePlatform() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid mb-5'>
       <h2 className='mb-2'>Добавить новую платформу ОС</h2>
       <form
         className='d-flex flex-column'
@@ -43,10 +44,10 @@ export default function CreatePlatform() {
             onChange={(event) => setPlatformName(event.target.value)}
           />
         </label>
-        <button className='btn btn-primary btn-sm mb-2' type='submit'>
+        <button className='btn btn-sm submit-button mb-2' type='submit'>
           Отправить
         </button>
-        <Link className='btn btn-warning btn-sm' to='..'>
+        <Link className='btn btn-sm back-button m-0' to='..'>
           Назад
         </Link>
       </form>

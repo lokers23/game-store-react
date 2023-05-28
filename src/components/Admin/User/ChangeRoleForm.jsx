@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-//import { developerService } from '../../../services/DeveloperService';
 import { InlineError } from '../../InlineError';
 import { userService } from '../../../services/UserService';
 import { ROLES } from '../../../Constants';
+import '../../../styles/admin-form.css';
 
 export default function ChangeRoleForm() {
   const { id } = useParams();
@@ -13,16 +13,6 @@ export default function ChangeRoleForm() {
   const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
-
-  // const fetchData = () => {
-  //   userService
-  //     .getUserById(id)
-  //     .then((response) => {
-  //       setUser(response.data.data);
-  //       setRole(response.data.data.role);
-  //     })
-  //     .catch();
-  // };
 
   useEffect(() => {
     userService
@@ -45,7 +35,7 @@ export default function ChangeRoleForm() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid mb-5'>
       <h2 className='mb-2'>Смена роли пользователя</h2>
       <form
         className='d-flex flex-column'
@@ -79,10 +69,10 @@ export default function ChangeRoleForm() {
             ))}
           </select>
         </div>
-        <button className='btn btn-primary btn-sm mb-2' type='submit'>
+        <button className='btn btn-sm submit-button mb-2' type='submit'>
           Отправить
         </button>
-        <Link className='btn btn-warning btn-sm' to='..'>
+        <Link className='btn btn-sm back-button m-0' to='..'>
           Назад
         </Link>
       </form>

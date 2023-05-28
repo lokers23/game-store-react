@@ -1,14 +1,19 @@
 import axios from 'axios';
 import { URL } from '../Constants';
+import tokenService from './TokenService';
 
 export class platformService {
-  constructor(headers) {
-    headers = {
+  static #getHeader() {
+    const token = tokenService.getToken();
+    const headers = {
       headers: {
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     };
+
+    return headers;
   }
 
   static getPlatforms(page, pageSize, sort, filters) {
@@ -39,14 +44,14 @@ export class platformService {
   }
 
   static deletePlatform(id) {
-    return axios.delete(URL.PLATFORM + `/${id}`);
+    return axios.delete(URL.PLATFORM + `/${id}`, this.#getHeader());
   }
 
   static savePlatform(id, platform) {
     if (id > 0) {
-      return axios.put(URL.PLATFORM + `/${id}`, platform);
+      return axios.put(URL.PLATFORM + `/${id}`, platform, this.#getHeader());
     }
 
-    return axios.post(URL.PLATFORM, platform);
+    return axios.post(URL.PLATFORM, platform, this.#getHeader());
   }
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { publisherService } from '../../../services/PublisherService';
 import { InlineError } from '../../InlineError';
+import '../../../styles/admin-form.css';
 
 export default function EditPublisher() {
   const { id } = useParams();
@@ -9,13 +10,6 @@ export default function EditPublisher() {
   const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
-
-  // const fetchData = () => {
-  //   publisherService
-  //     .getPublisherById(id)
-  //     .then((response) => setPublisherName(response.data.data.name))
-  //     .catch((error) => console.log(error));
-  // };
 
   useEffect(() => {
     publisherService
@@ -38,7 +32,7 @@ export default function EditPublisher() {
   }
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid mb-5'>
       <h2 className='mb-2'>Редактирование издателя</h2>
       <form
         className='d-flex flex-column'
@@ -56,10 +50,10 @@ export default function EditPublisher() {
             onChange={(event) => setPublisherName(event.target.value)}
           />
         </label>
-        <button className='btn btn-primary btn-sm mb-2' type='submit'>
+        <button className='btn btn-sm submit-button mb-2' type='submit'>
           Отправить
         </button>
-        <Link className='btn btn-warning btn-sm' to='..'>
+        <Link className='btn btn-sm back-button m-0' to='..'>
           Назад
         </Link>
       </form>

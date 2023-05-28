@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import '../../styles/Admin.css';
 import { useLogin } from '../../contexts/LoginContext';
+import { ROLES } from '../../Constants';
 
 export default function Admin() {
   const navigate = useNavigate();
   const { isLogin, role } = useLogin();
-  if (role === 'User') {
-    navigate('..');
-  }
+
+  useEffect(() => {
+    console.log('CHECKER');
+    if ((role !== ROLES[1] || role !== ROLES[2]) && !isLogin) {
+      navigate('..');
+    }
+  }, [role, isLogin, navigate]);
 
   return (
     <>
-      {isLogin && role !== 'User' && (
+      {isLogin && (role === ROLES[1] || role === ROLES[2]) && (
         <div className=''>
           <div className='d-flex justify-content-center mb-3'>
             <ul className='list-group list-group-horizontal'>
