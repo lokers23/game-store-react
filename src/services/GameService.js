@@ -1,26 +1,33 @@
 import axios from 'axios';
 import { URL } from '../Constants';
+import tokenService from './TokenService';
 
 export class gameService {
-  constructor(headers) {
-    headers = {
+  static #getHeader() {
+    const token = tokenService.getToken();
+    const headers = {
       headers: {
+        Authorization: `Bearer ${token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json'
       }
     };
+
+    return headers;
   }
 
-  // static getGames(sort, filter) {
+  static #getFormHeader() {
+    const token = tokenService.getToken();
+    const headers = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    };
 
-  //   if (sort) {
-  //     return axios.get(URL.GAME + `?${sort}&${filter}`);
-  //   } else if (filter) {
-  //     return axios.get(URL.GAME + `?${filter}`);
-  //   }
+    return headers;
+  }
 
-  //   return axios.get(URL.GAME);
-  // }
   static getGames(page, pageSize, sort, filters) {
     let url = URL.GAME;
     const params = [];
@@ -44,7 +51,7 @@ export class gameService {
   }
 
   static deleteGame(id) {
-    return axios.delete(URL.GAME + `/${id}`);
+    return axios.delete(URL.GAME + `/${id}`, this.#getHeader());
   }
 
   static getGameById(id) {
@@ -53,10 +60,10 @@ export class gameService {
 
   static saveGame(id, game) {
     if (id > 0) {
-      return axios.put(URL.GAME + `/${id}`, game);
+      return axios.put(URL.GAME + `/${id}`, game, this.#getHeader());
     }
 
-    return axios.post(URL.GAME, game);
+    return axios.post(URL.GAME, game, this.#getHeader());
   }
 
   static getAvatarUrl(avatarName) {
@@ -69,14 +76,16 @@ export class gameService {
 
   static saveFormGame(id, formGame) {
     if (id > 0) {
-      return axios.put(URL.GAME + `/${id}`, formGame, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      // return axios.put(URL.GAME + `/${id}`, formGame, {
+      //   headers: { 'Content-Type': 'multipart/form-data' }
+      // });
+      return axios.put(URL.GAME + `/${id}`, formGame, this.#getFormHeader());
     }
 
-    return axios.post(URL.GAME, formGame, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    });
+    // return axios.post(URL.GAME, formGame, {
+    //   headers: { 'Content-Type': 'multipart/form-data' }
+    // });
+    return axios.post(URL.GAME, formGame, this.#getFormHeader());
   }
 
   static getNumberOfKeys(id) {
