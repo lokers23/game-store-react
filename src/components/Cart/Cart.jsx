@@ -133,7 +133,8 @@ function Cart() {
                         <h5 className='card-title'>{game.name}</h5>
                         <p className='card-text'>
                           <small className='text-muted'>
-                            Активировать продукт можно только на ...
+                            Активировать продукт можно только на площадке
+                            указанной на странице игры
                           </small>
                         </p>
                       </div>
