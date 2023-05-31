@@ -33,12 +33,20 @@ export class minSpecificationService {
   // }
   //
 
-  static getMinSpecs(page, pageSize) {
+  static getMinSpecs(page, pageSize, sort, filters) {
     let url = URL.MINSPEC;
     const params = [];
     if (page && pageSize) {
       params.push(`page=${page}`);
       params.push(`pageSize=${pageSize}`);
+    }
+
+    if (sort) {
+      params.push(`sort=${sort}`);
+    }
+
+    if (filters) {
+      params.push(`${filters}`);
     }
 
     if (params.length > 0) {
