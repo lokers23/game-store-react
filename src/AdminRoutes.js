@@ -40,6 +40,7 @@ import { TableKey, CreateKey, EditKey } from './components/Admin/Key/Key';
 import TableOrder from './components/Admin/Order/TableOrder';
 import TableUser from './components/Admin/User/TableUser';
 import ChangeRoleForm from './components/Admin/User/ChangeRoleForm';
+import OrderInfo from './components/Admin/Order/OrderInfo';
 
 export default function AdminRoutes() {
   return (
@@ -86,6 +87,7 @@ export default function AdminRoutes() {
       </Route>
       <Route path='orders'>
         <Route path='' element={<TableOrder />} />
+        <Route path='info/:id' element={<OrderInfo />} />
       </Route>
       <Route path='users'>
         <Route path='' element={<TableUser />} />

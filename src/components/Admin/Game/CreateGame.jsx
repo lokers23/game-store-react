@@ -109,7 +109,7 @@ export default function CreateGame() {
     formData.append('activationId', activationId);
     formData.append('releaseOn', releaseOn);
     formData.append('description', description);
-    const formatPrice = price.toString().replace('.', ',');
+    const formatPrice = price.toString().replace(',', '.');
     formData.append('price', formatPrice);
     formData.append('videoUrl', videoUrl);
 

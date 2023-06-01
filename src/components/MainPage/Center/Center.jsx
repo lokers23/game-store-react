@@ -12,12 +12,12 @@ function Center() {
     const sortIdDesc = 'id_desc';
     const sortDateDesc = 'date_desc';
     gameService
-      .getGames(1, 4, sortIdDesc)
+      .getGames(1, 5, sortIdDesc)
       .then((response) => setGamesOrderById(response.data.data))
       .catch((error) => console.log(error));
 
     gameService
-      .getGames(1, 4, sortDateDesc)
+      .getGames(1, 5, sortDateDesc)
       .then((response) => setGamesOrderByDate(response.data.data))
       .catch((error) => console.log(error));
   };

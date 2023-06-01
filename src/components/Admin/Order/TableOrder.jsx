@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import '../../../styles/admin-table.css';
 import { orderService } from '../../../services/OrderService';
 import Pagination from '../../Pagination/Pagination';
+import { Link } from 'react-router-dom';
 
 export default function TableOrder() {
   const [orders, setOrders] = useState([]);
@@ -93,6 +94,12 @@ export default function TableOrder() {
                 </td>
                 <td>${order.amount}</td>
                 <td>
+                  <Link
+                    to={`info/${order.id}`}
+                    className='btn btn-sm btn-warning me-2'
+                  >
+                    Подробнее
+                  </Link>
                   <button
                     className='btn btn-danger btn-sm me-1'
                     onClick={() => deleteOrder(order.id)}

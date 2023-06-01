@@ -9,10 +9,10 @@ export default function Admin() {
   const { isLogin, role } = useLogin();
 
   useEffect(() => {
-    console.log('CHECKER');
-    if ((role !== ROLES[1] || role !== ROLES[2]) && !isLogin) {
-      navigate('..');
-    }
+    // console.log('CHECKER');
+    // if ((role !== ROLES[1] || role !== ROLES[2]) && !isLogin) {
+    //   navigate('..');
+    // }
   }, [role, isLogin, navigate]);
 
   return (
