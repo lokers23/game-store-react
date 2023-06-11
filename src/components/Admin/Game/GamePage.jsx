@@ -21,6 +21,7 @@ function GamePage() {
       .getGameById(id)
       .then((response) => {
         setGame(response.data.data);
+        setIsNotFound(false);
       })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
