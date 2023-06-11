@@ -34,6 +34,7 @@ import ActivationHelpPage from './components/Help/ActivationHelpPage';
 //import axios from 'axios';
 import AxiosInterceptor from './AxiosInterceptor';
 import ForbiddenPage from './components/ForbiddenPage';
+import NotFoundPage from './components/NotFoundPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -57,6 +58,7 @@ root.render(
         <Routes>
           <Route path='/' element={<MainPage />} />
           <Route path='/forbidden' element={<ForbiddenPage />} />
+          <Route path='/notfound' element={<NotFoundPage />} />
           <Route path='/catalog' element={<CatalogPage />} />
           <Route
             path='/catalog/activation/:activationFilterId'
