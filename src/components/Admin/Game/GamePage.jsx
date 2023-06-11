@@ -19,11 +19,7 @@ function GamePage() {
       .then((response) => {
         setGame(response.data.data);
       })
-      .catch((error) => {
-        if (error.response && error.response.status === 404) {
-          navigate('..');
-        }
-      });
+      .catch((error) => {});
   }, [navigate, id]);
 
   return (
