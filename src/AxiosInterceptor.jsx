@@ -10,9 +10,10 @@ function AxiosInterceptor() {
         navigate('/login');
       } else if (error.response.status === 403) {
         navigate('/forbidden');
-      } else if (error.response.status === 404) {
-        navigate('/notfound');
       }
+      // } else if (error.response.status === 404) {
+      //   navigate('/notfound');
+      // }
 
       return Promise.reject(error);
     }

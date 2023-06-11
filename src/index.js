@@ -56,9 +56,10 @@ root.render(
         <AxiosInterceptor />
         <Navigation />
         <Routes>
+          <Route element={<NotFoundPage />} />
           <Route path='/' element={<MainPage />} />
           <Route path='/forbidden' element={<ForbiddenPage />} />
-          <Route path='/notfound' element={<NotFoundPage />} />
+
           <Route path='/catalog' element={<CatalogPage />} />
           <Route
             path='/catalog/activation/:activationFilterId'
