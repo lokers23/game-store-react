@@ -19,7 +19,11 @@ function GamePage() {
       .then((response) => {
         setGame(response.data.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          navigate('..');
+        }
+      });
   }, [navigate, id]);
 
   return (
