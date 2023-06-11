@@ -7,11 +7,14 @@ import '../../../styles/min-spec.css';
 import CarouselGame from './CarouselGame';
 import SideBody from './SideBody';
 import FooterGamePage from './FooterGamePage';
+import NotFoundPage from '../../NotFoundPage';
 
 function GamePage() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [game, setGame] = useState([]);
+
+  const [isNotFound, setIsNotFound] = useState(false);
 
   useEffect(() => {
     gameService
@@ -19,8 +22,16 @@ function GamePage() {
       .then((response) => {
         setGame(response.data.data);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          setIsNotFound(true);
+        }
+      });
   }, [navigate, id]);
+
+  if (isNotFound) {
+    return <NotFoundPage />;
+  }
 
   return (
     <div className='d-flex mb-5'>

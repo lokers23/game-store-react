@@ -56,7 +56,6 @@ root.render(
         <AxiosInterceptor />
         <Navigation />
         <Routes>
-          <Route element={<NotFoundPage />} />
           <Route path='/' element={<MainPage />} />
           <Route path='/forbidden' element={<ForbiddenPage />} />
 
