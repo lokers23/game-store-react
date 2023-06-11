@@ -34,7 +34,7 @@ import ActivationHelpPage from './components/Help/ActivationHelpPage';
 //import axios from 'axios';
 import AxiosInterceptor from './AxiosInterceptor';
 import ForbiddenPage from './components/ForbiddenPage';
-import NotFoundPage from './components/NotFoundPage';
+//import NotFoundPage from './components/NotFoundPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
