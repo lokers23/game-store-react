@@ -2,8 +2,9 @@ import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { URL } from '../../Constants';
-import { userService } from '../../services/UserService';
+//import { userService } from '../../services/UserService';
 import '../../styles/admin-form.css';
+import tokenService from '../../services/TokenService';
 
 function BalancePage() {
   const [amount, setAmount] = useState(0);
@@ -11,12 +12,16 @@ function BalancePage() {
   const navigate = useNavigate();
   function handleSubmit(event) {
     event.preventDefault();
+    const token = tokenService.getToken();
+    const headers = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    };
     axios
-      .post(
-        URL.BALANCE + `/top-up?amount=${amount}`,
-        {},
-        userService.getHeader()
-      )
+      .post(URL.BALANCE + `/top-up?amount=${amount}`, {}, headers)
       .then(navigate('..'))
       .catch();
   }
