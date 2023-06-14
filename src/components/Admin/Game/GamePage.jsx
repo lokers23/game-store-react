@@ -35,15 +35,16 @@ function GamePage() {
   }
 
   return (
-    <div className='d-flex mb-5'>
+    <div className='container-fluid d-flex mb-5'>
       <div
-        className=' mx-auto'
-        style={{ maxWidth: '1200px', minWidth: '1200px' }}
+        className='mx-auto'
+        //style={{ maxWidth: '1200px', minWidth: '1200px' }}
+        style={{ maxWidth: '1200px' }}
       >
         <div className=''>
           <h1 className=' bg-white '>{game.name}</h1>
         </div>
-        <div className='d-flex flex-row mb-3'>
+        <div className='d-flex flex-row flex-wrap row gx-0'>
           <CarouselGame game={game} />
           <SideBody game={game} />
         </div>

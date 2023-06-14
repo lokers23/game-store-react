@@ -35,7 +35,7 @@ function Center() {
           role='tablist'
         >
           <li
-            className='nav-item border border-dark rounded-3 shadow-sm  border me-4'
+            className='nav-item border border-dark rounded-3 shadow-sm  border me-3'
             role='presentation'
           >
             <button
@@ -52,7 +52,7 @@ function Center() {
             </button>
           </li>
           <li
-            className='nav-item border rounded-3 me-3 shadow-sm border-dark'
+            className='nav-item border rounded-3 shadow-sm border-dark'
             role='presentation'
           >
             <button

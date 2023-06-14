@@ -53,15 +53,20 @@ function CarouselGame({ game }) {
 
   return (
     <div
-      className='container-fluid carousel-game p-2 me-3 shadow border rounded'
+      className='container-fluid carousel-game p-2 shadow border rounded col-sm me-3 mb-3'
       id='#myCarousel'
     >
       <div
         id='carouselExampleFade'
         className='carousel slide carousel-fade'
-        data-bs-ride='carousel'
+        data-bs-ride='false'
+        data-bs-interval='false'
+        style={{ minHeight: '200px' }}
       >
-        <div className='carousel-inner'>
+        <div
+          className='carousel-inner d-flex align-items-center'
+          style={{ minHeight: '200px' }}
+        >
           <div className='carousel-item active'>
             <img
               className='d-block w-100'

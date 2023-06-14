@@ -52,7 +52,11 @@ function SideBody({ game }) {
   }
 
   return (
-    <div className='d-flex flex-column' style={{ minWidth: '350px' }}>
+    <div
+      className='d-flex flex-column col-sm mb-3'
+      //style={{ minWidth: '350px' }}
+      style={{ maxWidth: '350px' }}
+    >
       <div className='d-flex fw-bold fs-3 mb-3 p-3 shadow rounded border justify-content-between'>
         <p className='my-auto me-3'>
           Цена: ${game && Number(game.price).toFixed(2)}
