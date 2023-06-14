@@ -22,7 +22,7 @@ function BalancePage() {
     };
     axios
       .post(URL.BALANCE + `/top-up?amount=${amount}`, {}, headers)
-      .then(navigate('..'))
+      .then((response) => navigate('..'))
       .catch();
   }
 
