@@ -1,5 +1,3 @@
-# The application is not commercial!
-
 # Client for game store
 The client part for the online store of computer games can be found at https://loquacious-lollipop-f49428.netlify.app
 
