@@ -10,3 +10,5 @@ The client part for the online store of computer games can be found at loquaciou
 ## Cart page
 ![image](https://github.com/lokers23/game-store-react/assets/43656837/2872aefd-38ce-4b48-8b1a-166f2266454c)
 
+## User page with purchases
+![image](https://github.com/lokers23/game-store-react/assets/43656837/9274119b-650b-4270-a8b1-e7c73406c5d9)
