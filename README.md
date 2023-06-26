@@ -1,5 +1,5 @@
 # Client for game store
-The client part for the online store of computer games can be found at loquacious-lollipop-f49428.netlify.app
+The client part for the online store of computer games can be found at https://loquacious-lollipop-f49428.netlify.app
 # Screenshots
 ## Main page
 ![image](https://github.com/lokers23/game-store-react/assets/43656837/77152fae-413a-4af9-92fb-d2b3b6482bf7)
